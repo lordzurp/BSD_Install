@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deviceinfo version="0.2">
+  <device>
+    <match key="info.capabilities" contains="input.keyboard">
+      <merge key="input.xkb.layout" type="string">fr</merge>
+    </match>
+  </device>
+</deviceinfo>
