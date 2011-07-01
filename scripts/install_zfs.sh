@@ -29,24 +29,14 @@ mkdir /boot/zfs
 zpool create sys_tank /dev/gpt/disk0
 zpool set bootfs=sys_tank sys_tank
 
-echo '# import data_tank'
-zpool import -f data_tank
-
 echo '# Create ZFS filesystem hierarchy'
-
 zfs set checksum=fletcher4                                      sys_tank
-zfs create -o compression=on    -o exec=on      -o setuid=off   sys_tank/tmp
-chmod 1777 /sys_tank/tmp
 
 zfs create                                                      sys_tank/usr
 zfs create                                                      sys_tank/usr/home
-
-# cd /sys_tank ; ln -s /usr/home home
-
 zfs create -o compression=lzjb                  -o setuid=off   sys_tank/usr/ports
 zfs create -o compression=off   -o exec=off     -o setuid=off   sys_tank/usr/ports/distfiles
 zfs create -o compression=off   -o exec=off     -o setuid=off   sys_tank/usr/ports/packages
-
 zfs create -o compression=lzjb  -o exec=off     -o setuid=off   sys_tank/usr/src
 zfs create                                                      sys_tank/var
 zfs create -o compression=lzjb  -o exec=off     -o setuid=off   sys_tank/var/crash
@@ -57,6 +47,9 @@ zfs create -o compression=lzjb  -o exec=off     -o setuid=off   sys_tank/var/log
 zfs create -o compression=gzip  -o exec=off     -o setuid=off   sys_tank/var/mail
 zfs create                      -o exec=off     -o setuid=off   sys_tank/var/run
 zfs create -o compression=lzjb  -o exec=on      -o setuid=off   sys_tank/var/tmp
+zfs create -o compression=on    -o exec=on      -o setuid=off   sys_tank/tmp
+
+chmod 1777 /sys_tank/tmp
 chmod 1777 /sys_tank/var/tmp
 
 echo '# Install FreeBSD to sys_tank'
@@ -71,25 +64,11 @@ cd /sys_tank/boot ; cp -Rlp GENERIC/* /sys_tank/boot/kernel/
 echo '# Make /var/empty readonly'
 zfs set readonly=on sys_tank/var/empty
 
-# CHroot in /sys_tank
-# chroot /sys_tank
-
-# copy rc.conf
-cd /sys_tank/etc/ ; fetch http://chez.tinico.free.fr/docs/bsd.conf/rc.conf
-# copy fstab
-cd /sys_tank/etc/ ; fetch http://chez.tinico.free.fr/docs/bsd.conf/fstab
-# copy loader.conf
-cd /sys_tank/boot/ ; fetch http://chez.tinico.free.fr/docs/bsd.conf/loader.conf
-# copy script install ports
-mkdir /sys_tank/usr/scripts
-cd /sys_tank/usr/scripts
-fetch http://chez.tinico.free.fr/docs/bsd.conf/install_stable.sh
-fetch http://chez.tinico.free.fr/docs/bsd.conf/install_stable.2.sh
-fetch http://chez.tinico.free.fr/docs/bsd.conf/install_packages.sh
-fetch http://chez.tinico.free.fr/docs/bsd.conf/install_conf.sh
-chmod +x install_*
+echo '# import data_tank'
+zpool import -f data_tank
 
 mkdir /sys_tank/home
+
 
 
 echo '# Install zpool.cache to the ZFS filesystem'

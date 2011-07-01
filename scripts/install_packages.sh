@@ -3,6 +3,13 @@
 # C Tools & autres utils
 pkg_add -r bsdconv libtool db41 libiconv gettext autoconf-wrapper gmake gcc46 pcre libsigc++ libcheck eject hal
 
+pkg_add -r pdksh bash wget lftp lynx mc portaudit screen
+cd /bin/
+ln -s /usr/local/bin/ksh
+ln -s /usr/local/bin/bash
+echo '/bin/ksh' >> /etc/shells
+echo '/bin/bash' >> /etc/shells
+
 ############
 ### Web ###
 ############
@@ -52,6 +59,10 @@ echo "add path 'usb/*' mode 0660 group operator" >> /etc/devfs.rules
 
 # Samba
 pkg_add -r samba35 samba35-libsmbclient pam_smb
+cd /usr/local/etc
+mv smb.conf smb.conf.dist
+fetch http://chez.tinico.free.fr/docs/bsd.conf/smb.conf
+chmod 644 smb.conf
 
 # Netatalk
 pkg_add -r netatalk

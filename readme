@@ -1,0 +1,50 @@
+Hello !
+Cette collection de scripts est destiné à installer un serveur domestique sous FreeBSD de manière (preque) automatisée.
+
+Configuration instructions
+
+Installation instructions
+
+Operating instructions
+
+A file manifest (list of files included)
+
+############
+### Copyleft
+############
+# Ti nicO
+# 07/2011
+Distribué sous licence FreeBSD
+
+###########
+### Contact
+###########
+lordzurp
+lordzurp.dev chez gmail.com
+
+###############
+### Bugs connus
+###############
+pour le moment, aucun !
+
+###################
+### Troubleshooting
+###################
+
+##########
+###Credits 
+##########
+http://pbraun.nethence.com/doc/sysutils_bsd/freebsd.html
+
+http://www.cyberciti.biz/faq/freebsd-cvsup-update-system-applications/
+http://www.cyberciti.biz/faq/howto-setup-freebsd-jail-with-ezjail/
+http://www.activeobjects.no/subsonic/forum/viewtopic.php?t=3314
+http://blogs.freebsdish.org/rpaulo/2008/11/15/freebsd-and-mac-os-x-a-happy-combination/
+http://www.endeavoursofanengineer.com/blog/2010/05/08/installing-avahi-on-freebsd-2/
+http://technet.microsoft.com/en-us/library/gg637877.aspx
+
+
+#############
+### Changelog
+#############
+2011/07/01 : v0.1 : premier jet
