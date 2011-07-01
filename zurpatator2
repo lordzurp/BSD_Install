@@ -18,7 +18,7 @@
 #
 # $FreeBSD: src/sys/amd64/conf/GENERIC,v 1.531.2.15.2.1 2010/12/21 17:09:25 kensmith Exp $
 
-cpu		HAMMER
+cpu			HAMMER
 ident		OPTERON
 
 # To statically compile in device wiring instead of /boot/device.hints
@@ -52,7 +52,7 @@ options		EXT2FS			# Ext2 FS
 options 	CD9660			# ISO 9660 Filesystem
 #options 	NETSMB			# Samba FS
 options		NTFS			# NTFS
-#options		SMBFS			# SMBFS
+#options	SMBFS			# SMBFS
 options		NETATALK		# AppleTalk
 options 	PROCFS			# Process filesystem (requires PSEUDOFS)
 options 	PSEUDOFS		# Pseudo-filesystem framework
