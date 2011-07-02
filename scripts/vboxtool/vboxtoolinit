@@ -3,7 +3,7 @@
 . /etc/rc.subr
 
 name="vboxtool"
-rcvar=`vboxtool_enable`
+rcvar="vboxtoolinit_enable"
 command="/usr/local/bin/${name}"
 command_args="autostart"
 pidfile="/var/run/${name}.pid"
