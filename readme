@@ -7,7 +7,24 @@ Installation instructions
 
 Operating instructions
 
-A file manifest (list of files included)
+#################
+### file manifest
+#################
+
+/scripts : dossier des scripts
+_ install_packages : 
+install_port :
+install_stable : 
+install_stable.2 :
+install_zfs : installation de FreeBSD sur un système ZFS
+post_install : installation de la config personalisée sur un système fraichement installé
+upgrade_bsd :
+update_scripts : met à jour le dossier /usr/scripts à partir de GitHub
+
+
+/conf : fichiers de config du système
+/misc : fichiers divers
+/usr : fichiers de config en zone utilisateur
 
 ############
 ### Copyleft

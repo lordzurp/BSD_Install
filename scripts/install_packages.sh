@@ -3,12 +3,7 @@
 # C Tools & autres utils
 pkg_add -r bsdconv libtool db41 libiconv gettext autoconf-wrapper gmake gcc46 pcre libsigc++ libcheck eject hal
 
-pkg_add -r pdksh bash wget lftp lynx mc portaudit screen
-cd /bin/
-ln -s /usr/local/bin/ksh
-ln -s /usr/local/bin/bash
-echo '/bin/ksh' >> /etc/shells
-echo '/bin/bash' >> /etc/shells
+
 
 ############
 ### Web ###
