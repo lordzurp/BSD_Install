@@ -93,6 +93,10 @@ chmod +x vboxtool
 cd /usr/local/etc/rc.d
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/vboxtool/vboxtoolinit
 chmod +x vboxtoolinit
+mkdir /usr/local/etc/vboxtool
+echo "HomeBack" > /usr/local/etc/vboxtool/machines.conf
+echo "vbox_user='vboxusers'" > /usr/local/etc/vboxtool/vboxtool.conf
+
 
 # Samba
 pkg_add -r samba35 samba35-libsmbclient pam_smb
