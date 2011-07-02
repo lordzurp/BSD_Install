@@ -86,6 +86,14 @@ pw groupmod operator -m lordzurp
 echo "[system=10]" >> /etc/devfs.rules
 echo "add path 'usb/*' mode 0660 group operator" >> /etc/devfs.rules
 
+# vboxtool
+cd /usr/local/bin
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/vboxtool/script/vboxtool
+chmod +x vboxtool
+cd /usr/local/etc/rc.d
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/vboxtool/script/vboxtoolinit
+chmod +x vboxtoolinit
+
 # Samba
 pkg_add -r samba35 samba35-libsmbclient pam_smb
 cd /usr/local/etc
