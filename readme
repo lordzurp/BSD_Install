@@ -1,43 +1,195 @@
-Hello !
-Cette collection de scripts est destiné à installer un serveur domestique sous FreeBSD de manière (preque) automatisée.
+##############################################################################
+# Zurpatator2 Unatented FreeBSD Install                                      #
+# Version 0.1                                                                #
+#                                                                            #
+# Copyright 2011 Ti nicO lordzurp.dev@gmail.com                              #
+# https://github.com/lordzurp/Zurpatator2                                    #
+# Created:  01/07/2011                                                       #
+# Modified:                                                                  #
+#                                                                            #
+#                                                                            #
+# Cette collection de scripts est destiné à installer un serveur domestique  #
+# sous FreeBSD de manière (preque) automatisée.                              #
+#                                                                            #
+# NOTE - Certains scripts sont dépendants de la configuration matérielle     #
+# de la machine, notamnent les disques. Prenez bien soin de vérifier et      #
+# adapter la configuration en fonction de votre machine, sous peine d'échec  #
+# du script, ou pire, de l'éffacement complet de vos disques !!              #
+#                                                                            #
+#                                                                            #
+# Si vous rencontrez des soucis pour configurer et executer ces scripts,     #
+# voici des pistes pour vous aider :                                         #
+# If you run into any problems while trying to configure this scripts, help  #
+# is available.  The steps you should take to get the fastest results, are:  #
+#       1) Read this file thoroughly.                                        #
+#       2) Consult the Matt's Script Archive Frequently Asked Questions:     #
+#               http://www.scriptarchive.com/faq/                            #
+#       3) If you are still having difficulty installing this script,        #
+#          you may wish to look at the resources listed here:                #
+#               http://www.scriptarchive.com/help/                           #
+#                                                                            #
+# Hopefully that will be able to help you solve your problems.  Due to time  #
+# constraints I can no longer offer technical support for this code.         #
+##############################################################################
 
-Configuration instructions
 
-Installation instructions
+##############################################################################
+# Note de Copyleft                                                           #
+# Copyleft 2011 Ti nicO  All Rights Reserved.                                #
+#                                                                            #
+# Distribué sous licence FreeBSD                                             #
+#                                                                            #
+# FormMail may be used and modified free of charge by anyone so long as this #
+# copyright notice and the comments above remain intact.  By using this      #
+# code you agree to indemnify Matthew M. Wright from any liability that      #
+# might arise from its use.                                                  #
+#                                                                            #
+# Selling the code for this program without prior written consent is         #
+# expressly forbidden.  In other words, please ask first before you try and  #
+# make money off of my program.                                              #
+#                                                                            #
+# Obtain permission before redistributing this software over the Internet or #
+# in any other medium.  In all cases copyright and header must remain intact #
+##############################################################################
+# Historique :                                                               #
+#                                                                            #
+#   Ajouté 1/7/11:                                                           #
+#      - Passage des scripts sur GitHub                                      #
+##############################################################################
 
-Operating instructions
-
-#################
-### file manifest
-#################
-
-/scripts : dossier des scripts
-_ install_packages : 
-install_port :
-install_stable : 
-install_stable.2 :
-install_zfs : installation de FreeBSD sur un système ZFS
-post_install : installation de la config personalisée sur un système fraichement installé
-upgrade_bsd :
-update_scripts : met à jour le dossier /usr/scripts à partir de GitHub
+##############################################################################
+#                                                                            #
+# *** Following are instructions on the additions found in BFormMail ***     #
+#     Please read completely the full readme from Matt Wright's FormMail     #
+#     found below.  It contains more information about installing the script #
+#     as well as the required variables                                      #
+#                                                                            #
+##############################################################################
 
 
-/conf : fichiers de config du système
-/misc : fichiers divers
-/usr : fichiers de config en zone utilisateur
+Détail des fichiers :
+=====================
 
-############
-### Copyleft
-############
-# Ti nicO
-# 07/2011
-Distribué sous licence FreeBSD
 
-###########
-### Contact
-###########
-lordzurp
-lordzurp.dev chez gmail.com
+Scripts d'installation 
+/scripts/
+======================
+
+Script :      install_zfs.sh
+
+Version :     1.0
+
+Description : installation de FreeBSD sur un système ZFS
+
+-----------------------------------------------------------------------------
+
+Script :      post_install.sh
+
+Version :     1.0
+
+Description : Installe les scripts, configure le système ...
+
+Syntaxe :     
+
+-----------------------------------------------------------------------------
+
+Script :      update_scripts.sh
+
+Version :     1.0
+
+Description : met à jour le dossier /usr/scripts à partir de GitHub
+
+Syntaxe :     ./update_scripts.sh
+
+-----------------------------------------------------------------------------
+
+Fichiers de configuration système
+/sys_conf/
+=====================
+
+Fichier :      fstab
+
+Version :     1.0
+
+Description : 
+
+-----------------------------------------------------------------------------
+
+Fichier :      loader.conf
+
+Version :     1.0
+
+Description : Kernel Loader Conf
+
+-----------------------------------------------------------------------------
+
+Fichier :      rc.conf
+
+Version :     1.0
+
+Description : gestionnaire de services
+
+-----------------------------------------------------------------------------
+
+Fichier :      sysctl.conf
+
+Version :     1.0
+
+Description : configuration système
+
+-----------------------------------------------------------------------------
+
+Fichiers de configuration programmes utilisateur 
+/usr_conf/
+=====================
+
+Fichier :      afpd.conf
+
+Version :     1.0
+
+Description : Configuration du daemon afp (Apple File Protocol)
+
+-----------------------------------------------------------------------------
+
+Fichier :      install_zfs.sh
+
+Version :     1.0
+
+Description : installation de FreeBSD sur un système ZFS
+
+-----------------------------------------------------------------------------
+
+Fichier :      install_zfs.sh
+
+Version :     1.0
+
+Description : installation de FreeBSD sur un système ZFS
+
+Syntaxe :
+
+-----------------------------------------------------------------------------
+
+Fichier :      install_zfs.sh
+
+Version :     1.0
+
+Description : installation de FreeBSD sur un système ZFS
+
+-----------------------------------------------------------------------------
+
+Fichiers divers 
+/misc/
+=====================
+
+Fichier :      screenrc
+
+Version :     1.0
+
+Description : Configuration de GNU Screen
+
+-----------------------------------------------------------------------------
+
+
 
 ###############
 ### Bugs connus
@@ -48,9 +200,12 @@ pour le moment, aucun !
 ### Troubleshooting
 ###################
 
-##########
-###Credits 
-##########
+
+-----------------------------------------------------------------------------
+
+Credits et sources :
+=====================
+
 http://pbraun.nethence.com/doc/sysutils_bsd/freebsd.html
 
 http://www.cyberciti.biz/faq/freebsd-cvsup-update-system-applications/
@@ -61,7 +216,13 @@ http://www.endeavoursofanengineer.com/blog/2010/05/08/installing-avahi-on-freebs
 http://technet.microsoft.com/en-us/library/gg637877.aspx
 
 
-#############
-### Changelog
-#############
-2011/07/01 : v0.1 : premier jet
+
+-----------------------------------------------------------------------------
+
+Historique :
+Version 1.0     01/07/11  -  Import du projet dans GitHub.
+Version 1.1     02/07/11  -  Réécriture des urls pour récuperer les fichiers 
+                             depuis GitHub
+
+-----------------------------------------------------------------------------
+Ti nicO   -   lordzurp.dev@gmail.com   -   https://github.com/lordzurp/

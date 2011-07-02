@@ -1,14 +1,21 @@
 #!/bin/sh
 
-
 ############################
 ### Configuration du système
 ############################
+
+# set root password
+passwd root
+
+# Mail
+cd /etc/mail
+make aliases
+
 # Time Zone
 cd /etc/
 ln -s /usr/share/zoneinfo/Europe/Paris localtime
 
-# SSHd
+# Sshd
 cd /etc/ssh/
 mv sshd_config sshd_config.dist
 sed '/^$/d; /^#/d' sshd_config.dist > sshd_config
@@ -20,29 +27,55 @@ AllowGroups wheel
 PermitRootLogin yes
 EOF9
 
+# Installe les packages utiles
+pkg_add -r pdksh bash wget lftp lynx mc portaudit screen cvsup-without-gui
+
 # Shells
 cd ~/
 setenv PACKAGESITE ftp://ftp.free.fr/mirrors/ftp.freebsd.org/ports/amd64/packages-8-stable/Latest/
-pkg_add -r pdksh bash wget lftp lynx mc portaudit screen
 cd /bin/
 ln -s /usr/local/bin/ksh
 ln -s /usr/local/bin/bash
 echo '/bin/ksh' >> /etc/shells
 echo '/bin/bash' >> /etc/shells
 
-#################################
-### Copie des fichiers de  config
-#################################
+# GNU Screen
+cd /usr/local/etc/
+mv screenrc screenrc.dist
+wget https://raw.github.com/lordzurp/Zurpatator2/master/misc/screenrc
+cd /etc/
+ln -s /usr/local/etc/screenrc
+cd ~/
+wget https://raw.github.com/lordzurp/Zurpatator2/master/misc/.screenrc
+screen
+
+# cvsup
+cp /usr/share/examples/cvsup/stable-supfile /usr/src/
+echo 'Edit du fichier /usr/src/stable-supfile'
+echo 'modifier la ligne :'
+echo 'default host=cvsup1.fr.FreeBSD.org'
+read -p "Appuyer sur une touche pour continuer ..."
+ee /usr/src/stable-supfile
+
+
+################################
+### Copie des fichiers de config
+################################
 # /etc/
 cd /etc/
 cp rc.conf rc.conf.dist
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/etc/rc.conf
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/rc.conf
 cp fstab fstab.dist
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/etc/fstab
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/fstab
+cp sysctl.conf sysctl.conf.dist
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/sysctl.conf
 # /boot/
 cd /boot/
 cp loader.conf loader.conf.dist
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/loader.conf
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/loader.conf
+# Kernel
+cd /usr/src/sys/amd64/conf/
+fetch http://chez.tinico.free.fr/docs/bsd.conf/zurpatator2
 
 
 ########################
@@ -50,23 +83,11 @@ fetch https://raw.github.com/lordzurp/Zurpatator2/master/loader.conf
 ########################
 mkdir /usr/scripts
 cd /usr/scripts
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/install_stable.sh
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/install_stable.2.sh
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/install_packages.sh
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/install_conf.sh
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/install_port.sh
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/post_install.sh
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/update_bsd.sh
-chmod +x install_*
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/update_scripts.sh
+chmod +x update_scripts.sh
+#setenv scripts /usr/scripts
+/usr/scripts/update_scripts.sh
 
-cd /usr/local/etc/
-mv screenrc screenrc.dist
-wget pbraun.nethence.com/code/misc/screenrc
-cd /etc/
-ln -s /usr/local/etc/screenrc
-cd ~/
-wget pbraun.nethence.com/code/misc/.screenrc
-screen
 
 ###################
 ### Security Tweaks
@@ -80,8 +101,6 @@ portsnap extract
 portsnap upgrade
 portsnap update
 
-cd /usr/ports/x11/gnome2 ; make config-recursive ; make fetch-recursive
-cd /usr/ports/emulators/virtualbox-ose ; make config-recursive ; make fetch-recursive
 
 java
 webmin --> /usr/local/lib/webmin/setup.sh
