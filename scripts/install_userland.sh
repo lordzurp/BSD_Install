@@ -51,21 +51,18 @@ pkg_add -r cmake mysql55-client mysql55-server mysql-scripts pam-mysql libnss-my
 cd /usr/local/bin
 mysql_install_db --user=mysql --basedir=/usr/local --databasedir=/var/db/mysql
 touch /var/log/mysqld.log
-cd /usr/local/etc/ ; fetch http://chez.tinico.free.fr/docs/bsd.conf/my.conf
+cd /usr/local/etc/
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/my.conf
 
 # Apache
 pkg_add -r apache22 ap22-mod_security
-cd /usr/local/etc/apache22/ ; fetch http://chez.tinico.free.fr/docs/bsd.conf/httpd.conf
+cd /usr/local/etc/apache22/
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/httpd.conf
 #cd /usr/local/www/
-#mkdir cgi-bin
 cp -Rlp /usr/local/www/apache22/cgi-bin /usr/local/www
-#mkdir error
 cp -Rlp /usr/local/www/apache22/error /usr/local/www
-#mkdir html
 cp -Rlp /usr/local/www/apache22/html /usr/local/www
-#mkdir icons
 cp -Rlp /usr/local/www/apache22/icons /usr/local/www
-#mkdir usage
 cp -Rlp /usr/local/www/apache22/usage /usr/local/www
 rm -r /usr/local/www/apache22
 
