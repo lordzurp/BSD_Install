@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone='no'?><!--*-nxml-*-->
+<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+
+<!-- See avahi.service(5) for more information about this configuration file -->
+
+<service-group>
+  <name replace-wildcards="yes">Torrent Central</name>
+  
+  <service>
+    <type>_http._tcp</type>
+    <port>9091</port>
+  </service>
+
+</service-group>

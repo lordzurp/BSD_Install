@@ -1,0 +1,90 @@
+create:lordzurp:*:1000:1000:lordzurp:/home/lordzurp:/bin/bash:::
+create:Ti nicO:*:1001:1000:Ti nicO:/home/Ti_nicO:/usr/sbin/nologin:::
+create:aurel:*:1002:1000:Aurelie:/home/aurel:/usr/sbin/nologin:::
+create:public:*:1003:1001:Public User:/home/public:/usr/sbin/nologin:::
+create:media:*:1004:1001:Media User:/home/media:/usr/sbin/nologin:::
+create:timemachine:*:1005:1002:Time Machine Back Up:/home/timemachine:/usr/sbin/nologin:::
+
+
+
+########################################
+### Création des utilisateurs et groupes
+########################################
+
+# Organisation
+
+# Dossiers perso
+# Ti_nicO, aurel, ...
+# owner : user
+# group : user
+
+# Documents Communs
+# /home/docs
+# Libre accès en lecture, écriture sur ses documents
+# d rwx r_x r_x
+# 755
+# owner : public_user
+# group : user
+
+# Médiathèque
+# /home/media
+# Libre accès en lecture, accès en écriture à définir ...
+# d r_x rwx r_x
+# 575
+# owner : public_user
+# group : user
+
+# Documents publics
+# /home/public
+# Libre accès en lecture/écriture
+# d rwx rwx ___
+# 770
+# owner : public_user
+# group : public_user
+
+# Machines virtuelles
+# /home/virtualbox
+# d rwx rwx ___
+# 770
+# owner : virtualbox
+# group : vboxusers
+
+# /home/jails
+# d rwx rwx ___
+# 770
+# owner : root
+# group : wheel
+
+# Backup Time Machine
+# /home/timemachine
+# Accès à backups uniquement
+# d rwx rwx ___
+# 770
+# owner : timemachine
+# group : timemachine
+
+# Groupes
+pw addgroup -n user -g 1000
+pw addgroup -n public_user -g 1001
+#pw addgroup -n mediatomb -g 1002
+
+# Utilisateurs :
+# Lord Zurp
+pw adduser -n lordzurp -u 1000 -g user -G wheel -s /bin/bash
+# Ti nicO
+pw adduser -n TinicO -u 1001 -g user -d /home/Ti_nicO -s /bin/sh
+passwd TinicO
+# Aurel
+pw adduser -n aurel -u 1002 -g user -s /usr/sbin/nologin
+passwd aurel
+# Media
+pw adduser -n media -u 1003 -g public_user -s /usr/sbin/nologin
+# Public
+pw adduser -n public -u 1004 -g public_user -s /usr/sbin/nologin
+# TimeMachine BackUp
+pw adduser -n timemachine -u 1005 -g public_user -s /usr/sbin/nologin
+
+# MediaTomb
+#pw adduser -n mediatomb -u 1006 -g mediatomb -d /nonexistent -s /usr/sbin/nologin
+
+
