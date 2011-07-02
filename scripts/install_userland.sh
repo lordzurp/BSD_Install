@@ -88,10 +88,10 @@ echo "add path 'usb/*' mode 0660 group operator" >> /etc/devfs.rules
 
 # vboxtool
 cd /usr/local/bin
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/vboxtool/script/vboxtool
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/vboxtool/vboxtool
 chmod +x vboxtool
 cd /usr/local/etc/rc.d
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/vboxtool/script/vboxtoolinit
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/vboxtool/vboxtoolinit
 chmod +x vboxtoolinit
 
 # Samba
