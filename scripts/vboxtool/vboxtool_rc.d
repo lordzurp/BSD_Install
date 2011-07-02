@@ -1,26 +1,34 @@
 #!/bin/sh
 #
-# PROVIDE: utility
-# REQUIRE: DAEMON
-# KEYWORD: shutdown
+# $FreeBSD: ports/emulators/virtualbox-ose-kmod/files/vboxnet.in,v 1.3 2010/03/27 00:12:58 dougb Exp $
+#
+
+# PROVIDE:	vboxnet
+# REQUIRE:	FILESYSTEMS
+# BEFORE:	netif
+# KEYWORD:	nojail
 
 #
-# DO NOT CHANGE THESE DEFAULT VALUES HERE
-# SET THEM IN THE /etc/rc.conf FILE
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
 #
-vboxtool_enable=${vboxtool_enable-"NO"}
-vboxtool_flags=${vboxtool_flags-""}
-vboxtool_pidfile=${vboxtool_pidfile-"/var/run/vboxtool.pid"}
+# vboxnet_enable (bool):   Set to NO by default.
+#               Set it to YES to load network related kernel modules on startup
 
 . /etc/rc.subr
 
 name="vboxtool"
-rcvar=`set_rcvar`
-command="/usr/local/bin/vboxtool autostart"
+rcvar=${name}_enable
+start_cmd="vboxtool_start"
+
+vboxtool_start()
+{
+	/usr/local/bin/vboxtool autostart
+}
+
 
 load_rc_config $name
 
-pidfile="${utility_pidfile}"
+: ${vboxtool_enable="NO"}
 
-start_cmd="echo \"Starting ${name}.\"; /usr/bin/nice -5 ${command} ${vboxtool_flags} ${command_args}"
-
+run_rc_command "$1"
