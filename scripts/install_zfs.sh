@@ -31,7 +31,6 @@ zpool set bootfs=sys_tank sys_tank
 
 echo '# Create ZFS filesystem hierarchy'
 zfs set checksum=fletcher4                                      sys_tank
-
 zfs create                                                      sys_tank/usr
 zfs create                                                      sys_tank/usr/home
 zfs create -o compression=lzjb                  -o setuid=off   sys_tank/usr/ports
@@ -65,21 +64,11 @@ echo '# Make /var/empty readonly'
 zfs set readonly=on sys_tank/var/empty
 
 echo '# import data_tank'
-zpool import -f data_tank
-
 mkdir /sys_tank/home
-
-
+zpool import -f data_tank
 
 echo '# Install zpool.cache to the ZFS filesystem'
 cp /boot/zfs/zpool.cache /sys_tank/boot/zfs/zpool.cache
 
 # export LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/mnt2/lib 
-
-echo '# reste à faire :'
-echo '# chroot /sys_tank'
-echo '# passwd'
-echo '# cd /etc/mail'
-echo '# make aliases'
-echo '# exit'

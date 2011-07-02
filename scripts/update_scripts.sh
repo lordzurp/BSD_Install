@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd $scripts
+cd /usr/scripts/
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/install_conf.sh
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/install_packages.sh
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/install_port.sh
@@ -9,4 +9,4 @@ fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/install_stable.
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/post_install.sh
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/update_bsd.sh
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/update_scripts.sh
-chmod +x install_*
+chmod +x *
