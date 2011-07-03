@@ -52,7 +52,7 @@ cd /etc/
 ln -s /usr/local/etc/screenrc
 cd ~/
 wget https://raw.github.com/lordzurp/Zurpatator2/master/misc/.screenrc
-screen
+#screen
 
 # cvsup
 cp /usr/share/examples/cvsup/stable-supfile /usr/src/
