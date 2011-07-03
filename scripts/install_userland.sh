@@ -138,7 +138,7 @@ fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/avahi.services
 
 
 # SubVersion
-pkg_add -r subversion
+#pkg_add -r subversion
 
 # Mail
 pkg_add -r fetchmail procmail
@@ -181,7 +181,8 @@ X -configure
 mv xorg.conf.new /etc/X11/xorg.conf
 
 # Localisation
-cd /usr/local/etc/hal/fdi/policy/ ; fetch http://chez.tinico.free.fr/docs/bsd.conf/x11-input.fdi
+cd /usr/local/etc/hal/fdi/policy/
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/misc/x11-input.fdi
 echo 'setenv LANG fr_FR.UTF-8' >> /etc/csh.login
 echo 'setenv MM_CHARSET UTF-8' >> /etc/csh.login
 echo 'setenv LC_ALL fr_FR.UTF-8' >> /etc/csh.login

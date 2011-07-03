@@ -51,11 +51,13 @@ screen
 
 # cvsup
 cp /usr/share/examples/cvsup/stable-supfile /usr/src/
+cp /usr/share/examples/cvsup/ports-supfile /usr/src/
 echo 'Edit du fichier /usr/src/stable-supfile'
 echo 'modifier la ligne :'
 echo 'default host=cvsup1.fr.FreeBSD.org'
 read -p "Appuyer sur une touche pour continuer ..."
 ee /usr/src/stable-supfile
+ee /usr/src/ports-supfile
 
 
 ################################
