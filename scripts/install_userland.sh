@@ -53,6 +53,9 @@ mysql_install_db --user=mysql --basedir=/usr/local --databasedir=/var/db/mysql
 touch /var/log/mysqld.log
 cd /usr/local/etc/
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/my.conf
+echo '# mysql' >> /etc/rc.conf
+echo 'mysql_server_enable="YES"' >> /etc/rc.conf
+echo '' >> /etc/rc.conf
 
 # Apache
 pkg_add -r apache22 ap22-mod_security
@@ -81,10 +84,17 @@ pkg_add -r ruby
 
 # VirtualBox
 pkg_add -r virtualbox-ose
-
 pw groupmod operator -m lordzurp
 echo "[system=10]" >> /etc/devfs.rules
 echo "add path 'usb/*' mode 0660 group operator" >> /etc/devfs.rules
+echo '# VirtualBox' >> /etc/rc.conf
+echo 'vboxguest_enable="YES"' >> /etc/rc.conf
+echo 'vboxservice_enable="YES"' >> /etc/rc.conf
+echo 'vboxnet_enable="YES"' >> /etc/rc.conf
+echo 'vboxwebsrv_enable="YES"' >> /etc/rc.conf
+echo 'vboxtoolinit_enable="YES"' >> /etc/rc.conf
+echo 'devfs_system_ruleset="system"' >> /etc/rc.conf
+echo '' >> /etc/rc.conf
 
 # vboxtool
 cd /usr/local/bin
@@ -109,6 +119,9 @@ ln -s ../usr/local/etc/smb.conf
 ln -s ..//usr/local/etc/samba
 cd rc.d
 ln -s ../../usr/local/etc/rc.d/samba
+echo '# Samba' >> /etc/rc.conf
+echo 'samba_enable="YES"' >> /etc/rc.conf
+echo '' >> /etc/rc.conf
 read -p "pensez ˆ ajouter les membres des groupes 1000 et 1001 dans samba via webmin :)"
 
 # Netatalk
@@ -119,7 +132,11 @@ fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/netatalk.conf
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/AppleVolumes.default
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/AppleVolumes.timemachine
 echo 'lagg0' >> /usr/local/etc/atalkd.conf
-
+echo '# Netatalk & AFP' >> /etc/rc.conf
+echo 'netatalk_enable="YES"' >> /etc/rc.conf
+echo 'afpd_enable="YES"' >> /etc/rc.conf
+echo 'cnid_metad_enable="YES"' >> /etc/rc.conf
+echo '' >> /etc/rc.conf
 
 # Avahi
 pkg_add -r avahi
@@ -136,16 +153,19 @@ fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/avahi.services
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/avahi.services/web.subsonic.service
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/avahi.services/web.transmission.service
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/avahi.services/web.webmin.service
-
+echo '# Avahi' >> /etc/rc.conf
+echo 'avahi_daemon_enable="YES"' >> /etc/rc.conf
+echo 'avahi_dnsconfd_enable="YES"' >> /etc/rc.conf
+echo '' >> /etc/rc.conf
 
 # SubVersion
 #pkg_add -r subversion
 
 # Mail
-pkg_add -r fetchmail procmail
+#pkg_add -r fetchmail procmail
 
 # ftp
-pkg_add -r proftpd proftpd-mysql
+#pkg_add -r proftpd proftpd-mysql
 
 # Web
 #pkg_add -r lighttpd
@@ -160,8 +180,7 @@ pkg_add -r proftpd proftpd-mysql
 # securitŽ
 #pkg_add -r openssl openldap-client nss ca_root_nss nss_mdns      
 
-# Utils
-pkg_add -r websvn nano iperf gzip bash sudo sudoscript sudosh3 cups-base cups-pdf  geany clean gnupg logrotate  screen smartmontools aircrack-ng
+
 
 ########################
 ### Install X server ###
@@ -193,7 +212,7 @@ echo 'setenv LC_ALL fr_FR.UTF-8' >> /etc/csh.login
 #################
 
 # Web Panel
-pkg_add -r phpvirtualbox phpmyadmin webalizer
+#pkg_add -r phpvirtualbox phpmyadmin webalizer
 
 # Webmin
 cd /usr/local 
@@ -202,6 +221,41 @@ gunzip webmin-1.550.tar.gz
 tar -xvf webmin-1.550.tar 
 cd webmin-1.550 
 ./setup.sh
+echo '# Webmin' >> /etc/rc.conf
+echo 'webmin_enable="YES"' >> /etc/rc.conf
+echo '' >> /etc/rc.conf
+
+
+# Transmission
+#echo '# transmission' >> /etc/rc.conf
+#echo 'transmission_enable="YES"' >> /etc/rc.conf
+#echo 'transmission_user="transmission"' >> /etc/rc.conf
+#echo 'transmission_conf_dir="/usr/local/etc/transmission/home"' >> /etc/rc.conf
+#echo 'transmission_download_dir="/home/media/#5_Download/#1_BitTorrent"' >> /etc/rc.conf
+#echo '' >> /etc/rc.conf
+
+# TomCat
+#echo '# TomCat 6' >> /etc/rc.conf
+#echo 'tomcat60_enable="YES"' >> /etc/rc.conf
+#echo '### Options for JVM #### ' >> /etc/rc.conf
+#echo 'tomcat60_java_opts="-Djava.net.preferIPv4Stack=true -server -Xmn128M -Xmx256M -Xms256M"' >> /etc/rc.conf
+#echo '' >> /etc/rc.conf
+
+# reste a faire :
+# Network Services
+
+# Bind
+#named_enable="YES"
+
+# OpenVPN
+#openvpn_enable="YES"
+
+# CUPS
+#cupsd_enable="YES"
+
+### Web Services
+# Lighttpd
+#lighttpd_enable="YES"
 
 
 ##############

@@ -26,9 +26,14 @@ Protocol 2
 AllowGroups wheel
 PermitRootLogin yes
 EOF9
+echo '# SSH' >> /etc/rc.conf
+echo 'sshd_enable="YES"' >> /etc/rc.conf
+echo '' >> /etc/rc.conf
 
 # Installe les packages utiles
-pkg_add -r pdksh bash wget gmake gcc46 lftp lynx mc portaudit screen cvsup-without-gui
+pkg_add -r pdksh bash wget gmake gcc46 lftp lynx mc portaudit screen cvsup-without-gui nano gzip sudo clean logrotate
+
+#pkg_add -r websvn nano iperf gzip bash sudo sudoscript sudosh3 cups-base cups-pdf  geany clean gnupg logrotate smartmontools aircrack-ng
 
 # Shells
 cd ~/
@@ -67,8 +72,6 @@ ee /usr/src/ports-supfile
 cd /etc/
 cp rc.conf rc.conf.dist
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/rc.conf
-cp fstab fstab.dist
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/fstab
 cp sysctl.conf sysctl.conf.dist
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/sysctl.conf
 # /boot/

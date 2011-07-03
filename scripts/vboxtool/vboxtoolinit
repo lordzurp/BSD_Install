@@ -10,3 +10,14 @@ pidfile="/var/run/${name}.pid"
 
 load_rc_config $name
 run_rc_command "$1"
+
+. /etc/rc.subr
+
+name="vboxtool"
+rcvar=${name}_enable
+
+command=/usr/local/bin/vboxtool
+command_args="autostart"
+
+load_rc_config ${name}
+run_rc_command "$1"

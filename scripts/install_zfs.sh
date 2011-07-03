@@ -26,7 +26,7 @@ gpart bootcode -b /mnt2/boot/pmbr -p /mnt2/boot/gptzfsboot -i 1 ad4
 
 echo '# Create ZFS Pool sys_tank'
 mkdir /boot/zfs
-zpool create sys_tank /dev/gpt/disk0
+zpool create -f sys_tank /dev/gpt/disk0
 zpool set bootfs=sys_tank sys_tank
 
 echo '# Create ZFS filesystem hierarchy'
@@ -67,6 +67,11 @@ echo '# import data_tank'
 mkdir /sys_tank/home
 zpool import -f data_tank
 
+echo '# Installe fstab'
+cd /sys_tank/etc
+cp fstab fstab.dist
+fetch http://chez.tinico.free.fr/docs/bsd.conf/fstab
+
 echo '# Install zpool.cache to the ZFS filesystem'
 cp /boot/zfs/zpool.cache /sys_tank/boot/zfs/zpool.cache
 
@@ -76,4 +81,4 @@ export LD_LIBRARY_PATH=/mnt2/lib
 # Install du script post_install
 mkdir /sys_tank/usr/scripts
 cd /sys_tank/usr/scripts
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/install_conf.sh
+fetch http://chez.tinico.free.fr/docs/update_scripts.sh
