@@ -87,6 +87,10 @@ fetch http://chez.tinico.free.fr/docs/bsd.conf/zurpatator2
 ########################
 echo "CPYTYPE?= athlon64" >> /etc/make.conf
 
+# met à jour les ports
+portsnap fetch update
+portsnap extract
+
 ########################
 ### Installe les scripts
 ########################
@@ -102,13 +106,4 @@ chmod +x update_scripts.sh
 ### Security Tweaks
 ###################
 chmod 640 /var/log/messages
-
-
-
-
-#java
-#webmin --> /usr/local/lib/webmin/setup.sh
-
-#upgrade tout le system
-
 

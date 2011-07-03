@@ -258,6 +258,11 @@ echo '' >> /etc/rc.conf
 #lighttpd_enable="YES"
 
 
+#java
+#webmin --> /usr/local/lib/webmin/setup.sh
+
+#upgrade tout le system
+
 ##############
 ### Reboot ###
 ##############
