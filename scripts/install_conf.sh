@@ -70,14 +70,14 @@ ee /usr/src/ports-supfile
 ################################
 # /etc/
 cd /etc/
-cp rc.conf rc.conf.dist
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/rc.conf
+#cp rc.conf rc.conf.dist
+#fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/rc.conf
 cp sysctl.conf sysctl.conf.dist
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/sysctl.conf
 # /boot/
-cd /boot/
-cp loader.conf loader.conf.dist
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/loader.conf
+#cd /boot/
+#cp loader.conf loader.conf.dist
+#fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/loader.conf
 # Kernel
 cd /usr/src/sys/amd64/conf/
 fetch http://chez.tinico.free.fr/docs/bsd.conf/zurpatator2

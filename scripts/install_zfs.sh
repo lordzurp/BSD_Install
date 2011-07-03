@@ -67,13 +67,14 @@ echo '# import data_tank'
 mkdir /sys_tank/home
 zpool import -f data_tank
 
-echo '# Installe fstab'
-cd /sys_tank/etc
-cp fstab fstab.dist
-fetch http://chez.tinico.free.fr/docs/bsd.conf/fstab
-cd /sys_tank/boot/
-cp loader.conf loader.conf.dist
-fetch http://chez.tinico.free.fr/docs/bsd.conf/loader.conf
+echo '# Installe fstab, rc.conf et loader.conf'
+# copy rc.conf
+cd /sys_tank/etc/ ; fetch http://chez.tinico.free.fr/docs/bsd.conf/rc.conf
+# copy fstab
+cd /sys_tank/etc/ ; fetch http://chez.tinico.free.fr/docs/bsd.conf/fstab
+# copy loader.conf
+cd /sys_tank/boot/ ; fetch http://chez.tinico.free.fr/docs/bsd.conf/loader.conf
+
 
 echo '# Install zpool.cache to the ZFS filesystem'
 cp /boot/zfs/zpool.cache /sys_tank/boot/zfs/zpool.cache
