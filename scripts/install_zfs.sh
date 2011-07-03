@@ -76,4 +76,4 @@ export LD_LIBRARY_PATH=/mnt2/lib
 # Install du script post_install
 mkdir /sys_tank/usr/scripts
 cd /sys_tank/usr/scripts
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/post_install.sh
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/install_conf.sh

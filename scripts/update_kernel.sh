@@ -12,4 +12,8 @@ make buildkernel -j4 KERNCONF=zurpatator2
 make installkernel KERNCONF=zurpatator2
 
 # reboot
+echo ""
+echo ""
 echo "reboot necessaire (shutdown -r now) !!"
+echo ""
+echo ""

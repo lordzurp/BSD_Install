@@ -28,7 +28,7 @@ PermitRootLogin yes
 EOF9
 
 # Installe les packages utiles
-pkg_add -r pdksh bash wget lftp lynx mc portaudit screen cvsup-without-gui
+pkg_add -r pdksh bash wget gmake gcc46 lftp lynx mc portaudit screen cvsup-without-gui
 
 # Shells
 cd ~/
@@ -79,6 +79,10 @@ fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/loader.conf
 cd /usr/src/sys/amd64/conf/
 fetch http://chez.tinico.free.fr/docs/bsd.conf/zurpatator2
 
+########################
+### Config système
+########################
+echo "CPYTYPE?= athlon64" >> /etc/make.conf
 
 ########################
 ### Installe les scripts
@@ -99,9 +103,9 @@ chmod 640 /var/log/messages
 
 
 
-java
-webmin --> /usr/local/lib/webmin/setup.sh
+#java
+#webmin --> /usr/local/lib/webmin/setup.sh
 
-upgrade tout le system
+#upgrade tout le system
 
 
