@@ -46,53 +46,40 @@
 ### Web ###
 ############
 # mySQL
-echo 'install mySQL ?'
-read $mysql_install
-if $mysql_install
-	then
-	pkg_add -r cmake mysql55-client mysql55-server mysql-scripts pam-mysql libnss-mysql 
-	cd /usr/local/bin
-	mysql_install_db --user=mysql --basedir=/usr/local --databasedir=/var/db/mysql
-	touch /var/log/mysqld.log
-	cd /usr/local/etc/
-	fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/my.conf
-	echo '# mysql' >> /etc/rc.conf
-	echo 'mysql_server_enable="YES"' >> /etc/rc.conf
-	echo '' >> /etc/rc.conf
-fi
+#	pkg_add -r cmake mysql55-client mysql55-server mysql-scripts pam-mysql libnss-mysql 
+#	cd /usr/local/bin
+#	mysql_install_db --user=mysql --basedir=/usr/local --databasedir=/var/db/mysql
+#	touch /var/log/mysqld.log
+#	cd /usr/local/etc/
+#	fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/my.conf
+#	echo '# mysql' >> /etc/rc.conf
+#	echo 'mysql_server_enable="YES"' >> /etc/rc.conf
+#	echo '' >> /etc/rc.conf
+
 
 # Apache
-echo 'install apache ?'
-read $apache
-if $apache
-	then
-	pkg_add -r apache22 ap22-mod_security
-	cd /usr/local/etc/apache22/
-	fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/httpd.conf
+#	pkg_add -r apache22 ap22-mod_security
+#	cd /usr/local/etc/apache22/
+#	fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/httpd.conf
 	#cd /usr/local/www/
-	cp -Rlp /usr/local/www/apache22/cgi-bin /usr/local/www
-	cp -Rlp /usr/local/www/apache22/error /usr/local/www
-	cp -Rlp /usr/local/www/apache22/html /usr/local/www
-	cp -Rlp /usr/local/www/apache22/icons /usr/local/www
-	cp -Rlp /usr/local/www/apache22/usage /usr/local/www
-	rm -r /usr/local/www/apache22
-fi
+#	cp -Rlp /usr/local/www/apache22/cgi-bin /usr/local/www
+#	cp -Rlp /usr/local/www/apache22/error /usr/local/www
+#	cp -Rlp /usr/local/www/apache22/html /usr/local/www
+#	cp -Rlp /usr/local/www/apache22/icons /usr/local/www
+#	cp -Rlp /usr/local/www/apache22/usage /usr/local/www
+#	rm -r /usr/local/www/apache22
+
 
 # PHP 5
-echo 'install php5 ?'
-read $php5_install
-if $php5_install
-	then
-	pkg_add -r php5 php5-bsdconv php5-bz2 php5-ctype php5-filter php5-gd php5-iconv php5-json php5-mbstring php5-mcrypt php5-mysql php5-openssl php5-session php5-xml php5-zip php5-zlib
-fi
+#	pkg_add -r php5 php5-bsdconv php5-bz2 php5-ctype php5-filter php5-gd php5-iconv php5-json php5-mbstring php5-mcrypt php5-mysql php5-openssl php5-session php5-xml php5-zip php5-zlib
+
 
 # Perl 5
-echo 'install perl ?'
-read $perl_install
-if $perl_install
-	then
-	pkg_add -r p5-DBD-mysql55 p5-Authen-Libwrap p5-IO-Tty p5-libwww p5-Net-OpenSSH p5-Net-SSH2 p5-Net-SSLeay p5-perl-ldap p5-String-Multibyte p5-Mail-SpamAssassin
-fi
+#	pkg_add -r p5-DBD-mysql55 p5-Authen-Libwrap p5-IO-Tty p5-libwww p5-Net-OpenSSH p5-Net-SSH2 p5-Net-SSLeay p5-perl-ldap p5-String-Multibyte p5-Mail-SpamAssassin
+cd /usr/ports/lang/perl514/ && make install clean BATCH=yes
+
+# Python
+
 
 # Ruby
 #pkg_add -r ruby
@@ -204,27 +191,31 @@ echo '' >> /etc/rc.conf
 ########################
 ### Install X server ###
 ########################
+echo 'install X ?'
+read $x_install
+if $x_install
+	then
+	# Xorg & xfce
+	pkg_add -r xorg xorg-drivers liberation-fonts-ttf xfce4
 
-# Xorg & xfce
-pkg_add -r xorg xorg-drivers liberation-fonts-ttf xfce4
+	# X utils
+	pkg_add -r bitstream-vera
 
-# X utils
-pkg_add -r bitstream-vera
+	# X packages
+	pkg_add -r chromium xfe xfce4-media thunar-volman leafpad
 
-# X packages
-pkg_add -r chromium xfe xfce4-media thunar-volman leafpad
+	# Configure X
+	cd /root/
+	X -configure
+	mv xorg.conf.new /etc/X11/xorg.conf
 
-# Configure X
-cd /root/
-X -configure
-mv xorg.conf.new /etc/X11/xorg.conf
-
-# Localisation
-cd /usr/local/etc/hal/fdi/policy/
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/misc/x11-input.fdi
-echo 'setenv LANG fr_FR.UTF-8' >> /etc/csh.login
-echo 'setenv MM_CHARSET UTF-8' >> /etc/csh.login
-echo 'setenv LC_ALL fr_FR.UTF-8' >> /etc/csh.login
+	# Localisation
+	cd /usr/local/etc/hal/fdi/policy/
+	fetch https://raw.github.com/lordzurp/Zurpatator2/master/misc/x11-input.fdi
+	echo 'setenv LANG fr_FR.UTF-8' >> /etc/csh.login
+	echo 'setenv MM_CHARSET UTF-8' >> /etc/csh.login
+	echo 'setenv LC_ALL fr_FR.UTF-8' >> /etc/csh.login
+fi
 
 #################
 ### Web Panel ###
@@ -234,24 +225,33 @@ echo 'setenv LC_ALL fr_FR.UTF-8' >> /etc/csh.login
 #pkg_add -r phpvirtualbox phpmyadmin webalizer
 
 # Webmin
-cd /usr/local 
-fetch http://prdownloads.sourceforge.net/webadmin/webmin-1.550.tar.gz 
-gunzip webmin-1.550.tar.gz 
-tar -xvf webmin-1.550.tar 
-cd webmin-1.550 
-./setup.sh
-echo '# Webmin' >> /etc/rc.conf
-echo 'webmin_enable="YES"' >> /etc/rc.conf
-echo '' >> /etc/rc.conf
-
+echo 'install webmin ?'
+read $webmin_install
+if $webmin_install
+	then
+	cd /usr/local 
+	fetch http://prdownloads.sourceforge.net/webadmin/webmin-1.550.tar.gz 
+	gunzip webmin-1.550.tar.gz 
+	tar -xvf webmin-1.550.tar 
+	cd webmin-1.550 
+	./setup.sh
+	echo '# Webmin' >> /etc/rc.conf
+	echo 'webmin_enable="YES"' >> /etc/rc.conf
+	echo '' >> /etc/rc.conf
+fi
 
 # Transmission
-#echo '# transmission' >> /etc/rc.conf
-#echo 'transmission_enable="YES"' >> /etc/rc.conf
-#echo 'transmission_user="transmission"' >> /etc/rc.conf
-#echo 'transmission_conf_dir="/usr/local/etc/transmission/home"' >> /etc/rc.conf
-#echo 'transmission_download_dir="/home/media/#5_Download/#1_BitTorrent"' >> /etc/rc.conf
-#echo '' >> /etc/rc.conf
+echo 'install transmission ?'
+read $transmission_install
+if $transmission_install
+	then
+	#echo '# transmission' >> /etc/rc.conf
+	#echo 'transmission_enable="YES"' >> /etc/rc.conf
+	#echo 'transmission_user="transmission"' >> /etc/rc.conf
+	#echo 'transmission_conf_dir="/usr/local/etc/transmission/home"' >> /etc/rc.conf
+	#echo 'transmission_download_dir="/home/media/#5_Download/#1_BitTorrent"' >> /etc/rc.conf
+	#echo '' >> /etc/rc.conf
+fi
 
 # TomCat
 #echo '# TomCat 6' >> /etc/rc.conf
