@@ -29,4 +29,4 @@ fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/X.sh
 #fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/
 
 
-chmod +Rx *
+chmod -R +x *
