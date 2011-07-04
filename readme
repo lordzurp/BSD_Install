@@ -117,7 +117,8 @@ Script :      update_kernel.sh
 
 Version :     1.0
 
-Description : met les sources à jour (8-STABLE) et compile le kernel (zurpatator2)
+Description : met les sources à jour (8-STABLE) et compile le kernel 
+              (conf=zurpatator2)
 
 Syntaxe :     
 
@@ -133,11 +134,11 @@ Syntaxe :
 
 -----------------------------------------------------------------------------
 
-Script :      update_userland.sh
+Script :      /userland/*.sh
 
 Version :     1.0
 
-Description : met les ports/packages à jour 
+Description : installe le programme  
 
 Syntaxe :     
 

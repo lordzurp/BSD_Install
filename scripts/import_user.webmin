@@ -1,9 +1,10 @@
 create:lordzurp:*:1000:1000:lordzurp:/home/lordzurp:/bin/bash:::
-create:Ti nicO:*:1001:1000:Ti nicO:/home/Ti_nicO:/usr/sbin/nologin:::
-create:aurel:*:1002:1000:Aurelie:/home/aurel:/usr/sbin/nologin:::
-create:public:*:1003:1001:Public User:/home/public:/usr/sbin/nologin:::
-create:media:*:1004:1001:Media User:/home/media:/usr/sbin/nologin:::
-create:timemachine:*:1005:1002:Time Machine Back Up:/home/timemachine:/usr/sbin/nologin:::
+create:user:*:1010:1000:private user:/nonexistant/:/usr/sbin/nologin:::
+create:Ti nicO:*:1011:1000:Ti nicO:/home/Ti_nicO:/usr/sbin/nologin:::
+create:aurel:*:1012:1000:Aurelie:/home/aurel:/usr/sbin/nologin:::
+create:public:*:1050:1001:Public User:/home/public:/usr/sbin/nologin:::
+create:media:*:1051:1001:Media User:/home/media:/usr/sbin/nologin:::
+create:timemachine:*:1052:1002:Time Machine Back Up:/home/timemachine:/usr/sbin/nologin:::
 
 
 

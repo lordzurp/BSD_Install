@@ -26,6 +26,7 @@ Protocol 2
 AllowGroups wheel
 PermitRootLogin yes
 EOF9
+
 echo '# SSH' >> /etc/rc.conf
 echo 'sshd_enable="YES"' >> /etc/rc.conf
 echo '' >> /etc/rc.conf
