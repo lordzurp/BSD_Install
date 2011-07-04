@@ -15,7 +15,7 @@ fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/update_userland
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/import_user.webmin
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/import_group.webmin
 
-cd /usr/sripts/userland
+cd /usr/scripts/userland
 
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/avahi.sh
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/kit_AMP.sh
