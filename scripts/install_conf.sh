@@ -96,6 +96,7 @@ portsnap extract
 ### Installe les scripts
 ########################
 mkdir /usr/scripts
+mkdir /usr/scripts/userland
 cd /usr/scripts
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/update_scripts.sh
 chmod +x update_scripts.sh

@@ -15,4 +15,18 @@ fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/update_userland
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/import_user.webmin
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/import_group.webmin
 
-chmod +x *
+cd /usr/sripts/userland
+
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/avahi.sh
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/kit_AMP.sh
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/netatalk.sh
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/samba.sh
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/subsonic.sh
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/transmission.sh
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/virtualbox.sh
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/webmin.sh
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/X.sh
+#fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/userland/
+
+
+chmod +Rx *
