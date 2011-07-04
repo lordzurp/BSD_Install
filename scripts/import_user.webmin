@@ -14,6 +14,11 @@ create:timemachine:*:1052:1002:Time Machine Back Up:/home/timemachine:/usr/sbin/
 
 # Organisation
 
+operator : uid 1000-1009
+user : uid 1010-1049
+public_user : uid 1050-1059
+
+
 # Dossiers perso
 # Ti_nicO, aurel, ...
 # owner : user

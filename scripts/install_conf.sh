@@ -65,6 +65,10 @@ read -p "Appuyer sur une touche pour continuer ..."
 ee /usr/src/stable-supfile
 ee /usr/src/ports-supfile
 
+# Perl
+cd /usr/ports/lang/perl5.12
+make config-recursive
+make install clean
 
 ################################
 ### Copie des fichiers de config
