@@ -14,11 +14,10 @@ echo '# VirtualBox' >> /etc/rc.conf
 echo 'vboxservice_enable="YES"' >> /etc/rc.conf
 echo 'vboxnet_enable="YES"' >> /etc/rc.conf
 echo 'vboxheadless_enable="YES"' >> /etc/rc.conf
+echo 'vboxheadless_user="root"' >> /etc/rc.conf
 echo 'vboxheadless_machines="HomeBack"' >> /etc/rc.conf
 echo 'vboxheadless_HomeBack_name="HomeBack"' >> /etc/rc.conf
-#echo 'vboxguest_enable="YES"' >> /etc/rc.conf
-#echo 'vboxwebsrv_enable="YES"' >> /etc/rc.conf
-#echo 'devfs_system_ruleset="system"' >> /etc/rc.conf
+echo 'vboxwebsrv_enable="YES"' >> /etc/rc.conf
 echo '' >> /etc/rc.conf
 
 # installe le service avahi
