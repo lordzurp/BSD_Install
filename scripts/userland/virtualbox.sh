@@ -2,17 +2,20 @@
 pkg_add -r virtualbox-ose
 pw groupmod operator -m lordzurp
 
+# installe phpvirtualbox
+#pkg_add -r phpvirtualbox
+
 # configure le système
 echo "[system=10]" >> /etc/devfs.rules
 echo "add path 'usb/*' mode 0660 group operator" >> /etc/devfs.rules
 
 # configure le service dans /etc/rc.conf
 echo '# VirtualBox' >> /etc/rc.conf
-#echo 'vboxguest_enable="YES"' >> /etc/rc.conf
 echo 'vboxservice_enable="YES"' >> /etc/rc.conf
-#echo 'vboxnet_enable="YES"' >> /etc/rc.conf
-#echo 'vboxwebsrv_enable="YES"' >> /etc/rc.conf
 echo 'vboxtoolinit_enable="YES"' >> /etc/rc.conf
+echo 'vboxnet_enable="YES"' >> /etc/rc.conf
+#echo 'vboxguest_enable="YES"' >> /etc/rc.conf
+#echo 'vboxwebsrv_enable="YES"' >> /etc/rc.conf
 #echo 'devfs_system_ruleset="system"' >> /etc/rc.conf
 echo '' >> /etc/rc.conf
 
