@@ -8,7 +8,7 @@ pkg_add -r xorg xorg-drivers liberation-fonts-ttf xfce4
 pkg_add -r bitstream-vera
 
 # X packages
-pkg_add -r chromium xfe xfce4-media thunar-volman leafpad
+pkg_add -r chromium xfe xfce4-media thunar-volman leafpad gedit
 
 # Configure X
 cd /root/
