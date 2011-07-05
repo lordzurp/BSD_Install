@@ -14,7 +14,7 @@ run_rc_command "$1"
 . /etc/rc.subr
 
 name="vboxtool"
-rcvar=${name}_enable
+rcvar=${name}init_enable
 
 command=/usr/local/bin/vboxtool
 command_args="autostart"
