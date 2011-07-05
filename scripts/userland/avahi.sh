@@ -1,7 +1,7 @@
 # Avahi
 pkg_add -r avahi
-cd /usr/local/etc/
-fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/avahi_daemon.conf
+cd /usr/local/etc/avahi
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/avahi-daemon.conf
 
 # installe les services  avahi
 cd /usr/local/etc/avahi/services

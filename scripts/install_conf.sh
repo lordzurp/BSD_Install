@@ -66,9 +66,12 @@ ee /usr/src/stable-supfile
 ee /usr/src/ports-supfile
 
 # Perl
-cd /usr/ports/lang/perl5.12
+cd /usr/ports/lang/perl5.14
 make config-recursive
 make install clean
+
+# OpenSSL
+pkg_add -r openssl
 
 ################################
 ### Copie des fichiers de config
@@ -80,9 +83,9 @@ cd /etc/
 cp sysctl.conf sysctl.conf.dist
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/sysctl.conf
 # /boot/
-#cd /boot/
-#cp loader.conf loader.conf.dist
-#fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/loader.conf
+cd /boot/
+cp loader.conf loader.conf.dist
+fetch https://raw.github.com/lordzurp/Zurpatator2/master/sys_conf/loader.conf
 # Kernel
 cd /usr/src/sys/amd64/conf/
 fetch http://chez.tinico.free.fr/docs/bsd.conf/zurpatator2
