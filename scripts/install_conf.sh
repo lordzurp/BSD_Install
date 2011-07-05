@@ -32,7 +32,7 @@ echo 'sshd_enable="YES"' >> /etc/rc.conf
 echo '' >> /etc/rc.conf
 
 # Installe les packages utiles
-pkg_add -r pdksh bash wget gmake gcc46 lftp lynx mc portaudit screen cvsup-without-gui nano gzip sudo clean logrotate
+pkg_add -r pdksh bash wget gmake gcc46 lftp lynx mc portaudit screen cvsup-without-gui nano gzip sudo clean logrotate cmake
 
 #pkg_add -r websvn nano iperf gzip bash sudo sudoscript sudosh3 cups-base cups-pdf  geany clean gnupg logrotate smartmontools aircrack-ng
 
