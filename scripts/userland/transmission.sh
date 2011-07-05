@@ -4,11 +4,13 @@ pkg_add -r transmission
 # installe les fichiers de config
 cd /usr/local/etc/transmission/home
 fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr_conf/settings.json
+chmod 644 settings.json
+chwon transmission settings.json
 
 # Configure le système
 mkdir '/home/media/#5_Download/#1_BitTorrent'
 wget -NP /usr/local/etc/transmission/home/blocklists http://update.transmissionbt.com/level1.gz
-
+pw moduser transmission -G public_user
 
 # configure le service dans /etc/rc.conf
 echo '# transmission' >> /etc/rc.conf
