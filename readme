@@ -14,7 +14,7 @@
 # NOTE - Certains scripts sont dépendants de la configuration matérielle     #
 # de la machine, notamnent les disques. Prenez bien soin de vérifier et      #
 # adapter la configuration en fonction de votre machine, sous peine d'échec  #
-# du script, ou pire, de l'éffacement complet de vos disques !!              #
+# du script, ou pire, de l'éffacement complet de vos disques.                #
 #                                                                            #
 #                                                                            #
 # Si vous rencontrez des soucis pour configurer et executer ces scripts,     #
@@ -39,22 +39,16 @@
 #                                                                            #
 # Distribué sous licence FreeBSD                                             #
 #                                                                            #
-# FormMail may be used and modified free of charge by anyone so long as this #
-# copyright notice and the comments above remain intact.  By using this      #
-# code you agree to indemnify Matthew M. Wright from any liability that      #
-# might arise from its use.                                                  #
-#                                                                            #
-# Selling the code for this program without prior written consent is         #
-# expressly forbidden.  In other words, please ask first before you try and  #
-# make money off of my program.                                              #
-#                                                                            #
-# Obtain permission before redistributing this software over the Internet or #
-# in any other medium.  In all cases copyright and header must remain intact #
 ##############################################################################
 # Historique :                                                               #
 #                                                                            #
+#   v0.2 - 05 jan 2012
+#      - passage sous FreeBSD 9 RELEASE                                      #
+#      - adaptation des scripts                                              #
+#                                                                            #
 #   Ajouté 1/7/11:                                                           #
 #      - Passage des scripts sur GitHub                                      #
+
 ##############################################################################
 
 ##############################################################################
