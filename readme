@@ -42,7 +42,12 @@
 ##############################################################################
 # Historique :                                                               #
 #                                                                            #
-#   v0.2 - 05 jan 2012
+#                                                                            #
+#   V0.5 - 26 avr 2013                                                       #
+#      - passage sous FreeBSD 9.1 RELEASE                                    #
+#      - passage des services en Jail avec EZjail                            #
+#                                                                            #
+#   v0.2 - 05 jan 2012                                                       #
 #      - passage sous FreeBSD 9 RELEASE                                      #
 #      - adaptation des scripts                                              #
 #                                                                            #
