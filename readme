@@ -1,5 +1,5 @@
 ##############################################################################
-# Zurpatator2 Unatented FreeBSD Install                                      #
+# Unatented FreeBSD Install                                      #
 # Version 0.1                                                                #
 #                                                                            #
 # Copyright 2011 Ti nicO lordzurp.dev@gmail.com                              #
@@ -16,20 +16,6 @@
 # adapter la configuration en fonction de votre machine, sous peine d'échec  #
 # du script, ou pire, de l'éffacement complet de vos disques.                #
 #                                                                            #
-#                                                                            #
-# Si vous rencontrez des soucis pour configurer et executer ces scripts,     #
-# voici des pistes pour vous aider :                                         #
-# If you run into any problems while trying to configure this scripts, help  #
-# is available.  The steps you should take to get the fastest results, are:  #
-#       1) Read this file thoroughly.                                        #
-#       2) Consult the Matt's Script Archive Frequently Asked Questions:     #
-#               http://www.scriptarchive.com/faq/                            #
-#       3) If you are still having difficulty installing this script,        #
-#          you may wish to look at the resources listed here:                #
-#               http://www.scriptarchive.com/help/                           #
-#                                                                            #
-# Hopefully that will be able to help you solve your problems.  Due to time  #
-# constraints I can no longer offer technical support for this code.         #
 ##############################################################################
 
 
@@ -43,6 +29,9 @@
 # Historique :                                                               #
 #                                                                            #
 #                                                                            #
+#   V0.6 - sept 2013                                                         #
+#      - ajout de variables d'environnement pour diversifier les install     #
+#      - versionning : home server, dédié OVH ...                            #
 #                                                                            #
 #   V0.5 - 26 avr 2013                                                       #
 #      - passage sous FreeBSD 9.1 RELEASE                                    #
