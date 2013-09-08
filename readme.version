@@ -1,0 +1,12 @@
+Zurpatator2
+
+Home Server hebergé à la maison
+
+# Config matérielle
+# 
+# Archi : Opteron 1352
+# Video : AMD Rage128 PCI
+# Système : Sata onboard
+# Stockage : LSI 1068i
+# Lan 1 : 2x NVidia Gb, lagg
+# Lan 2 : Intel 100Mb/s
