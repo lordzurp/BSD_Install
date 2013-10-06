@@ -19,11 +19,20 @@ source_install="https://raw.github.com/lordzurp/BSD_Install/master"
 # Nom du pool système
 sys_tank="sys_tank"
 
+# quelle release on installe ?
+freebsd_source="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/9.2-RELEASE"
+
+# Assurez vous d'avoir édité ce script avant de lancer l'installation
+edit_script="NOK"
+
 
 ########################
 # Debut de l'install
 ########################
+if $edit_script = "NOK" 
+	then exit
 echo " c'est parti !"
+
 date -u > /tmp/start_time
 
 # Inutile si disque deja partitionné
@@ -107,7 +116,15 @@ chmod 1777 /mnt/tmp
 chmod 1777 /mnt/var/tmp
 
 # Install de FreeBSD dans $sys_tank/root, monté sur /mnt
-cd /usr/freebsd-dist
+mkdir /tmp/freebsd-dist
+cd /tmp/freebsd-dist
+fetch $freebsd_install/base.txz
+fetch $freebsd_install/lib32.txz
+fetch $freebsd_install/kernel.txz
+fetch $freebsd_install/doc.txz
+fetch $freebsd_install/ports.txz
+fetch $freebsd_install/src.txz
+
 export DESTDIR=/mnt
 for file in base.txz lib32.txz kernel.txz doc.txz ports.txz src.txz;
 do (cat $file | tar --unlink -xpvJf - -C ${DESTDIR:-/}); done
@@ -116,68 +133,16 @@ do (cat $file | tar --unlink -xpvJf - -C ${DESTDIR:-/}); done
 cp /tmp/zpool.cache /mnt/boot/zfs/zpool.cache
 
 # Installe fstab, rc.conf sysctl.conf, make.conf et loader.conf, après backup
-
-cp /mnt/etc/rc.conf /mnt/etc/rc.conf.dist
-cp /mnt/etc/sysctl.conf /mnt/etc/sysctl.conf.dist
-cp /mnt/boot/loader.conf /mnt/boot/loader.conf.dist
 cp /tmp/start_time /mnt/root/start_time
-
 touch /mnt/etc/fstab
 
 
 ########################
 ### /etc/rc.conf
 ########################
-cat << EOF > /mnt/etc/rc.conf
-# FreeBSD /etc/rc.conf
-
-#########
-# Systeme
-#########
-zfs_enable="YES"
-#amd_enable="YES"
-#acpi_enable="YES"
-#apm_enable="YES"
-#apmd_enable="YES"
-dbus_enable="YES"
-hald_enable="YES"
-
-syslogd_enable="YES"
-syslogd_flags="-s -b 127.0.0.1"
-
-# empeche le système de biper comme un sourd
-allscreens_kbdflags="-b visual"
-
-# Set dumpdev to “AUTO" to enable crash dumps, “NO" to disable
-dumpdev="AUTO"
-
-##############
-# Secure Tips
-##############
-clear_tmp_enable="YES"
-
-##############
-# Network Conf
-##############
-ifconfig_em1="up DHCP"
-ifconfig_em1_alias0="inet 10.0.0.1/24" # ip du systeme de base
-
-hostname="hawk.zurp.me"
-tcp_extensions="YES"
-
-#########
-# Locales
-#########
-keymap="fr.iso.acc"
-
-##########
-# Services
-##########
-inetd_enable="NO"
-logrotate_enable="YES"
-sshd_enable="YES"
-
-EOF
+cd /mnt/etc/
+mv rc.conf rc.conf.dist
+fetch $install_source/root/etc/rc.conf
 
 
 ########################
@@ -186,6 +151,7 @@ EOF
 cd /mnt/etc/
 mv sysctl.conf sysctl.conf.dist
 fetch $source_install/root/etc/sysctl.conf
+
 
 ########################
 ### /boot/loader.conf
@@ -218,7 +184,7 @@ gpart bootcode -b /mnt/boot/pmbr -p /mnt/boot/gptzfsboot -i 1 ada2
 mkdir /mnt/usr/scripts
 mkdir /mnt/usr/scripts/userland
 cd /mnt/usr/scripts
-fetch http://81.65.119.199/zurp/update_scripts.sh
+fetch $instal_source/zurp/update_scripts.sh
 chmod +x update_scripts.sh
 
 
