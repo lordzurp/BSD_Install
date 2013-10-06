@@ -13,6 +13,9 @@ sleep 10
 # Definition des variables
 ########################
 
+# Source des scripts
+source_install="https://raw.github.com/lordzurp/BSD_Install/master"
+
 # Nom du pool système
 sys_tank="sys_tank"
 
@@ -180,46 +183,15 @@ EOF
 ########################
 ### /etc/sysctl.conf
 ########################
-cat << EOF > /mnt/etc/sysctl.conf
-# $FreeBSD: src/etc/sysctl.conf
-
-#security.bsd.see_other_uids=0
-kern.module_path=/boot/kernel;/boot/modules;/usr/local/modules
-
-net.inet.tcp.sendbuf_max=16777216
-net.inet.tcp.recvbuf_max=16777216
-kern.ipc.maxsockbuf=8192000
-net.inet.tcp.rfc1323=1
-net.inet.tcp.sack.enable=1
-#net.inet.tcp.inflight.enable=0
-net.inet.tcp.sendspace=1024000
-net.inet.tcp.recvspace=1024000
-net.inet.udp.recvspace=1024000
-security.jail.allow_raw_sockets=1
-net.inet.ip.forwarding=1
-
-EOF
-
+cd /mnt/etc/
+mv sysctl.conf sysctl.conf.dist
+fetch $source_install/root/etc/sysctl.conf
 
 ########################
 ### /boot/loader.conf
 ########################
-cat << EOF > /mnt/boot/loader.conf
-# FreeBSD /boot/loader.conf
-
-autoboot_delay="3"
-
-# Kernel tunables
-kern.maxdsiz="100000000"        # Set the max data size
-
-zfs_load="YES"
-ahci_load="YES"
-vboxdrv_load="YES"
-vfs.root.mountfrom="zfs:$sys_tank/root"
-
-cd9660_load="YES"        # ISO 9660 filesystem
-
-EOF
+cd /mnt/boot/loader.conf
+fetch $install_source/root/boot/loader.conf
 
 
 ########################
@@ -227,15 +199,7 @@ EOF
 ########################
 cd /mnt/etc/ssh/
 mv sshd_config sshd_config.dist
-sed '/^$/d; /^#/d' sshd_config.dist > sshd_config
-cat >> sshd_config <<EOF9
-Port 22
-ListenAddress 10.0.0.1
-Protocol 2
-AllowGroups wheel
-PermitRootLogin yes
-EOF9
-
+fetch $source_install/root/etc/ssh/sshd_config
 
 ############################
 #bootcode zfs

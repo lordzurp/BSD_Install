@@ -1,0 +1,138 @@
+# Accept filters for data, http and DNS requests
+# Useful when your software uses select() instead of kevent/kqueue or when you under DDoS
+# DNS accf available on 8.0+
+accf_data_load="YES" 
+accf_http_load="YES"
+accf_dns_load="YES"
+
+# Async IO system calls
+aio_load="YES"
+
+# Linux specific devices in /dev
+# As for 8.1 it only /dev/full 
+#lindev_load="YES"
+
+# Adds NCQ support in FreeBSD
+# WARNING! all ad[0-9]+ devices will be renamed to ada[0-9]+
+# 8.0+ only
+#ahci_load="YES"
+#siis_load="YES"
+
+# FreeBSD 8.2+
+# New Congestion Control for FreeBSD
+# http://caia.swin.edu.au/urp/newtcp/tools/cc_chd-readme-0.1.txt
+# http://www.ietf.org/proceedings/78/slides/iccrg-5.pdf
+# Initial merge commit message http://www.mail-archive.com/svn-src-all@freebsd.org/msg31410.html
+#cc_chd_load="YES"
+
+
+# Increase kernel memory size to 3G. 
+#
+# Use ONLY if you have KVA_PAGES in kernel configuration, and you have more than 3G RAM 
+# Otherwise panic will happen on next reboot!
+#
+# It's required for high buffer sizes: kern.ipc.nmbjumbop, kern.ipc.nmbclusters, etc
+# Useful on highload stateful firewalls, proxies or ZFS fileservers
+# (FreeBSD 7.2+ amd64 users: Check that current value is lower!)
+#vm.kmem_size="3G"
+
+# If your server has lots of swap (>4Gb) you should increase following value
+# according to http://lists.freebsd.org/pipermail/freebsd-hackers/2009-October/029616.html
+# Otherwise you'll be getting errors
+# "kernel: swap zone exhausted, increase kern.maxswzone"
+# kern.maxswzone="256M" 
+
+# Older versions of FreeBSD can't tune maxfiles on the fly
+#kern.maxfiles="200000"
+
+# Useful for databases 
+# Sets maximum data size to 1G
+# (FreeBSD 7.2+ amd64 users: Check that current value is lower!)
+#kern.maxdsiz="1G"
+
+# Maximum buffer size(vfs.maxbufspace)
+# You can check current one via vfs.bufspace
+# Should be lowered/upped depending on server's load-type
+# Usually decreased to preserve kmem
+# (default is 10% of mem)
+#kern.maxbcache="512M"
+
+# Sendfile buffers
+# For i386 only
+#kern.ipc.nsfbufs=10240
+
+# FreeBSD 9+
+# HPET "legacy route" support. It should allow HPET to work per-CPU
+# See http://www.mail-archive.com/svn-src-head@freebsd.org/msg03603.html
+#hint.atrtc.0.clock=0
+#hint.attimer.0.clock=0
+#hint.hpet.0.legacy_route=1 
+
+# syncache Hash table tuning
+net.inet.tcp.syncache.hashsize=1024
+net.inet.tcp.syncache.bucketlimit=512
+net.inet.tcp.syncache.cachelimit=65536
+
+# Increased hostcache
+# Later host cache can be viewed via net.inet.tcp.hostcache.list hidden sysctl
+# Very useful for it's RTT RTTVAR
+net.inet.tcp.hostcache.hashsize=16384
+net.inet.tcp.hostcache.bucketlimit=100
+net.inet.tcp.hostcache.cachelimit=65536
+
+# TCP control-block Hash table tuning
+net.inet.tcp.tcbhashsize=4096
+
+# Disable ipfw deny all
+# Should be uncommented when there is a chance that
+# kernel and ipfw binary may be out-of sync on next reboot
+#net.inet.ip.fw.default_to_accept=1
+
+#
+# SIFTR (Statistical Information For TCP Research) is a kernel module that
+# logs a range of statistics on active TCP connections to a log file.
+# See prerelease notes http://groups.google.com/group/mailing.freebsd.current/browse_thread/thread/b4c18be6cdce76e4
+# and man 4 sitfr
+#siftr_load="YES"
+
+# Enable superpages, for 7.2+ only
+# Also read http://lists.freebsd.org/pipermail/freebsd-hackers/2009-November/030094.html
+vm.pmap.pg_ps_enabled=1
+
+# Usefull if you are using Intel-Gigabit NIC
+#hw.em.rxd=4096
+#hw.em.txd=4096
+#hw.em.rx_process_limit="-1"
+# Also if you have ALOT interrupts on NIC - play with following parameters
+# NOTE: You should set them for every NIC
+#dev.em.0.rx_int_delay: 250
+#dev.em.0.tx_int_delay: 250
+#dev.em.0.rx_abs_int_delay: 250
+#dev.em.0.tx_abs_int_delay: 250
+# There is also multithreaded version of em/igb drivers can be found here:
+# http://people.yandex-team.ru/~wawa/
+#
+# for additional em monitoring and statistics use 
+# sysctl dev.em.0.stats=1 ; dmesg
+# sysctl dev.em.0.debug=1 ; dmesg
+# Also after r209242 (-CURRENT) there is a separate sysctl for each stat variable;   
+# Same tunings for igb
+#hw.igb.rxd=4096
+#hw.igb.txd=4096
+#hw.igb.rx_process_limit=100
+
+# Some useful netisr tunables. See sysctl net.isr
+#net.isr.maxthreads=4
+#net.isr.defaultqlimit=4096
+#net.isr.maxqlimit: 10240
+# Bind netisr threads to CPUs
+#net.isr.bindthreads=1
+
+#
+# FreeBSD 9.x+
+# Increase interface send queue length
+# See commit message http://svn.freebsd.org/viewvc/base?view=revision&revision=207554
+#net.link.ifqmaxlen=1024
+
+# Nicer boot logo =)
+loader_logo="beastie"
