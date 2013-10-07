@@ -18,9 +18,10 @@ source_install="https://raw.github.com/lordzurp/BSD_Install/master"
 
 # Nom du pool système
 sys_tank="sys_tank"
+disque_1="ada2"
 
 # quelle release on installe ?
-freebsd_source="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/9.2-RELEASE"
+freebsd_install="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/9.2-RELEASE"
 
 # Assurez vous d'avoir édité ce script avant de lancer l'installation
 edit_script="NOK"
@@ -37,11 +38,11 @@ date -u > /tmp/start_time
 
 # Inutile si disque deja partitionné
 # création de la table GPT sur le disque ada2
-#gpart create -s gpt ada2
+#gpart create -s gpt $disque_1
 # création d une partition de boot, début au secteur 34, taille 512 secteurs
-#gpart add -b 34 -s 512 -t freebsd-boot ada2
+#gpart add -b 34 -s 512 -t freebsd-boot $disque_1
 # création de la partition système, début au secteur 2048 (4k ready), 20G, label system
-#gpart add -b 2048 -s 20G-t freebsd-zfs -l system ada2
+#gpart add -b 2048 -s 20G-t freebsd-zfs -l system $disque_1
 
 # utile ...
 # on nettoie le precedent pool
@@ -142,7 +143,7 @@ touch /mnt/etc/fstab
 ########################
 cd /mnt/etc/
 mv rc.conf rc.conf.dist
-fetch $install_source/root/etc/rc.conf
+fetch $source_install/root/etc/rc.conf
 
 
 ########################
@@ -157,7 +158,7 @@ fetch $source_install/root/etc/sysctl.conf
 ### /boot/loader.conf
 ########################
 cd /mnt/boot/loader.conf
-fetch $install_source/root/boot/loader.conf
+fetch $source_install/root/boot/loader.conf
 
 
 ########################
@@ -184,7 +185,7 @@ gpart bootcode -b /mnt/boot/pmbr -p /mnt/boot/gptzfsboot -i 1 ada2
 mkdir /mnt/usr/scripts
 mkdir /mnt/usr/scripts/userland
 cd /mnt/usr/scripts
-fetch $instal_source/zurp/update_scripts.sh
+fetch $source_install/scripts/update_scripts.sh
 chmod +x update_scripts.sh
 
 
