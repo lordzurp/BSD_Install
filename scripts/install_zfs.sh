@@ -168,6 +168,7 @@ cd /mnt/etc/ssh/
 mv sshd_config sshd_config.dist
 fetch $source_install/root/etc/ssh/sshd_config
 
+
 ############################
 #bootcode zfs
 ############################
@@ -178,6 +179,7 @@ echo "la suite dans 10s ..."
 sleep 10
 
 gpart bootcode -b /mnt/boot/pmbr -p /mnt/boot/gptzfsboot -i 1 ada2
+
 
 ############################
 # Install du script post_install
