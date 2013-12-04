@@ -178,7 +178,7 @@ echo ""
 echo "la suite dans 10s ..."
 sleep 10
 
-gpart bootcode -b /mnt/boot/pmbr -p /mnt/boot/gptzfsboot -i 1 ada2
+gpart bootcode -b /mnt/boot/pmbr -p /mnt/boot/gptzfsboot -i 1 ada0
 
 
 ############################
