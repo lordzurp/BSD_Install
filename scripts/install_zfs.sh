@@ -26,16 +26,16 @@ echo " c'est parti !"
 date -u > /tmp/start_time
 
 # Inutile si disque deja partitionné
-# création de la table GPT sur le disque ada2
+# création de la table GPT sur le disque 
 #gpart create -s gpt $disque_1
-# création d une partition de boot, début au secteur 34, taille 512 secteurs
+# création d une partition de boot, taille 512 secteurs
 #gpart add -s 512 -t freebsd-boot $disque_1
 # création de la partition système, début au secteur 2048 (4k ready), 20G, label system
 #gpart add -b 2048 -s 50G -t freebsd-zfs -l system $disque_1
 
 # utile ...
 # on nettoie le precedent pool
-zpool import -f -o altroot=/mnt $sys_tank
+zpool import -f -R /mnt -m / $sys_tank
 zpool destroy -f $sys_tank
 echo "pool destroyed"
 # ça, c'etait dans le howto ...
@@ -51,7 +51,7 @@ zfs set compression=off $sys_tank
 
 # on export et réimporte le pool dans /mnt, en préservant zroot.cache dans /tmp
 zpool export $sys_tank
-zpool import -o cachefile=/tmp/zpool.cache -o altroot=/mnt $sys_tank
+zpool import -o cachefile=/tmp/zpool.cache -R /mnt -m / $sys_tank
 
 # on crée l'arboréscence ZFS
 # on installe le système dans $sys_tank/root, ça permet de changer le /root si besoin (upgrade ...)
@@ -102,7 +102,7 @@ zfs set mountpoint=/var $sys_tank/var
 echo "pool ready"
 # on export et importe le pool
 zpool export $sys_tank
-zpool import -o cachefile=/tmp/zpool.cache -o altroot=/mnt $sys_tank
+zpool import -o cachefile=/tmp/zpool.cache -R /mnt -m / $sys_tank
 
 chmod 1777 /mnt/tmp
 chmod 1777 /mnt/var/tmp
