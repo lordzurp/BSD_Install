@@ -117,8 +117,8 @@ chmod 1777 /mnt/tmp
 chmod 1777 /mnt/var/tmp
 
 # Install de FreeBSD dans $sys_tank/root, monté sur /mnt
-mkdir /tmp/freebsd-dist
-cd /tmp/freebsd-dist
+mkdir /mnt/tmp/freebsd-dist
+cd /mnt/tmp/freebsd-dist
 fetch $freebsd_install/base.txz
 fetch $freebsd_install/lib32.txz
 fetch $freebsd_install/kernel.txz
