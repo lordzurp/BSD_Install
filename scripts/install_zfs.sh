@@ -11,6 +11,7 @@ sleep 10
 
 fetch https://raw.github.com/lordzurp/BSD_Install/master/scripts/bsd_flavour.conf
 . bsd_flavour.conf
+cat bsd_flavour.conf
 
 
 ########################
