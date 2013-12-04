@@ -11,9 +11,6 @@ sleep 10
 
 fetch https://raw.github.com/lordzurp/BSD_Install/master/scripts/bsd_flavour.conf
 . bsd_flavour.conf
-cat bsd_flavour.conf
-echo $edit_script
-sleep 10
 
 
 ########################
@@ -40,6 +37,7 @@ date -u > /tmp/start_time
 # on nettoie le precedent pool
 zpool import -f -o altroot=/mnt $sys_tank
 zpool destroy -f $sys_tank
+echo "pool destroyed"
 # ça, c'etait dans le howto ...
 mkdir /boot/zfs
 # on crée un dataset ZFS nommé $sys_tank sur la partition gpt/system
@@ -101,6 +99,7 @@ zfs set mountpoint=/home $sys_tank/home
 zfs set mountpoint=/usr $sys_tank/usr
 zfs set mountpoint=/var $sys_tank/var
 
+echo "pool ready"
 # on export et importe le pool
 zpool export $sys_tank
 zpool import -o cachefile=/tmp/zpool.cache -o altroot=/mnt $sys_tank
