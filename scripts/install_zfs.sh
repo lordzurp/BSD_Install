@@ -18,7 +18,7 @@ source_install="https://raw.github.com/lordzurp/BSD_Install/master"
 
 # Nom du pool système
 sys_tank="sys_tank"
-disque_1="ada2"
+disque_1="ada0"
 
 # quelle release on installe ?
 freebsd_install="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/9.2-RELEASE"
@@ -40,9 +40,9 @@ date -u > /tmp/start_time
 # création de la table GPT sur le disque ada2
 #gpart create -s gpt $disque_1
 # création d une partition de boot, début au secteur 34, taille 512 secteurs
-#gpart add -b 34 -s 512 -t freebsd-boot $disque_1
+#gpart add -s 512 -t freebsd-boot $disque_1
 # création de la partition système, début au secteur 2048 (4k ready), 20G, label system
-#gpart add -b 2048 -s 20G-t freebsd-zfs -l system $disque_1
+#gpart add -b 2048 -s 50G -t freebsd-zfs -l system $disque_1
 
 # utile ...
 # on nettoie le precedent pool
@@ -95,7 +95,7 @@ zpool set bootfs=$sys_tank/root $sys_tank
 zfs set readonly=on $sys_tank/var/empty
 
 # swap de 16Go, sans dedup ni checksum
-zfs create -V 4G $sys_tank/swap
+zfs create -V 12G $sys_tank/swap
 zfs set org.freebsd:swap=on $sys_tank/swap
 zfs set checksum=off $sys_tank/swap
 zfs set dedup=off $sys_tank/swap
