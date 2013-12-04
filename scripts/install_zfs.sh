@@ -56,7 +56,7 @@ zpool import -o cachefile=/tmp/zpool.cache -R /mnt $sys_tank
 # on crée l'arboréscence ZFS
 # on installe le système dans $sys_tank/root, ça permet de changer le /root si besoin (upgrade ...)
 zfs create                                                      $sys_tank/root
-zfs create                                                      $sys_tank/home
+#zfs create                                                      $sys_tank/home
 zfs create                                                      $sys_tank/usr
 zfs create                                                      $sys_tank/usr/local
 zfs create -o compression=lzjb                  -o setuid=off   $sys_tank/usr/ports
@@ -76,7 +76,7 @@ zfs create -o compression=lzjb  -o exec=on      -o setuid=off   $sys_tank/var/tm
 zfs create -o compression=on    -o exec=on      -o setuid=off   $sys_tank/tmp
 
 # on crée le /home dans le meme pool --> config disque unique
-zfs create -o compression=on    -o exec=on      -o setuid=off	-o dedup=off   $sys_tank/home
+# zfs create -o compression=on    -o exec=on      -o setuid=off	-o dedup=off   $sys_tank/home
 
 # on définit l'emplacement de la racine pour le boot
 zpool set bootfs=$sys_tank/root $sys_tank
