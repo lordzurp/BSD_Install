@@ -19,7 +19,7 @@ sleep 10
 ########################
 # Debut de l'install
 ########################
-if $edit_script = "NOK" 
+if [ $edit_script = "NOK" ]
 then
     echo 'Fichier de config non personnalisé ! editez bsd_flavour.conf et relancez ce script'
     exit
