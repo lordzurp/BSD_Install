@@ -220,4 +220,4 @@ echo " 20sec avant reboot"
 echo " "
 sleep 20
 echo "time for reboot :)"
-shutdown -r now
+#shutdown -r now

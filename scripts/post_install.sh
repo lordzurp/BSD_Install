@@ -87,6 +87,8 @@ pw groupadd -q -n user -g 1000
 pw groupadd -q -n public_user -g 1010
 
 # Utilisateurs
+echo -n 'toto' |\
+passwd
 # LordZurp
 echo -n 'lordzurp' |\
 pw adduser -n lordzurp -u 1000 -g user -G wheel -s /bin/csh -m -h 0
