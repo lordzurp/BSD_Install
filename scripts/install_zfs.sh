@@ -35,13 +35,13 @@ date -u > /tmp/start_time
 
 # utile ...
 # on nettoie le precedent pool
-zpool import -f -R /mnt -m / $sys_tank
+zpool import -f -R /mnt $sys_tank
 zpool destroy -f $sys_tank
 echo "pool destroyed"
 # ça, c'etait dans le howto ...
 mkdir /boot/zfs
 # on crée un dataset ZFS nommé $sys_tank sur la partition gpt/system
-zpool create $sys_tank /dev/gpt/system
+zpool create -f -R /mnt -m / $sys_tank /dev/gpt/system
 # on change le checksum
 zfs set checksum=fletcher4 $sys_tank
 # on active la deduplication
@@ -51,7 +51,7 @@ zfs set compression=off $sys_tank
 
 # on export et réimporte le pool dans /mnt, en préservant zroot.cache dans /tmp
 zpool export $sys_tank
-zpool import -o cachefile=/tmp/zpool.cache -R /mnt -m / $sys_tank
+zpool import -o cachefile=/tmp/zpool.cache -R /mnt $sys_tank
 
 # on crée l'arboréscence ZFS
 # on installe le système dans $sys_tank/root, ça permet de changer le /root si besoin (upgrade ...)
@@ -102,7 +102,7 @@ zfs set mountpoint=/var $sys_tank/var
 echo "pool ready"
 # on export et importe le pool
 zpool export $sys_tank
-zpool import -o cachefile=/tmp/zpool.cache -R /mnt -m / $sys_tank
+zpool import -o cachefile=/tmp/zpool.cache -R /mnt $sys_tank
 
 chmod 1777 /mnt/tmp
 chmod 1777 /mnt/var/tmp
