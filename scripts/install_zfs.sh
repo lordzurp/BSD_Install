@@ -148,7 +148,8 @@ fetch $source_install/root/etc/sysctl.conf
 ########################
 ### /boot/loader.conf
 ########################
-cd /mnt/boot/loader.conf
+cd /mnt/boot/
+mv loader.conf loader.conf.dist
 fetch $source_install/root/boot/loader.conf
 
 
@@ -199,7 +200,7 @@ echo '     rm -f /etc/rc.d/dummy_script' >> /mnt/etc/rc.d/dummy_script
 #echo '     /usr/scripts/update_scripts.sh' >> /mnt/etc/rc.d/dummy_script
 echo '     echo " "' >> /mnt/etc/rc.d/dummy_script
 echo '     echo "install termine, lancer /usr/scripts/post_install.sh"' >> /mnt/etc/rc.d/dummy_script
-# echo '     /usr/scripts/post_install.sh' >> /mnt/etc/rc.d/dummy_script
+#echo '     /usr/scripts/post_install.sh' >> /mnt/etc/rc.d/dummy_script
 echo '     echo " "' >> /mnt/etc/rc.d/dummy_script
 echo '}' >> /mnt/etc/rc.d/dummy_script
 echo '' >> /mnt/etc/rc.d/dummy_script
@@ -217,7 +218,8 @@ chmod +x /mnt/etc/rc.d/dummy_script
 echo " "
 echo " fin de install_zfs.sh"
 echo " 20sec avant reboot"
+echo "pensez à changer votre passwd root avant de redemarrer !"
 echo " "
 sleep 20
 echo "time for reboot :)"
-#shutdown -r now
+shutdown -r now
