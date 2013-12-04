@@ -220,6 +220,6 @@ echo " fin de install_zfs.sh"
 echo " 20sec avant reboot"
 echo "pensez à changer votre passwd root avant de redemarrer !"
 echo " "
-sleep 20
-echo "time for reboot :)"
-shutdown -r now
+#sleep 20
+#echo "time for reboot :)"
+#shutdown -r now
