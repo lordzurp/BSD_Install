@@ -9,29 +9,18 @@ echo "la suite dans 10s ..."
 
 sleep 10
 
-########################
-# Definition des variables
-########################
-
-# Source des scripts
-source_install="https://raw.github.com/lordzurp/BSD_Install/master"
-
-# Nom du pool système
-sys_tank="sys_tank"
-disque_1="ada0"
-
-# quelle release on installe ?
-freebsd_install="ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/9.2-RELEASE"
-
-# Assurez vous d'avoir édité ce script avant de lancer l'installation
-edit_script="NOK"
+fetch https://raw.github.com/lordzurp/BSD_Install/master/scripts/bsd_flavour.conf
+. bsd_flavour.conf
 
 
 ########################
 # Debut de l'install
 ########################
-#if $edit_script = "NOK" 
-#	then exit
+if $edit_script = "NOK" 
+then
+    echo 'Fichier de config non personnalisé ! editez bsd_flavour.conf et relancez ce script'
+    exit
+fi
 echo " c'est parti !"
 
 date -u > /tmp/start_time
@@ -173,12 +162,11 @@ fetch $source_install/root/etc/ssh/sshd_config
 #bootcode zfs
 ############################
 echo " Editez cette partie du script pour l adapter à votre config !"
-echo " par defaut, installation du bootcode se fait sur ada2"
 echo ""
 echo "la suite dans 10s ..."
 sleep 10
 
-gpart bootcode -b /mnt/boot/pmbr -p /mnt/boot/gptzfsboot -i 1 ada0
+gpart bootcode -b /mnt/boot/pmbr -p /mnt/boot/gptzfsboot -i 1 $disque_1
 
 
 ############################
