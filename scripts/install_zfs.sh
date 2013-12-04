@@ -30,8 +30,8 @@ edit_script="NOK"
 ########################
 # Debut de l'install
 ########################
-if $edit_script = "NOK" 
-	then exit
+#if $edit_script = "NOK" 
+#	then exit
 echo " c'est parti !"
 
 date -u > /tmp/start_time
