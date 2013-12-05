@@ -20,7 +20,7 @@ sleep 10
 ########################
 # Debut de l'install
 ########################
-if [ $edit_script != "OK" ]
+if [ $edit_script = "OK" ]
 then
     echo 'Fichier de config non personnalisé ! editez bsd_flavour.conf et relancez ce script'
     exit
@@ -29,7 +29,7 @@ echo " c'est parti !"
 
 date -u > /tmp/start_time
 
-# on detruit le disque ?
+# on detruit le disque 
 if [ $erase_disc = "YES" ]
 	then
 	
