@@ -7,9 +7,22 @@ echo " "
 sleep 10
 echo " c'est parti !"
 
+. /usr/scripts/bsd_flavour.conf
 
+
+
+if [ $tweak_kernel = "YES" ]; then
 ############################
-### Configuration du système
+### Kernel
+############################
+#
+# Insert Kernel tweak here
+fi
+
+
+if [ $tweak_system = "YES" ]; then
+############################
+### Système
 ############################
 # Mail
 cd /etc/mail
@@ -18,20 +31,10 @@ make aliases
 # Time Zone
 cd /etc/
 ln -s /usr/share/zoneinfo/Europe/Paris localtime
+fi
 
 
-############################
-### Kernel
-############################
-#
-# Insert Kernel tweak here
-
-
-############################
-### Config système
-############################
-
-
+if [ $tweak_security = "YES" ]; then
 ############################
 ### Security Tweaks
 ############################
@@ -47,11 +50,13 @@ sed -i '' s/md5/blf/ /etc/login.conf
 cap_mkdb /etc/login.conf
 
 # set root password
-passwd root
+# passwd root
+fi
 
 
+if [ $switch_subversion = "YES" ]; then
 ############################
-### Ports 
+### Ports - switch vers SubVersion
 ############################
 
 # CVSUP deprecated !! use SubVersion instead !
@@ -61,8 +66,7 @@ echo "fetch"
 portsnap fetch
 echo "extract"
 portsnap extract
-cd /usr/ports/devel/subversion
-make install clean BATCH=yes
+pkg_add -r subversion
 cd /
 rm -fr /var/db/portsnap/*
 rm -fr /usr/ports
@@ -70,15 +74,17 @@ mkdir /usr/ports
 svn checkout svn://svn.freebsd.org/ports/head /usr/ports
 rm -fr /usr/src
 mkdir /usr/src
-svn checkout svn://svn.freebsd.org/base/releng/9.1 /usr/src
+svn checkout $svn_checkout /usr/src
 chmod 700 /root/.subversion
+fi
+
 
 # tools
-cd /usr/ports/sysutils/logrotate/ && make install clean
-cd /usr/ports/editors/nano && make install clean
-cd /usr/ports/ports-mgmt/portmaster && make install clean BATCH=yes
+# cd /usr/ports/sysutils/logrotate/ && make install clean
+# cd /usr/ports/editors/nano && make install clean
+# cd /usr/ports/ports-mgmt/portmaster && make install clean BATCH=yes
 
-
+if [ $tweak_users = "YES" ]; then
 ############################
 ### Gestion des Users
 ############################
@@ -87,8 +93,8 @@ pw groupadd -q -n user -g 1000
 pw groupadd -q -n public_user -g 1010
 
 # Utilisateurs
-echo -n 'toto' |\
-passwd
+#echo -n 'toto' |\
+#passwd
 # LordZurp
 echo -n 'lordzurp' |\
 pw adduser -n lordzurp -u 1000 -g user -G wheel -s /bin/csh -m -h 0
@@ -189,6 +195,7 @@ endif
 
 
 EOF24
+fi
 
 
 ############################

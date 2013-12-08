@@ -8,19 +8,18 @@ echo ""
 echo " Editez le fichier bsd_flavour.conf pour l'adapter a votre configuration"
 echo ""
 
-fetch https://raw.github.com/lordzurp/BSD_Install/master/scripts/bsd_flavour.conf
+fetch http://81.65.112.130/BSD_Install/scripts/bsd_flavour.conf
 . bsd_flavour.conf
 
 echo ""
 echo "la suite dans 10s ..."
 
-sleep 10
-
+#sleep 10
 
 ########################
 # Debut de l'install
 ########################
-if [ $edit_script = "OK" ]
+if [ $edit_script != "OK" ];
 then
     echo 'Fichier de config non personnalisé ! editez bsd_flavour.conf et relancez ce script'
     exit
@@ -30,21 +29,21 @@ echo " c'est parti !"
 date -u > /tmp/start_time
 
 # on detruit le disque 
-if [ $erase_disc = "YES" ]
+if [ $erase_disc = "YES" ];
 	then
 	
 	echo "Erase du disque"
 	
-	gpart delete -f -i 1 $disque_1
-	gpart delete -f -i 2 $disque_1
-	gpart delete -f -i 3 $disque_1
-	gpart delete -f -i 4 $disque_1
-	gpart delete -f -i 5 $disque_1
-	gpart destroy -f $disque_1
+	gpart delete -i 1 $disque_1
+	gpart delete -i 2 $disque_1
+	gpart delete -i 3 $disque_1
+	gpart delete -i 4 $disque_1
+	gpart delete -i 5 $disque_1
+	gpart destroy -F $disque_1
 	echo "disque effacé"
 fi
 
-if [ $partition_disc="YES" ]
+if [ $partition_disc = "YES" ];
 	then
 	echo "Partition du disque"
 	
@@ -54,11 +53,13 @@ if [ $partition_disc="YES" ]
 	gpart add -s 512 -t freebsd-boot $disque_1
 	# création de la partition système, début au secteur 2048 (4k ready), 20G, label system
 	gpart add -b 2048 -s $partition_systeme -t freebsd-zfs -l system $disque_1
-	gpart add -t freebsd-zfs -l data $disque_1
+	if [ $partition_data = "YES" ]; then
+		gpart add -t freebsd-zfs -l data $disque_1
+	fi
 	echo "disque partitionné"
 fi
 
-if [ $create_pool="YES" ]
+if [ $create_pool = "YES" ];
 	then
 
 	echo "Creation du pool ZFS"
@@ -103,7 +104,7 @@ if [ $create_pool="YES" ]
 	zfs create -o compression=lzjb  -o exec=on      -o setuid=off   $sys_tank/var/tmp
 	zfs create -o compression=on    -o exec=on      -o setuid=off   $sys_tank/tmp
 
-	zfs create -o compression=on    -o exec=on      -o setuid=off	-o dedup=off   $data_tank
+#	zfs create -o compression=on    -o exec=on      -o setuid=off	-o dedup=off   $data_tank
 
 
 	# on définit l'emplacement de la racine pour le boot
@@ -127,12 +128,9 @@ if [ $create_pool="YES" ]
 	zfs set mountpoint=none $sys_tank
 	zfs set mountpoint=/ $sys_tank/root
 	zfs set mountpoint=/tmp $sys_tank/tmp
-	zfs set mountpoint=/home $data_tank
+#	zfs set mountpoint=/home $data_tank
 	zfs set mountpoint=/usr $sys_tank/usr
 	zfs set mountpoint=/var $sys_tank/var
-
-	# bootcode zfs
-	gpart bootcode -b /mnt/boot/pmbr -p /mnt/boot/gptzfsboot -i 1 $disque_1
 
 	echo "pool ready"
 
@@ -144,7 +142,7 @@ zpool import -o cachefile=/tmp/zpool.cache -R /mnt $sys_tank
 
 
 # on y va ?
-if [ $valid_install = "YES" ]
+if [ $valid_install = "YES" ];
 	then
 	echo "Debut de l'install"
 	
@@ -164,9 +162,13 @@ if [ $valid_install = "YES" ]
 
 	# on remet le cache zfs
 	cp /tmp/zpool.cache /mnt/boot/zfs/zpool.cache
+	
+	# bootcode zfs
+	gpart bootcode -b /mnt/boot/pmbr -p /mnt/boot/gptzfsboot -i 1 $disque_1
 
 	# Installe fstab, rc.conf sysctl.conf, make.conf et loader.conf, après backup
 	cp /tmp/start_time /mnt/root/start_time
+	cp /tmp/bsd_flavour.conf /mnt/usr/scripts/bsd_flavour.conf
 	touch /mnt/etc/fstab
 
 
@@ -254,7 +256,7 @@ echo " "
 
 date -u > /mnt/root/fin_install_time
 
-if [ $reboot_final = "YES" ]
+if [ $reboot_final = "YES" ];
 	then
 	echo " 20sec avant reboot"
 	sleep 20
