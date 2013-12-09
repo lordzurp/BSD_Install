@@ -168,7 +168,6 @@ if [ $valid_install = "YES" ];
 
 	# Installe fstab, rc.conf sysctl.conf, make.conf et loader.conf, après backup
 	cp /tmp/start_time /mnt/root/start_time
-	cp /tmp/bsd_flavour.conf /mnt/usr/scripts/bsd_flavour.conf
 	touch /mnt/etc/fstab
 
 
@@ -210,7 +209,7 @@ if [ $valid_install = "YES" ];
 	mkdir /mnt/usr/scripts
 	mkdir /mnt/usr/scripts/userland
 	cd /mnt/usr/scripts
-	fetch $source_install/scripts/post_install.sh
+	fetch $source_install/scripts/update_scripts.sh
 	chmod +x update_scripts.sh
 
 
@@ -229,7 +228,7 @@ if [ $valid_install = "YES" ];
 	echo 'dummy_start()' >> /mnt/etc/rc.d/dummy_script
 	echo '{' >> /mnt/etc/rc.d/dummy_script
 	echo '     rm -f /etc/rc.d/dummy_script' >> /mnt/etc/rc.d/dummy_script
-	#echo '     /usr/scripts/update_scripts.sh' >> /mnt/etc/rc.d/dummy_script
+	echo '     /usr/scripts/update_scripts.sh' >> /mnt/etc/rc.d/dummy_script
 	echo '     echo " "' >> /mnt/etc/rc.d/dummy_script
 	echo '     echo "install termine, lancer /usr/scripts/post_install.sh"' >> /mnt/etc/rc.d/dummy_script
 	#echo '     /usr/scripts/post_install.sh' >> /mnt/etc/rc.d/dummy_script
@@ -256,7 +255,7 @@ echo " "
 
 date -u > /mnt/root/fin_install_time
 
-if [ $reboot_final = "YES" ];
+if [ $auto_reboot = "YES" ];
 	then
 	echo " 20sec avant reboot"
 	sleep 20

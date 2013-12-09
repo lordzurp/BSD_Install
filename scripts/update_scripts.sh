@@ -16,6 +16,10 @@ fetch $source_install/scripts/update_kernel.sh
 fetch $source_install/scripts/update_world.sh
 fetch $source_install/scripts/update_userland.sh
 
+# attention, ça effacera votre flavour personnalisé !
+fetch $source_install/scripts/bsd_flavour.conf
+echo "pwet"
+
 #fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/import_user.webmin
 #fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/import_group.webmin
 
