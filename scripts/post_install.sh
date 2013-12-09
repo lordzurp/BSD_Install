@@ -145,8 +145,8 @@ if (\$?prompt) then
 		bindkey "^W" backward-delete-word
 		bindkey -k up history-search-backward
 		bindkey -k down history-search-forward
-	endif
-endif
+	fi
+fi
 
 
 EOF33
@@ -190,8 +190,8 @@ if (\$?prompt) then
 		bindkey "^W" backward-delete-word
 		bindkey -k up history-search-backward
 		bindkey -k down history-search-forward
-	endif
-endif
+	fi
+fi
 
 
 EOF24
@@ -243,4 +243,4 @@ echo " 10sec avant reboot"
 echo " "
 sleep 10
 echo "time for reboot :)"
-shutdown -r now
+# shutdown -r now
