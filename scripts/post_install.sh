@@ -7,6 +7,8 @@ echo " "
 sleep 10
 echo " c'est parti !"
 
+date -u > /root/start_time
+
 . /usr/scripts/bsd_flavour.conf
 
 
@@ -96,8 +98,7 @@ pw groupadd -q -n public_user -g 1010
 #echo -n 'toto' |\
 #passwd
 # LordZurp
-echo -n 'lordzurp' |\
-pw adduser -n lordzurp -u 1000 -g user -G wheel -s /bin/csh -m -h 0
+echo -n 'lordzurp' | pw adduser -n lordzurp -u 1000 -g user -G wheel -s /bin/csh -m -h 0
 # John Doe
 echo -n 'johndoe' |\
 pw adduser -n johndoe -u 1040 -g user -d /dev/null -s /bin/sh -h 0
