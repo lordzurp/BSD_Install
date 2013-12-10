@@ -73,12 +73,22 @@ pkg_add -r pkg
 # màj de la db packages pour PKG
 /usr/local/sbin/pkg2ng
 echo 'WITH_PKGNG=yes' >> /etc/make.conf
-cp /usr/local/etc/pkg.conf.sample /usr/local/etc/pkg.conf
+mkdir -p /usr/local/etc/pkg/repos
+
+mkdir /etc/pkg
+cat << EOF36 > /etc/pkg/FreeBSD.conf
+FreeBSD: {
+  url: "pkg+http://pkg.FreeBSD.org/\${ABI}/latest",
+  mirror_type: "srv",
+  enabled: yes
+}
+EOF36
+
 /usr/local/sbin/pkg update
 
 
 # CVSUP deprecated !! use SubVersion instead !
-pkg install subversion
+/usr/local/sbin/pkg install subversion-1.8.5
 cd /
 rm -fr /var/db/portsnap/*
 
