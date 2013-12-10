@@ -7,7 +7,9 @@ echo " #########################################################################
 echo ""
 echo " Editez le fichier bsd_flavour.conf pour l'adapter a votre configuration"
 echo ""
+
 sleep 10
+echo " c'est parti !"
 
 fetch https://github.com/lordzurp/BSD_Install/raw/master/scripts/bsd_flavour.conf
 . bsd_flavour.conf
@@ -21,7 +23,6 @@ then
     echo 'Fichier de config non personnalisé ! editez bsd_flavour.conf et relancez ce script'
     exit
 fi
-echo " c'est parti !"
 
 date -u > /tmp/start_time
 
@@ -182,6 +183,8 @@ if [ $valid_install = "YES" ];
 	########################
 	### /root/.ssh/ma_cle_ssh.pub
 	########################
+	mkdir /mnt/root
+	mkdir /mnt/root/.ssh
 	echo $ma_cle_ssh >> /mnt/root/.ssh/authorized_keys
 	
 	########################
