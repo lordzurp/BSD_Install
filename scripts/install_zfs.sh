@@ -7,8 +7,9 @@ echo " #########################################################################
 echo ""
 echo " Editez le fichier bsd_flavour.conf pour l'adapter a votre configuration"
 echo ""
+sleep 10
 
-fetch http://81.65.112.130/BSD_Install/scripts/bsd_flavour.conf
+fetch https://github.com/lordzurp/BSD_Install/raw/master/scripts/bsd_flavour.conf
 . bsd_flavour.conf
 
 
@@ -178,6 +179,11 @@ if [ $valid_install = "YES" ];
 	touch /mnt/etc/fstab
 
 
+	########################
+	### /root/.ssh/ma_cle_ssh.pub
+	########################
+	echo $ma_cle_ssh >> /mnt/root/.ssh/authorized_keys
+	
 	########################
 	### /etc/rc.conf
 	########################
