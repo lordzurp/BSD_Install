@@ -11,15 +11,6 @@ echo " c'est parti !"
 
 
 
-if [ $tweak_kernel = "YES" ]; then
-############################
-### Kernel
-############################
-#
-# Insert Kernel tweak here
-fi
-
-
 if [ $tweak_system = "YES" ]; then
 ############################
 ### Système
@@ -30,7 +21,16 @@ make aliases
 
 # Time Zone
 cd /etc/
-ln -s /usr/share/zoneinfo/Europe/Paris localtime
+ln -s $ma_time_zone localtime
+fi
+
+
+if [ $tweak_kernel = "YES" ]; then
+############################
+### Kernel
+############################
+#
+# Insert Kernel tweak here
 fi
 
 
@@ -128,7 +128,7 @@ alias ll	ls -lA
 # A righteous umask
 umask 22
 
-set path = (/sbin /bin /usr/sbin /usr/bin /usr/games /usr/local/sbin /usr/local/bin $HOME/bin)
+set path = (/sbin /bin /usr/sbin /usr/bin /usr/games /usr/local/sbin /usr/local/bin \$HOME/bin)
 
 setenv	EDITOR	nano
 setenv	PAGER	more
@@ -140,13 +140,13 @@ if (\$?prompt) then
 	set filec
 	set history = 1000
 	set savehist = 1000
-	set mail = (/var/mail/$USER)
+	set mail = (/var/mail/\$USER)
 	if ( \$?tcsh ) then
 		bindkey "^W" backward-delete-word
 		bindkey -k up history-search-backward
 		bindkey -k down history-search-forward
-	fi
-fi
+	endif
+endif
 
 
 EOF33
@@ -173,7 +173,7 @@ alias ll	ls -lA
 # A righteous umask
 umask 22
 
-set path = (/sbin /bin /usr/sbin /usr/bin /usr/games /usr/local/sbin /usr/local/bin $HOME/bin)
+set path = (/sbin /bin /usr/sbin /usr/bin /usr/games /usr/local/sbin /usr/local/bin \$HOME/bin)
 
 setenv	EDITOR	nano
 setenv	PAGER	more
@@ -185,13 +185,13 @@ if (\$?prompt) then
 	set filec
 	set history = 1000
 	set savehist = 1000
-	set mail = (/var/mail/$USER)
+	set mail = (/var/mail/\$USER)
 	if ( \$?tcsh ) then
 		bindkey "^W" backward-delete-word
 		bindkey -k up history-search-backward
 		bindkey -k down history-search-forward
-	fi
-fi
+	endif
+endif
 
 
 EOF24
@@ -241,6 +241,13 @@ echo " "
 echo " fin de post_install.sh"
 echo " 10sec avant reboot"
 echo " "
-sleep 10
-echo "time for reboot :)"
-# shutdown -r now
+
+
+if [ $auto_reboot = "YES" ];
+	then
+	echo " 10sec avant reboot"
+	sleep 10
+	echo "time for reboot :)"
+	shutdown -r now
+fi
+

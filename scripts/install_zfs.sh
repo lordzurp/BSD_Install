@@ -11,10 +11,6 @@ echo ""
 fetch http://81.65.112.130/BSD_Install/scripts/bsd_flavour.conf
 . bsd_flavour.conf
 
-echo ""
-echo "la suite dans 10s ..."
-
-#sleep 10
 
 ########################
 # Debut de l'install
@@ -122,13 +118,24 @@ if [ $create_pool = "YES" ];
 	zfs set org.freebsd:swap=on $sys_tank/swap
 	zfs set checksum=off $sys_tank/swap
 	zfs set dedup=off $sys_tank/swap
+	
+	if [ $partition_data = "YES" ]; then
+		zpool create -f -R /mnt/home -m /home $data_tank /dev/gpt/data
+		# on change le checksum
+		zfs set checksum=fletcher4 $data_tank
+		# on desactive la deduplication
+		zfs set dedup=off $data_tank
+		# on desactive la compression par défaut
+		zfs set compression=off $data_tank
+		
+	fi
 
 	# on umount le tout et on refait les points de montage propres
 	zfs umount -a
 	zfs set mountpoint=none $sys_tank
 	zfs set mountpoint=/ $sys_tank/root
 	zfs set mountpoint=/tmp $sys_tank/tmp
-#	zfs set mountpoint=/home $data_tank
+	zfs set mountpoint=/home $data_tank
 	zfs set mountpoint=/usr $sys_tank/usr
 	zfs set mountpoint=/var $sys_tank/var
 
