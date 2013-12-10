@@ -58,18 +58,27 @@ cap_mkdb /etc/login.conf
 fi
 
 
-if [ $switch_subversion = "YES" ]; then
+if [ $tools_install = "YES" ]; then
 ############################
-### Ports - switch vers SubVersion
+### Ports 
 ############################
-
-# CVSUP deprecated !! use SubVersion instead !
-
 echo "fetch"
 portsnap fetch
 echo "extract"
 portsnap extract
-pkg_add -r subversion
+
+# switch to PKG
+pkg_add -r pkg
+
+# màj de la db packages pour PKG
+/usr/local/sbin/pkg2ng
+echo 'WITH_PKGNG=yes' >> /etc/make.conf
+cp /usr/local/etc/pkg.conf.sample /usr/local/etc/pkg.conf
+/usr/local/sbin/pkg update
+
+
+# CVSUP deprecated !! use SubVersion instead !
+pkg install subversion
 cd /
 rm -fr /var/db/portsnap/*
 
@@ -79,6 +88,8 @@ zfs create -o compression=lzjb                  -o setuid=off   $sys_tank/usr/po
 zfs create -o compression=off   -o exec=off     -o setuid=off   $sys_tank/usr/ports/distfiles
 zfs create -o compression=off   -o exec=off     -o setuid=off   $sys_tank/usr/ports/packages
 
+# on repeuple les ports avec Subversion 
+# attention, ça peut etre long ...
 # svn checkout svn://svn.freebsd.org/ports/head /usr/ports
 
 # on supprime /usr/src et on recrée tout de suite le chemin
@@ -87,13 +98,12 @@ zfs create -o compression=lzjb  -o exec=off     -o setuid=off   $sys_tank/usr/sr
 
 # svn checkout $svn_checkout /usr/src
 chmod 700 /root/.subversion
-fi
+	
+# tools
+/usr/local/sbin/pkg install logrotate
+/usr/local/sbin/pkg install nano
+/usr/local/sbin/pkg install portmaster
 
-if [ $tools_install = "YES" ]; then
-	# tools
-	pkg_add -r logrotate
-	pkg_add -r nano
-	pkg_add -r portmaster
 fi
 
 
@@ -136,6 +146,7 @@ alias ls	ls -G
 alias la	ls -a
 alias lf	ls -FA
 alias ll	ls -lA
+alias svn_maj_ports		svn checkout svn://svn.freebsd.org/ports/head /usr/ports
 
 # A righteous umask
 umask 22
