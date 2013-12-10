@@ -58,7 +58,7 @@ cap_mkdb /etc/login.conf
 fi
 
 
-if [ $tools_install = "YES" ]; then
+if [ $system_install = "YES" ]; then
 ############################
 ### Ports 
 ############################
