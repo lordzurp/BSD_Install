@@ -216,7 +216,6 @@ echo '' >> /etc/rc.d/dummy_script
 echo 'dummy_start()' >> /etc/rc.d/dummy_script
 echo '{' >> /etc/rc.d/dummy_script
 echo '     rm -f /etc/rc.d/dummy_script' >> /etc/rc.d/dummy_script
-echo '     date -u > /root/fin_post_time' >> /etc/rc.d/dummy_script
 echo '     echo " "' >> /etc/rc.d/dummy_script
 echo '     echo " post install terminee !"' >> /etc/rc.d/dummy_script
 echo '     echo " "' >> /etc/rc.d/dummy_script
@@ -242,9 +241,8 @@ chmod +x /etc/rc.d/dummy_script
 ############################
 echo " "
 echo " fin de post_install.sh"
-echo " 10sec avant reboot"
 echo " "
-
+date -u > /root/fin_post_time
 
 if [ $auto_reboot = "YES" ];
 	then
