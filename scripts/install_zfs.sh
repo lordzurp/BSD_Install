@@ -185,7 +185,7 @@ if [ $valid_install = "YES" ];
 	########################
 	mkdir /mnt/root
 	mkdir /mnt/root/.ssh
-	echo $ma_cle_ssh >> /mnt/root/.ssh/authorized_keys
+	echo $ma_cle_ssh > /mnt/root/.ssh/authorized_keys
 	
 	########################
 	### /etc/rc.conf
