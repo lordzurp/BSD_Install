@@ -250,5 +250,8 @@ if [ $auto_reboot = "YES" ];
 	sleep 10
 	echo "time for reboot :)"
 	shutdown -r now
+else
+	echo "rebootez maintenant :)"
+	echo "et pensez à remettre votre Kimsufi en boot Hard Disk !!"
 fi
 
