@@ -226,6 +226,7 @@ if [ $valid_install = "YES" ];
 	mkdir /mnt/usr/scripts/userland
 	cd /mnt/usr/scripts
 	fetch $source_install/scripts/update_scripts.sh
+	fetch $source_install/scripts/bsd_flavour.conf
 	chmod +x update_scripts.sh
 
 
