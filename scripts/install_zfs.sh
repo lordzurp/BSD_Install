@@ -273,10 +273,13 @@ echo " "
 date -u > /mnt/root/fin_install_time
 
 if [ $auto_reboot = "YES" ];
-	then
+then
 	echo " 20sec avant reboot"
 	sleep 20
 	echo "time for reboot :)"
 	shutdown -r now
+else
+	echo "rebootez maintenant :)"
+	echo "et pensez à remettre votre Kimsufi en boot Hard Disk !!"
 fi
 

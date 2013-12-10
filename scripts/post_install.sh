@@ -24,6 +24,8 @@ make aliases
 # Time Zone
 cd /etc/
 ln -s $ma_time_zone localtime
+
+zpool import $data_tank
 fi
 
 
