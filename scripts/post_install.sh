@@ -64,8 +64,7 @@ if [ $switch_subversion = "YES" ]; then
 ############################
 
 # CVSUP deprecated !! use SubVersion instead !
-rm -fr /usr/ports
-rm -fr /var/db/sup/* /usr/sup
+
 echo "fetch"
 portsnap fetch
 echo "extract"
@@ -73,20 +72,30 @@ portsnap extract
 pkg_add -r subversion
 cd /
 rm -fr /var/db/portsnap/*
-rm -fr /usr/ports
-mkdir /usr/ports
-svn checkout svn://svn.freebsd.org/ports/head /usr/ports
-rm -fr /usr/src
-mkdir /usr/src
-svn checkout $svn_checkout /usr/src
+
+# on supprime /usr/ports et on recrée tout de suite le chemin
+zfs destroy -r $sys_tank/usr/ports
+zfs create -o compression=lzjb                  -o setuid=off   $sys_tank/usr/ports
+zfs create -o compression=off   -o exec=off     -o setuid=off   $sys_tank/usr/ports/distfiles
+zfs create -o compression=off   -o exec=off     -o setuid=off   $sys_tank/usr/ports/packages
+
+# svn checkout svn://svn.freebsd.org/ports/head /usr/ports
+
+# on supprime /usr/src et on recrée tout de suite le chemin
+zfs destroy $sys_tank/usr/src
+zfs create -o compression=lzjb  -o exec=off     -o setuid=off   $sys_tank/usr/src
+
+# svn checkout $svn_checkout /usr/src
 chmod 700 /root/.subversion
 fi
 
+if [ $tools_install = "YES" ]; then
+	# tools
+	pkg_add -r logrotate
+	pkg_add -r nano
+	pkg_add -r portmaster
+fi
 
-# tools
-# cd /usr/ports/sysutils/logrotate/ && make install clean
-# cd /usr/ports/editors/nano && make install clean
-# cd /usr/ports/ports-mgmt/portmaster && make install clean BATCH=yes
 
 if [ $tweak_users = "YES" ]; then
 ############################
