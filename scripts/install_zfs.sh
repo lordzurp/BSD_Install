@@ -24,7 +24,7 @@ then
     exit
 fi
 
-date -u > /tmp/start_time
+date -u > /tmp/start_install_time
 
 # on detruit le disque 
 if [ $erase_disc = "YES" ];
@@ -176,7 +176,7 @@ if [ $valid_install = "YES" ];
 	gpart bootcode -b /mnt/boot/pmbr -p /mnt/boot/gptzfsboot -i 1 $disque_1
 
 	# Installe fstab, rc.conf sysctl.conf, make.conf et loader.conf, après backup
-	cp /tmp/start_time /mnt/root/start_time
+	cp /tmp/start_install_time /mnt/root/start_install_time
 	touch /mnt/etc/fstab
 
 
@@ -248,7 +248,7 @@ if [ $valid_install = "YES" ];
 	echo '     /usr/scripts/update_scripts.sh' >> /mnt/etc/rc.d/dummy_script
 	echo '     echo " "' >> /mnt/etc/rc.d/dummy_script
 	echo '     echo "install termine, lancer /usr/scripts/post_install.sh"' >> /mnt/etc/rc.d/dummy_script
-	#echo '     /usr/scripts/post_install.sh' >> /mnt/etc/rc.d/dummy_script
+	echo '     /usr/scripts/post_install.sh' >> /mnt/etc/rc.d/dummy_script
 	echo '     echo " "' >> /mnt/etc/rc.d/dummy_script
 	echo '}' >> /mnt/etc/rc.d/dummy_script
 	echo '' >> /mnt/etc/rc.d/dummy_script

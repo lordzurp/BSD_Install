@@ -7,7 +7,7 @@ echo " "
 sleep 10
 echo " c'est parti !"
 
-date -u > /root/start_time
+date -u > /root/start_post_time
 
 . /usr/scripts/bsd_flavour.conf
 
@@ -216,7 +216,7 @@ echo '' >> /etc/rc.d/dummy_script
 echo 'dummy_start()' >> /etc/rc.d/dummy_script
 echo '{' >> /etc/rc.d/dummy_script
 echo '     rm -f /etc/rc.d/dummy_script' >> /etc/rc.d/dummy_script
-echo '     date -u > /root/end_time' >> /etc/rc.d/dummy_script
+echo '     date -u > /root/fin_post_time' >> /etc/rc.d/dummy_script
 echo '     echo " "' >> /etc/rc.d/dummy_script
 echo '     echo " post install terminee !"' >> /etc/rc.d/dummy_script
 echo '     echo " "' >> /etc/rc.d/dummy_script
