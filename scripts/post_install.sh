@@ -62,18 +62,11 @@ if [ $system_install = "YES" ]; then
 ############################
 ### Ports 
 ############################
-echo "fetch"
-portsnap fetch
-echo "extract"
-portsnap extract
-
 # switch to PKG
 pkg_add -r pkg
 
 # màj de la db packages pour PKG
-/usr/local/sbin/pkg2ng
 echo 'WITH_PKGNG=yes' >> /etc/make.conf
-mkdir -p /usr/local/etc/pkg/repos
 
 mkdir /etc/pkg
 cat << EOF36 > /etc/pkg/FreeBSD.conf
@@ -83,6 +76,9 @@ FreeBSD: {
   enabled: yes
 }
 EOF36
+
+mv /usr/local/etc/pkg.conf /usr/local/etc/pkg.conf.old
+/usr/local/sbin/pkg2ng
 
 /usr/local/sbin/pkg update
 
