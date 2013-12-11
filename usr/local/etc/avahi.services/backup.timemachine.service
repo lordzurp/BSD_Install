@@ -1,0 +1,26 @@
+<?xml version="1.0" standalone='no'?><!--*-nxml-*-->
+<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+
+<service-group>
+	<name replace-wildcards="yes">TimeMachine</name>
+
+	<service>
+		<type>_afpovertcp._tcp</type>
+		<port>12002</port>
+	</service>
+
+	<service>
+		<type>_device-info._tcp</type>
+		<port>0</port>
+		<txt-record>model=TimeCapsule</txt-record>
+	</service>
+
+	<service>
+		<type>_adisk._tcp</type>
+		<port>0</port>
+		<txt-record>sys=waMA=00:e0:81:b7:58:7a,adVF=0x100</txt-record>
+		<txt-record>dk0=adVF=0x83,adVN=TimeMachine</txt-record>
+	</service>
+
+
+</service-group>

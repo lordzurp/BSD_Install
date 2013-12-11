@@ -1,0 +1,231 @@
+# No zero mapping feature
+# May break wine
+# (There are also reports about broken samba3)
+#security.bsd.map_at_zero=0
+
+# If you have really busy webserver with apache13 you may run out of processes
+#kern.maxproc=10000
+# Same for servers with apache2 / Pound
+#kern.threads.max_threads_per_proc=4096
+
+# Max. backlog size
+kern.ipc.somaxconn=4096
+
+# Shared memory // 7.2+ can use shared memory > 2Gb
+kern.ipc.shmmax=2147483648
+
+# Sockets
+kern.ipc.maxsockets=204800
+# Do not use lager sockbufs on 8.0 
+# ( http://old.nabble.com/Significant-performance-regression-for-increased-maxsockbuf-on-8.0-RELEASE-tt26745981.html#a26745981 )
+kern.ipc.maxsockbuf=262144 
+
+# Mbuf 2k clusters (on amd64 7.2+ 25600 is default)
+# For such high value vm.kmem_size must be increased to 3G
+kern.ipc.nmbclusters=262144
+
+# Jumbo pagesize(_SC_PAGESIZE) clusters
+# Used as general packet storage for jumbo frames
+# can be monitored via `netstat -m`
+#kern.ipc.nmbjumbop=192000
+
+# Jumbo 9k/16k clusters
+# If you are using them
+#kern.ipc.nmbjumbo9=24000
+#kern.ipc.nmbjumbo16=10240
+
+# Increase max command-line length showed in `ps` (e.g for Tomcat/Java)
+# Default is PAGE_SIZE / 16 or 256 on x86
+# For more info see: http://www.freebsd.org/cgi/query-pr.cgi?pr=120749
+kern.ps_arg_cache_limit=4096
+
+# Every socket is a file, so increase them
+kern.maxfiles=204800
+kern.maxfilesperproc=200000
+kern.maxvnodes=200000
+
+# On some systems HPET is almost 2 times faster than default ACPI-fast
+# Useful on systems with lots of clock_gettime / gettimeofday calls
+# See http://old.nabble.com/ACPI-fast-default-timecounter,-but-HPET-83--faster-td23248172.html
+# After revision 222222 HPET became default: http://svnweb.freebsd.org/base?view=revision&revision=222222
+kern.timecounter.hardware=HPET
+
+# Turn off receive autotuning
+#net.inet.tcp.recvbuf_auto=0
+
+# Small receive space, only usable on http-server, on file server this 
+# should be increased to 65535 or even more
+#net.inet.tcp.recvspace=8192
+
+# Small send space is useful for http servers that serve small files 
+# Autotuned since 7.x
+net.inet.tcp.sendspace=16384
+
+# This should be enabled if you going to use big spaces (>64k)
+# Also timestamp field is useful when using syncookies
+net.inet.tcp.rfc1323=1
+# Turn this off on high-speed, lossless connections (LAN 1Gbit+)
+# If you set it there is no need in TCP_NODELAY sockopt (see man tcp)
+net.inet.tcp.delayed_ack=0
+
+# This feature is useful if you are serving data over modems, Gigabit Ethernet, 
+# or even high speed WAN links (or any other link with a high bandwidth delay product), 
+# especially if you are also using window scaling or have configured a large send window.
+# You can try setting it to 0 on fileserver with 1GBit+ interfaces
+# Automatically disables on small RTT ( http://www.freebsd.org/cgi/cvsweb.cgi/src/sys/netinet/tcp_subr.c?#rev1.237 )
+#net.inet.tcp.inflight.enable=0
+
+# TCP slowstart algorithm tunings
+# We assuming we have very fast clients
+#net.inet.tcp.slowstart_flightsize=100
+#net.inet.tcp.local_slowstart_flightsize=100
+
+
+# Disable randomizing of ports to avoid false RST
+# Before usage check SA here www.bsdcan.org/2006/papers/ImprovingTCPIP.pdf
+# (it's also says that port randomization auto-disables at some conn.rates, but I didn't checked it thou)
+#net.inet.ip.portrange.randomized=0
+
+# Increase portrange
+# For outgoing connections only. Good for seed-boxes and ftp servers.
+net.inet.ip.portrange.first=1024
+net.inet.ip.portrange.last=65535
+
+#
+# stops route cache degregation during a high-bandwidth flood
+# http://www.freebsd.org/doc/en/books/handbook/securing-freebsd.html
+#net.inet.ip.rtexpire=2
+net.inet.ip.rtminexpire=2
+net.inet.ip.rtmaxcache=1024
+
+# Security
+net.inet.ip.redirect=0
+net.inet.ip.sourceroute=0
+net.inet.ip.accept_sourceroute=0
+net.inet.icmp.maskrepl=0
+net.inet.icmp.log_redirect=0
+net.inet.icmp.drop_redirect=1
+net.inet.tcp.drop_synfin=1
+# 
+# There is also good example of sysctl.conf with comments:
+# http://www.thern.org/projects/sysctl.conf
+#
+# icmp may NOT rst, helpful for those pesky spoofed 
+# icmp/udp floods that end up taking up your outgoing
+# bandwidth/ifqueue due to all that outgoing RST traffic.
+#
+#net.inet.tcp.icmp_may_rst=0
+
+# Security
+net.inet.udp.blackhole=1
+net.inet.tcp.blackhole=2
+
+# IPv6 Security
+# For more info see http://www.fosslc.org/drupal/content/security-implications-ipv6
+# Disable Node info replies
+# To see this vulnerability in action run `ping6 -a sglAac ::1` or `ping6 -w ::1` on unprotected node
+net.inet6.icmp6.nodeinfo=0
+# Turn on IPv6 privacy extensions
+# For more info see proposal http://unix.derkeiler.com/Mailing-Lists/FreeBSD/net/2008-06/msg00103.html
+net.inet6.ip6.use_tempaddr=1
+net.inet6.ip6.prefer_tempaddr=1
+# Disable ICMP redirect
+net.inet6.icmp6.rediraccept=0
+# Disable acceptation of RA and auto linklocal generation if you don't use them
+#net.inet6.ip6.accept_rtadv=0
+#net.inet6.ip6.auto_linklocal=0
+
+# Increases default TTL, sometimes useful
+# Default is 64
+net.inet.ip.ttl=128
+
+# Lessen max segment life to conserve resources
+# ACK waiting time in miliseconds
+# (default: 30000. RFC from 1979 recommends 120000)
+net.inet.tcp.msl=5000
+
+# Max bumber of timewait sockets
+net.inet.tcp.maxtcptw=200000
+# Don't use tw on local connections
+# As of 15 Apr 2009. Igor Sysoev says that nolocaltimewait has some buggy realization.
+# So disable it or now till get fixed
+#net.inet.tcp.nolocaltimewait=1
+
+# FIN_WAIT_2 state fast recycle
+net.inet.tcp.fast_finwait2_recycle=1
+
+# Time before tcp keepalive probe is sent
+# default is 2 hours (7200000)
+#net.inet.tcp.keepidle=60000
+
+# Should be increased until net.inet.ip.intr_queue_drops is zero
+net.inet.ip.intr_queue_maxlen=4096
+
+# Interrupt handling via multiple CPU, but with context switch.
+# You can play with it. Default is 1;
+#net.isr.direct=0
+
+# This is for routers only
+#net.inet.ip.forwarding=1
+#net.inet.ip.fastforwarding=1
+
+# This speed ups dummynet when channel isn't saturated
+net.inet.ip.dummynet.io_fast=1
+# Increase dummynet(4) hash
+#net.inet.ip.dummynet.hash_size=2048
+#net.inet.ip.dummynet.max_chain_len
+
+# Should be increased when you have A LOT of files on server 
+# (Increase until vfs.ufs.dirhash_mem becomes lower)
+vfs.ufs.dirhash_maxmem=67108864
+
+# Note from commit http://svn.freebsd.org/base/head@211031 :
+# For systems with RAID volumes and/or virtualization envirnments, where
+# read performance is very important, increasing this sysctl tunable to 32
+# or even more will demonstratively yield additional performance benefits.
+vfs.read_max=32
+
+
+# Explicit Congestion Notification (see http://en.wikipedia.org/wiki/Explicit_Congestion_Notification)
+net.inet.tcp.ecn.enable=1
+
+# Flowtable - flow caching mechanism
+# Useful for routers
+#net.inet.flowtable.enable=1
+#net.inet.flowtable.nmbflows=65535
+
+# Extreme polling tuning
+#kern.polling.burst_max=1000
+#kern.polling.each_burst=1000
+#kern.polling.reg_frac=100
+#kern.polling.user_frac=1
+#kern.polling.idle_poll=0
+
+# IPFW dynamic rules and timeouts tuning
+# Increase dyn_buckets till net.inet.ip.fw.curr_dyn_buckets is lower
+net.inet.ip.fw.dyn_buckets=65536
+net.inet.ip.fw.dyn_max=65536
+net.inet.ip.fw.dyn_ack_lifetime=120
+net.inet.ip.fw.dyn_syn_lifetime=10
+net.inet.ip.fw.dyn_fin_lifetime=2
+net.inet.ip.fw.dyn_short_lifetime=10
+# Make packets pass firewall only once when using dummynet
+# i.e. packets going thru pipe are passing out from firewall with accept
+#net.inet.ip.fw.one_pass=1
+
+# shm_use_phys Wires all shared pages, making them unswappable
+# Use this to lessen Virtual Memory Manager's work when using Shared Mem.
+# Useful for databases
+#kern.ipc.shm_use_phys=1
+
+# ZFS
+# Enable prefetch. Useful for sequential load type i.e fileserver.
+# FreeBSD sets vfs.zfs.prefetch_disable to 1 on any i386 systems and 
+# on any amd64 systems with less than 4GB of avaiable memory
+# For additional info check this nabble thread http://old.nabble.com/Samba-read-speed-performance-tuning-td27964534.html
+#vfs.zfs.prefetch_disable=0
+
+# On highload servers you may notice following message in dmesg:
+# "Approaching the limit on PV entries, consider increasing either the
+# vm.pmap.shpgperproc or the vm.pmap.pv_entry_max tunable"   
+vm.pmap.shpgperproc=2048

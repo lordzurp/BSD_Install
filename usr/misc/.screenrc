@@ -1,0 +1,2 @@
+screen -t "log" 0 tail -F /var/log/messages
+#screen -t "httpd" 1 sh -c "tail -F /var/log/httpd/*error*.log"
