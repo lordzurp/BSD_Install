@@ -24,14 +24,14 @@ setenv	EDITOR	nano
 setenv	PAGER	more
 setenv	BLOCKSIZE	K
 
-if (\$?prompt) then
+if ($?prompt) then
 	# An interactive shell -- set some stuff up
 	set prompt = "%P %{\e[31m%}%n%{\e[0m%}@%{\e[32m%}%M%{\e[0m%} \n%~/ "
 	set filec
 	set history = 1000
 	set savehist = 1000
-	set mail = (/var/mail/\$USER)
-	if ( \$?tcsh ) then
+	set mail = (/var/mail/$USER)
+	if ( $?tcsh ) then
 		bindkey "^W" backward-delete-word
 		bindkey -k up history-search-backward
 		bindkey -k down history-search-forward
