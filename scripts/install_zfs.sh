@@ -244,7 +244,7 @@ if [ $valid_install = "YES" ];
 	echo '' >> /mnt/etc/rc.d/dummy_script
 	echo 'dummy_start()' >> /mnt/etc/rc.d/dummy_script
 	echo '{' >> /mnt/etc/rc.d/dummy_script
-	echo '     rm -f /etc/rc.d/dummy_script' >> /mnt/etc/rc.d/dummy_script
+#	echo '     rm -f /etc/rc.d/dummy_script' >> /mnt/etc/rc.d/dummy_script
 	echo '     /usr/scripts/update_scripts.sh' >> /mnt/etc/rc.d/dummy_script
 	echo '     echo " "' >> /mnt/etc/rc.d/dummy_script
 	echo '     echo "install termine, lancer /usr/scripts/post_install.sh"' >> /mnt/etc/rc.d/dummy_script
