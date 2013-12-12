@@ -6,18 +6,18 @@
 #cd $scripts
 cd /usr/scripts
 
-fetch $source_install/scripts/install_zfs.sh
-fetch $source_install/scripts/post_install.sh
-fetch $source_install/scripts/install_userland.sh
-fetch $source_install/scripts/install_jail.sh
+fetch $source_install/usr/scripts/install_zfs.sh
+fetch $source_install/usr/scripts/post_install.sh
+fetch $source_install/usr/scripts/install_userland.sh
+fetch $source_install/usr/scripts/install_jail.sh
 
-fetch $source_install/scripts/update_scripts.sh
-fetch $source_install/scripts/update_kernel.sh
-fetch $source_install/scripts/update_world.sh
-fetch $source_install/scripts/update_userland.sh
+fetch $source_install/usr/scripts/update_scripts.sh
+fetch $source_install/usr/scripts/update_kernel.sh
+fetch $source_install/usr/scripts/update_world.sh
+fetch $source_install/usr/scripts/update_userland.sh
 
 # attention, ça effacera votre flavour personnalisé !
-fetch $source_install/scripts/bsd_flavour.conf
+fetch $source_install/usr/scripts/bsd_flavour.conf
 
 #fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/import_user.webmin
 #fetch https://raw.github.com/lordzurp/Zurpatator2/master/scripts/import_group.webmin

@@ -192,14 +192,14 @@ if [ $valid_install = "YES" ];
 	########################
 	cd /mnt/etc/
 	mv rc.conf rc.conf.dist
-	fetch $source_install/root/etc/rc.conf
+	fetch $source_install/etc/rc.conf
 	
 	########################
 	### /etc/resolv.conf
 	########################
 	cd /mnt/etc/
 	mv resolv.conf resolv.conf.dist
-	fetch $source_install/root/etc/resolv.conf
+	fetch $source_install/etc/resolv.conf
 
 
 	########################
@@ -207,7 +207,7 @@ if [ $valid_install = "YES" ];
 	########################
 	cd /mnt/etc/
 	mv sysctl.conf sysctl.conf.dist
-	fetch $source_install/root/etc/sysctl.conf
+	fetch $source_install/etc/sysctl.conf
 
 
 	########################
@@ -215,7 +215,7 @@ if [ $valid_install = "YES" ];
 	########################
 	cd /mnt/boot/
 	mv loader.conf loader.conf.dist
-	fetch $source_install/root/boot/loader.conf
+	fetch $source_install/boot/loader.conf
 
 
 	########################
@@ -223,7 +223,7 @@ if [ $valid_install = "YES" ];
 	########################
 	cd /mnt/etc/ssh/
 	mv sshd_config sshd_config.dist
-	fetch $source_install/root/etc/ssh/sshd_config
+	fetch $source_install/etc/ssh/sshd_config
 
 
 	############################
@@ -232,8 +232,8 @@ if [ $valid_install = "YES" ];
 	mkdir /mnt/usr/scripts
 	mkdir /mnt/usr/scripts/userland
 	cd /mnt/usr/scripts
-	fetch $source_install/scripts/update_scripts.sh
-	fetch $source_install/scripts/bsd_flavour.conf
+	fetch $source_install/usr/scripts/update_scripts.sh
+	fetch $source_install/usr/scripts/bsd_flavour.conf
 	chmod +x update_scripts.sh
 
 
