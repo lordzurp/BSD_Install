@@ -7,13 +7,12 @@ echo " "
 sleep 10
 echo " c'est parti !"
 
-date -u > /root/start_post_time
 
 . /usr/scripts/bsd_flavour.conf
 
 
 
-if [ $tweak_system = "YES" ]; then
+if [ ${tweak_system} = "YES" ]; then
 ############################
 ### Système
 ############################
@@ -23,13 +22,14 @@ make aliases
 
 # Time Zone
 cd /etc/
-ln -s $ma_time_zone localtime
+ln -s ${ma_time_zone} localtime
 
-zpool import $data_tank
+zpool import ${jail_tank}
+zpool import ${data_tank}
 fi
 
 
-if [ $tweak_kernel = "YES" ]; then
+if [ ${tweak_kernel} = "YES" ]; then
 ############################
 ### Kernel
 ############################
@@ -38,7 +38,7 @@ if [ $tweak_kernel = "YES" ]; then
 fi
 
 
-if [ $tweak_security = "YES" ]; then
+if [ ${tweak_security} = "YES" ]; then
 ############################
 ### Security Tweaks
 ############################
@@ -58,7 +58,7 @@ cap_mkdb /etc/login.conf
 fi
 
 
-if [ $system_install = "YES" ]; then
+if [ ${system_install} = "YES" ]; then
 	
 #
 # Attention !!
@@ -67,14 +67,13 @@ if [ $system_install = "YES" ]; then
 # a utiliser uniquement depuis une console
 
 
-############################
-### Ports 
-############################
 # switch to PKG
-pkg_add -r pkg
+env ASSUME_ALWAYS_YES=YES pkg bootstrap
+pkg
 
 # màj de la db packages pour PKG
 echo 'WITH_PKGNG=yes' >> /etc/make.conf
+echo 'WITH_SVN=YES' >> /etc/make.conf
 
 mkdir /etc/pkg
 cat << EOF36 > /etc/pkg/FreeBSD.conf
@@ -90,38 +89,50 @@ mv /usr/local/etc/pkg.conf /usr/local/etc/pkg.conf.old
 
 /usr/local/sbin/pkg update
 
-
-# CVSUP deprecated !! use SubVersion instead !
-/usr/local/sbin/pkg install subversion-1.8.5
 cd /
 rm -fr /var/db/portsnap/*
 
 # on supprime /usr/ports et on recrée tout de suite le chemin
-zfs destroy -r $sys_tank/usr/ports
-zfs create -o compression=lzjb                  -o setuid=off   $sys_tank/usr/ports
-zfs create -o compression=off   -o exec=off     -o setuid=off   $sys_tank/usr/ports/distfiles
-zfs create -o compression=off   -o exec=off     -o setuid=off   $sys_tank/usr/ports/packages
+zfs destroy -r ${sys_tank}/usr/ports
+zfs create                 -o setuid=off   ${sys_tank}/usr/ports
+zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/distfiles
+zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/packages
 
-# on repeuple les ports avec Subversion 
-# attention, ça peut etre long ...
+echo '# on met a jour les ports avec svn'
+echo '# attention, ça va etre long ...'
+echo '# bon, là on va pas le faire vraiment :)'
 # svn checkout svn://svn.freebsd.org/ports/head /usr/ports
 
 # on supprime /usr/src et on recrée tout de suite le chemin
-zfs destroy $sys_tank/usr/src
-zfs create -o compression=lzjb  -o exec=off     -o setuid=off   $sys_tank/usr/src
+zfs destroy ${sys_tank}/usr/src
+zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/src
 
+
+echo '# on met a jour les sources avec svn'
+echo '# attention, ça va etre long ...'
+echo '# bon, là on va pas le faire vraiment :)'
 # svn checkout $svn_checkout /usr/src
+
 chmod 700 /root/.subversion
-	
-# tools
+
+############################
+### Ports utiles
+############################
 /usr/local/sbin/pkg install logrotate
 /usr/local/sbin/pkg install nano
 /usr/local/sbin/pkg install portmaster
 
+# Jails
+# Le gros morceau ...
+
+/usr/local/sbin/pkg install ezjail
+
+
+# Fin install system
 fi
 
 
-if [ $tweak_users = "YES" ]; then
+if [ ${tweak_users} = "YES" ]; then
 ############################
 ### Gestion des Users
 ############################
@@ -234,40 +245,13 @@ endif
 EOF24
 fi
 
+# sale tweak pour un bon affichage dans TextMate ...
+fi
+fi
 
-############################
-### dummy_script auto-start
-############################
-# on lance l'update du kernel + world au reboot
-echo '#!/bin/sh' > /etc/rc.d/dummy_script
-echo '' >> /etc/rc.d/dummy_script
-echo '. /etc/rc.subr' >> /etc/rc.d/dummy_script
-echo '' >> /etc/rc.d/dummy_script
-echo 'name="dummy"' >> /etc/rc.d/dummy_script
-echo "start_cmd=\"\${name}_start\"" >> /etc/rc.d/dummy_script
-echo "stop_cmd=\":\"" >> /etc/rc.d/dummy_script
-echo '' >> /etc/rc.d/dummy_script
-echo 'dummy_start()' >> /etc/rc.d/dummy_script
-echo '{' >> /etc/rc.d/dummy_script
-echo '     rm -f /etc/rc.d/dummy_script' >> /etc/rc.d/dummy_script
-echo '     echo " "' >> /etc/rc.d/dummy_script
-echo '     echo " post install terminee !"' >> /etc/rc.d/dummy_script
-echo '     echo " "' >> /etc/rc.d/dummy_script
-echo '     uname -a' >> /etc/rc.d/dummy_script
-echo '     echo " pensez a mettre a jour le monde et le kernel "' >> /etc/rc.d/dummy_script
-echo '     echo " "' >> /etc/rc.d/dummy_script
-echo '     echo " start time : " && cat /root/start_time' >> /etc/rc.d/dummy_script
-echo '     echo " end time   : " && cat /root/end_time' >> /etc/rc.d/dummy_script
-echo '     echo " "' >> /etc/rc.d/dummy_script
-echo '     echo " "' >> /etc/rc.d/dummy_script
-echo '}' >> /etc/rc.d/dummy_script
-echo '' >> /etc/rc.d/dummy_script
-echo "load_rc_config \"\$name\"" >> /etc/rc.d/dummy_script
-echo "run_rc_command \"\$1\"" >> /etc/rc.d/dummy_script
-echo '' >> /etc/rc.d/dummy_script
 
-# on rend executable le dummy_script
-chmod +x /etc/rc.d/dummy_script
+# on crée un snapshot ZFS du système tel qu'à l'origine
+zfs snapshot -r ${sys_tank}/root@fresh_install
 
 
 ############################
@@ -276,16 +260,15 @@ chmod +x /etc/rc.d/dummy_script
 echo " "
 echo " fin de post_install.sh"
 echo " "
-date -u > /root/fin_post_time
 
-if [ $auto_reboot = "YES" ];
+
+if [ ${auto_reboot} = "YES" ];
 	then
 	echo " 10sec avant reboot"
 	sleep 10
 	echo "time for reboot :)"
 	shutdown -r now
 else
-	echo "rebootez maintenant :)"
-	echo "et pensez à remettre votre Kimsufi en boot Hard Disk !!"
+	echo "rebootez maintenant !"
 fi
 

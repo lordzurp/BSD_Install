@@ -29,3 +29,16 @@ git commit -m 'inital commit'
 git create $git_backup
 git push origin master
 
+# ajout des fichiers à suivre
+watched_files="
+/etc/rc.conf
+/etc/fstab
+/etc/resolv.conf
+/etc/sysctl.conf
+/boot/loader.conf
+"
+for I in ${watched_files}; do
+	svnlite add ${I}
+done
+
+
