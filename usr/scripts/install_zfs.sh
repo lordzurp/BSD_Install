@@ -275,6 +275,9 @@ if [ ${valid_install} = "YES" ];
  fetch https://github.com/lordzurp/BSD_Install/raw/master/usr/scripts/bsd_flavour.conf
  fetch https://github.com/lordzurp/BSD_Install/raw/master/usr/scripts/post_install.sh
  chmod +x post_install.sh
+ # version moderne
+
+# svn checkout $source_install_svn /mnt
 
 
 fi
