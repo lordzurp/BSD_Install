@@ -43,7 +43,11 @@ fi
 if [ ${erase_disc} = "YES" ];
 	then
 	
-	echo "Erase du disque"
+	echo ''
+	echo '########################'
+	echo "# Erase du disque"
+	echo '########################'
+	echo ''
 	
 	gpart delete -i 1 ${disque_1}
 	gpart delete -i 2 ${disque_1}
@@ -55,12 +59,21 @@ if [ ${erase_disc} = "YES" ];
 	gpart delete -i 8 ${disque_1}
 	gpart delete -i 9 ${disque_1}
 	gpart destroy -F ${disque_1}
-	echo "disque effacé"
+	echo ''
+	echo '########################'
+	echo "# disque effacé"
+	echo '########################'
+	echo ''
+	
 fi
 
 if [ ${partition_disc} = "YES" ];
 	then
-	echo "Partition du disque"
+	echo ''
+	echo '########################'
+	echo "# Partition du disque"
+	echo '########################'
+	echo ''
 	
 	# création de la table GPT sur le disque 
 	gpart create -s gpt ${disque_1}
@@ -78,13 +91,23 @@ if [ ${partition_disc} = "YES" ];
 	if [ $partition_data != "" ]; then
 		gpart add -s ${partition_data} -t freebsd-zfs -l data ${disque_1}
 	fi
-	echo "disque partitionné"
+	echo ''
+	echo '########################'
+	echo "# disque partitionné"
+	echo '########################'
+	echo ''
+	
 fi
 
 if [ $create_pool = "YES" ];
 	then
 
-	echo "Creation du pool ZFS"
+	echo ''
+	echo '########################'
+	echo "# Effacement du pool ZFS"
+	echo '########################'
+	echo ''
+	
 	
 	# on nettoie le precedent pool
 	zpool import -f -R /mnt ${sys_tank}
@@ -96,8 +119,19 @@ if [ $create_pool = "YES" ];
 	zpool import -f -R /mnt ${data_tank}
 	zpool destroy -f ${data_tank}
 	
-	echo "pool destroyed"
+	echo ''
+	echo '########################'
+	echo "# pool destroyed"
+	echo '########################'
+	echo ''
 	
+
+	echo ''
+	echo '########################'
+	echo "# Creation du pool ZFS"
+	echo '########################'
+	echo ''
+		
 	# ça, c'etait dans le howto ... alors on laisse malgrè le warning ...
 	mkdir /boot/zfs
 	# on crée un dataset ZFS nommé ${sys_tank} sur la partition gpt/system
@@ -184,7 +218,12 @@ if [ $create_pool = "YES" ];
 	zfs set mountpoint=/jails ${jail_tank}
 	zfs set mountpoint=/media ${data_tank}
 
-	echo "pool ready"
+	echo ''
+	echo '########################'
+	echo "# pool ready"
+	echo '########################'
+	echo ''
+	
 
 fi
 
@@ -196,7 +235,12 @@ zpool import -o cachefile=/tmp/zpool.cache -R /mnt ${sys_tank}
 # on y va ?
 if [ ${valid_install} = "YES" ];
 	then
-	echo "Debut de l'install"
+	echo ''
+	echo '########################'
+	echo "# Debut de l'install"
+	echo '########################'
+	echo ''
+	
 	
 	# Install de FreeBSD dans ${sys_tank}/root, monté sur /mnt
 	mkdir -P /mnt/tmp/freebsd-dist
@@ -290,9 +334,12 @@ fi
 ############################
 # fin et reboot ?
 ############################
-echo " "
-echo " fin de install_zfs.sh"
-echo " "
+echo ''
+echo '########################'
+echo "# fin de install_zfs.sh"
+echo '########################'
+echo ''
+
 
 
 if [ $auto_reboot = "YES" ];
