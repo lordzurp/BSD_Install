@@ -213,53 +213,13 @@ if [ ${valid_install} = "YES" ];
 	mkdir /mnt/root
 	mkdir /mnt/root/.ssh
 	echo $ma_cle_ssh > /mnt/root/.ssh/authorized_keys
-	
-	########################
-	### /etc/rc.conf
-	########################
-	cd /mnt/etc/
-	mv rc.conf rc.conf.dist
-	fetch ${source_install}/etc/rc.conf
-	
-	########################
-	### /etc/resolv.conf
-	########################
-	cd /mnt/etc/
-	mv resolv.conf resolv.conf.dist
-	fetch ${source_install}/etc/resolv.conf
-
-
-	########################
-	### /etc/sysctl.conf
-	########################
-	cd /mnt/etc/
-	mv sysctl.conf sysctl.conf.dist
-	fetch ${source_install}/etc/sysctl.conf
-
-
-	########################
-	### /boot/loader.conf
-	########################
-	cd /mnt/boot/
-	mv loader.conf loader.conf.dist
-	fetch ${source_install}/boot/loader.conf
-
-
-	########################
-	### /etc/ssh/sshd_config
-	########################
-	cd /mnt/etc/ssh/
-	mv sshd_config sshd_config.dist
-	fetch ${source_install}/etc/ssh/sshd_config
 
 
 	############################
-	# installation des scripts
+	# installation de la config via svn
 	############################
-	mkdir /mnt/usr/scripts
-	cd /mnt/usr/scripts
-	svn checkout ${source_install}_svn/usr/scripts .
-	chmod +x update_scripts.sh
+	svnlite checkout ${source_install_svn} /mnt
+	chmod +x /mnt/usr/scripts/*
 
 
 fi
