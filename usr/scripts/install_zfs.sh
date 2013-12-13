@@ -95,6 +95,7 @@ if [ $create_pool = "YES" ];
 	zfs set dedup=on ${sys_tank}
 	# on desactive la compression par défaut
 	zfs set compression=lz4 ${sys_tank}
+	zfs set atime=off ${sys_tank}
 
 	# on export et réimporte le pool dans /mnt, en préservant zroot.cache dans /tmp
 	zpool export ${sys_tank}
@@ -109,8 +110,7 @@ if [ $create_pool = "YES" ];
 	zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/distfiles
 	zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/packages
 	zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/src
-	zfs create                 -o setuid=off   ${sys_tank}/usr/jails
-	zfs create                                                      ${sys_tank}/var
+	zfs create                                 ${sys_tank}/var
 	zfs create -o exec=off     -o setuid=off   ${sys_tank}/var/crash
 	zfs create -o exec=off     -o setuid=off   ${sys_tank}/var/db
 	zfs create -o exec=on      -o setuid=off   ${sys_tank}/var/db/pkg
@@ -134,6 +134,14 @@ if [ $create_pool = "YES" ];
 	chmod 1777 /mnt/tmp
 	chmod 1777 /mnt/var/tmp
 
+	# jail_tank
+	zpool create -f -R /mnt/jails -m /jails ${jail_tank} /dev/gpt/jail
+	# on change le checksum
+	zfs set checksum=fletcher4 ${jail_tank}
+	zfs set dedup=on ${jail_tank}
+	zfs set compression=lz4 ${jail_tank}
+	zfs set atime=off ${jail_tank}
+	
 	# swap, sans dedup ni checksum
 	zfs create -V ${partition_swap} ${sys_tank}/swap
 	zfs set org.freebsd:swap=on ${sys_tank}/swap
@@ -158,7 +166,7 @@ if [ $create_pool = "YES" ];
 	zfs set mountpoint=/usr ${sys_tank}/usr
 	zfs set mountpoint=/var ${sys_tank}/var
 	
-	zfs set mountpoint=/jail ${jail_tank}
+	zfs set mountpoint=/jails ${jail_tank}
 	zfs set mountpoint=/media ${data_tank}
 
 	echo "pool ready"
