@@ -8,10 +8,12 @@ echo " # ce script doit etre edite AVANT de le lancer, pour configurer vos disqu
 echo " # sinon, votre disque sera efface et votre chat brulera votre maison        #"
 echo " #                                                                           #"
 echo " #############################################################################"
+echo ""
 
 fetch https://github.com/lordzurp/BSD_Install/raw/master/usr/scripts/bsd_flavour.conf
 . bsd_flavour.conf
 
+echo ""
 echo " #############################################################################"
 echo " #                                                                           #"
 echo " # Editez le fichier bsd_flavour.conf pour l'adapter a votre configuration   #"
@@ -131,7 +133,8 @@ if [ $create_pool = "YES" ];
 	zfs set readonly=on ${sys_tank}/var/empty
 
 	# /tmp en accès libre
-	chmod 1777 /mnt/tmp
+	# inutile --> /tmp en ram (tmpmfs)
+	# chmod 1777 /mnt/tmp
 	chmod 1777 /mnt/var/tmp
 
 	# jail_tank
@@ -184,7 +187,7 @@ if [ ${valid_install} = "YES" ];
 	echo "Debut de l'install"
 	
 	# Install de FreeBSD dans ${sys_tank}/root, monté sur /mnt
-	mkdir /mnt/tmp/freebsd-dist
+	mkdir -P /mnt/tmp/freebsd-dist
 	cd /mnt/tmp/freebsd-dist
 	fetch ${freebsd_install}/base.txz
 	fetch ${freebsd_install}/lib32.txz
