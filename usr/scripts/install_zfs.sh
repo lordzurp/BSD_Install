@@ -85,7 +85,15 @@ if [ $create_pool = "YES" ];
 	# on nettoie le precedent pool
 	zpool import -f -R /mnt ${sys_tank}
 	zpool destroy -f ${sys_tank}
+
+	zpool import -f -R /mnt ${jail_tank}
+	zpool destroy -f ${jail_tank}
+
+	zpool import -f -R /mnt ${data_tank}
+	zpool destroy -f ${data_tank}
+	
 	echo "pool destroyed"
+	
 	# ça, c'etait dans le howto ... alors on laisse malgrè le warning ...
 	mkdir /boot/zfs
 	# on crée un dataset ZFS nommé ${sys_tank} sur la partition gpt/system
