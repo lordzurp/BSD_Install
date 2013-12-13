@@ -50,6 +50,10 @@ if [ ${erase_disc} = "YES" ];
 	gpart delete -i 3 ${disque_1}
 	gpart delete -i 4 ${disque_1}
 	gpart delete -i 5 ${disque_1}
+	gpart delete -i 6 ${disque_1}
+	gpart delete -i 7 ${disque_1}
+	gpart delete -i 8 ${disque_1}
+	gpart delete -i 9 ${disque_1}
 	gpart destroy -F ${disque_1}
 	echo "disque effacé"
 fi
@@ -275,9 +279,9 @@ if [ ${valid_install} = "YES" ];
  fetch https://github.com/lordzurp/BSD_Install/raw/master/usr/scripts/bsd_flavour.conf
  fetch https://github.com/lordzurp/BSD_Install/raw/master/usr/scripts/post_install.sh
  chmod +x post_install.sh
+ 
  # version moderne
-
-# svn checkout $source_install_svn /mnt
+ # svn checkout $source_install_svn /mnt
 
 
 fi
