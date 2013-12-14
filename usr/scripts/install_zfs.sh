@@ -327,7 +327,9 @@ if [ ${valid_install} = "YES" ];
  # version moderne
  # svn checkout $source_install_svn /mnt
 
-
+	# on clean $sys_tank/tmp, il est monté en ram par rc.conf
+	zfs delete -f ${sys_tank}/tmp
+	
 fi
 
 
