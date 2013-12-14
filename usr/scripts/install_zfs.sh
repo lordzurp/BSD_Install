@@ -259,7 +259,7 @@ if [ ${valid_install} = "YES" ];
 
 	export DESTDIR=/mnt
 	for file in base.txz lib32.txz kernel.txz doc.txz ports.txz src.txz;
-	do (cat $file | tar --unlink -xpvJf - -C ${DESTDIR:-/}); done
+	do (cat $file | tar --unlink -xpJf - -C ${DESTDIR:-/}); done
 
 	# on remet le cache zfs
 	cp /tmp/zpool.cache /mnt/boot/zfs/zpool.cache
