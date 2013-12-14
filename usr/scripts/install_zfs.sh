@@ -198,7 +198,7 @@ if [ $create_pool = "YES" ];
 	zfs set checksum=off ${sys_tank}/swap
 	zfs set dedup=off ${sys_tank}/swap
 	
-	if [ ${partition_data} = "YES" ]; then
+	if [ ${partition_data} != "NO" ]; then
 		zpool create -f -R /mnt/media -m /media ${data_tank} /dev/gpt/data
 		# on change le checksum
 		zfs set checksum=fletcher4 ${data_tank}
