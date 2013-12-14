@@ -88,7 +88,7 @@ if [ ${partition_disc} = "YES" ];
 	gpart add -s ${partition_jail} -t freebsd-zfs -l jail ${disque_1}
 
 	# création de la partition /media, label data
-	if [ $partition_data != "" ]; then
+	if [ ${partition_data} != "NO" ]; then
 		gpart add -s ${partition_data} -t freebsd-zfs -l data ${disque_1}
 	fi
 	echo ''
@@ -96,6 +96,7 @@ if [ ${partition_disc} = "YES" ];
 	echo "# disque partitionné"
 	echo '########################'
 	echo ''
+	gpart show
 	
 fi
 
@@ -223,6 +224,7 @@ if [ $create_pool = "YES" ];
 	echo "# pool ready"
 	echo '########################'
 	echo ''
+	zfs list
 	
 
 fi
@@ -271,48 +273,45 @@ if [ ${valid_install} = "YES" ];
 	########################
 	mkdir /mnt/root
 	mkdir /mnt/root/.ssh
-	echo $ma_cle_ssh > /mnt/root/.ssh/authorized_keys
+	echo ${ma_cle_ssh} > /mnt/root/.ssh/authorized_keys
 
 
- 
- ########################
- ### /etc/rc.conf
- ########################
- cd /mnt/etc/
- mv rc.conf rc.conf.dist
- fetch ${source_install}/etc/rc.conf
- 
- ########################
- ### /etc/resolv.conf
- ########################
- cd /mnt/etc/
- mv resolv.conf resolv.conf.dist
- fetch ${source_install}/etc/resolv.conf
-	-
-	-
- ########################
- ### /etc/sysctl.conf
- ########################
- cd /mnt/etc/
- mv sysctl.conf sysctl.conf.dist
- fetch ${source_install}/etc/sysctl.conf
-	-
-	-
- ########################
- ### /boot/loader.conf
- ########################
- cd /mnt/boot/
- mv loader.conf loader.conf.dist
- fetch ${source_install}/boot/loader.conf
-	-
-	-
- ########################
- ### /etc/ssh/sshd_config
- ########################
- cd /mnt/etc/ssh/
- mv sshd_config sshd_config.dist
- fetch ${source_install}/etc/ssh/sshd_config
- 
+
+	########################
+	### /etc/rc.conf
+	########################
+	cd /mnt/etc/
+	mv rc.conf rc.conf.dist
+	fetch ${source_install}/etc/rc.conf
+
+	########################
+	### /etc/resolv.conf
+	########################
+	cd /mnt/etc/
+	mv resolv.conf resolv.conf.dist
+	fetch ${source_install}/etc/resolv.conf
+
+	########################
+	### /etc/sysctl.conf
+	########################
+	cd /mnt/etc/
+	mv sysctl.conf sysctl.conf.dist
+	fetch ${source_install}/etc/sysctl.conf
+
+	########################
+	### /boot/loader.conf
+	########################
+	cd /mnt/boot/
+	mv loader.conf loader.conf.dist
+	fetch ${source_install}/boot/loader.conf
+
+	########################
+	### /etc/ssh/sshd_config
+	########################
+	cd /mnt/etc/ssh/
+	mv sshd_config sshd_config.dist
+	fetch ${source_install}/etc/ssh/sshd_config
+
  
 	 	############################
  # installation des scripts
@@ -342,7 +341,7 @@ echo ''
 
 
 
-if [ $auto_reboot = "YES" ];
+if [ ${auto_reboot} = "YES" ];
 then
 	echo " 20sec avant reboot"
 	sleep 20
