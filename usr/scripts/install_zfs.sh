@@ -239,6 +239,7 @@ zpool import -o cachefile=/tmp/zpool.cache -R /mnt ${sys_tank}
 # on y va ?
 if [ ${valid_install} = "YES" ];
 	then
+	
 	echo ''
 	echo '########################'
 	echo "# Debut de l'install"
@@ -256,6 +257,12 @@ if [ ${valid_install} = "YES" ];
 #	on n'installe pas les ports --> switch vers Subversion
 #	fetch ${freebsd_install}/ports.txz
 #	fetch ${freebsd_install}/src.txz
+
+	echo ''
+	echo '########################'
+	echo "# Expand des paquets"
+	echo '########################'
+	echo ''
 
 	export DESTDIR=/mnt
 	for file in base.txz lib32.txz kernel.txz doc.txz ports.txz src.txz;
@@ -329,7 +336,7 @@ if [ ${valid_install} = "YES" ];
  # svn checkout $source_install_svn /mnt
 
 	# on clean $sys_tank/tmp, il est monté en ram par rc.conf
-	zfs delete -f ${sys_tank}/tmp
+	zfs destroy -f ${sys_tank}/tmp
 	
 fi
 
