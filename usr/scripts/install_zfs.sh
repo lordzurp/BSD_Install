@@ -224,6 +224,7 @@ if [ $create_pool = "YES" ];
 	echo "# pool ready"
 	echo '########################'
 	echo ''
+	zpool list
 	zfs list
 	
 
