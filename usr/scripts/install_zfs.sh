@@ -185,7 +185,7 @@ if [ $create_pool = "YES" ];
 	chmod 1777 /mnt/var/tmp
 
 	# jail_tank
-	zpool create -f -R /mnt/jails -m /jails ${jail_tank} /dev/gpt/jail
+	zpool create -f -R /mnt/jails ${jail_tank} /dev/gpt/jail
 	# on change le checksum
 	zfs set checksum=fletcher4 ${jail_tank}
 	zfs set dedup=on ${jail_tank}
