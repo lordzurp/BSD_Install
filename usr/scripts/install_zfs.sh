@@ -45,6 +45,30 @@ if [ ${erase_disc} = "YES" ];
 	
 	echo ''
 	echo '########################'
+	echo "# Effacement du pool ZFS"
+	echo '########################'
+	echo ''
+	
+	
+	# on nettoie le precedent pool
+	zpool import -f -R /mnt ${sys_tank}
+	zpool destroy -f ${sys_tank}
+
+	zpool import -f -R /mnt ${jail_tank}
+	zpool destroy -f ${jail_tank}
+
+	zpool import -f -R /mnt ${data_tank}
+	zpool destroy -f ${data_tank}
+	
+	echo ''
+	echo '########################'
+	echo "# pool destroyed"
+	echo '########################'
+	echo ''
+	
+	
+	echo ''
+	echo '########################'
 	echo "# Erase du disque"
 	echo '########################'
 	echo ''
@@ -102,30 +126,6 @@ fi
 
 if [ $create_pool = "YES" ];
 	then
-
-	echo ''
-	echo '########################'
-	echo "# Effacement du pool ZFS"
-	echo '########################'
-	echo ''
-	
-	
-	# on nettoie le precedent pool
-	zpool import -f -R /mnt ${sys_tank}
-	zpool destroy -f ${sys_tank}
-
-	zpool import -f -R /mnt ${jail_tank}
-	zpool destroy -f ${jail_tank}
-
-	zpool import -f -R /mnt ${data_tank}
-	zpool destroy -f ${data_tank}
-	
-	echo ''
-	echo '########################'
-	echo "# pool destroyed"
-	echo '########################'
-	echo ''
-	
 
 	echo ''
 	echo '########################'
