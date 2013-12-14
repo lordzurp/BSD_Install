@@ -10,7 +10,11 @@ echo " c'est parti !"
 
 . /usr/scripts/bsd_flavour.conf
 
+#cd $scripts
+cd /usr/scripts
 
+svn checkout $source_install_svn/usr/scripts .
+chmod -R +x *
 
 if [ ${tweak_system} = "YES" ]; then
 ############################
@@ -245,9 +249,6 @@ endif
 EOF24
 fi
 
-# sale tweak pour un bon affichage dans TextMate ...
-fi
-fi
 
 
 # on crée un snapshot ZFS du système tel qu'à l'origine
