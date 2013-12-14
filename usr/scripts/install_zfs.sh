@@ -168,7 +168,7 @@ if [ $create_pool = "YES" ];
 	zfs create -o exec=off     -o setuid=off   ${sys_tank}/var/mail
 	zfs create -o exec=off     -o setuid=off   ${sys_tank}/var/run
 	zfs create -o exec=on      -o setuid=off   ${sys_tank}/var/tmp
-#	zfs create -o compression=on    -o exec=on      -o setuid=off   ${sys_tank}/tmp
+	zfs create -o exec=on      -o setuid=off   ${sys_tank}/tmp
 
 #	zfs create -o compression=on    -o exec=on      -o setuid=off	-o dedup=off   ${data_tank}
 
@@ -246,7 +246,7 @@ if [ ${valid_install} = "YES" ];
 	
 	
 	# Install de FreeBSD dans ${sys_tank}/root, monté sur /mnt
-	mkdir -P /mnt/tmp/freebsd-dist
+	mkdir /mnt/tmp/freebsd-dist
 	cd /mnt/tmp/freebsd-dist
 	fetch ${freebsd_install}/base.txz
 	fetch ${freebsd_install}/lib32.txz
