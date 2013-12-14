@@ -180,8 +180,7 @@ if [ $create_pool = "YES" ];
 	zfs set readonly=on ${sys_tank}/var/empty
 
 	# /tmp en accès libre
-	# inutile --> /tmp en ram (tmpmfs)
-	# chmod 1777 /mnt/tmp
+	chmod 1777 /mnt/tmp
 	chmod 1777 /mnt/var/tmp
 
 	# jail_tank
@@ -233,6 +232,9 @@ fi
 
 # on export et importe le pool
 zpool export ${sys_tank}
+zpool export ${jail_tank}
+zpool export ${data_tank}
+
 zpool import -o cachefile=/tmp/zpool.cache -R /mnt ${sys_tank}
 
 
