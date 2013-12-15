@@ -12,7 +12,7 @@
     "blocklist-url": "http://www.example.com/blocklist", 
     "cache-size-mb": 4, 
     "dht-enabled": true, 
-    "download-dir": "/home/media/#5_Download/#1_BitTorrent", 
+    "download-dir": "/media/#5_Download/#1_BitTorrent", 
     "encryption": 1, 
     "idle-seeding-limit": 30, 
     "idle-seeding-limit-enabled": false, 
