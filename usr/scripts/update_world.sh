@@ -41,14 +41,14 @@ echo '     rm -f /etc/rc.d/dummy_script' >> /etc/rc.d/dummy_script
 echo "     sed -i \'\' -e \'s/#kern.securelevel=/kern.securelevel/g\' /etc/rc.conf\'" >> /etc/rc.d/dummy_script
 echo "     sed -i \'\' -e \'s/ezjail_enable=\"NO\"/ezjail_enable=\"YES\"/g\' /etc/rc.conf\'" >> /etc/rc.d/dummy_script
 echo '     cd /usr/src && make delete-old-libs' >> /etc/rc.d/dummy_script
-echo '     date -u > /root/end_time' >> /etc/rc.d/dummy_script
+echo '     date -u > /root/end_build_time' >> /etc/rc.d/dummy_script
 echo '     echo " "' >> /etc/rc.d/dummy_script
 echo '     echo " Update done ! "' >> /etc/rc.d/dummy_script
 echo '     echo " "' >> /etc/rc.d/dummy_script
 echo '     uname -a' >> /etc/rc.d/dummy_script
 echo '     echo " "' >> /etc/rc.d/dummy_script
-echo '     echo " start time : " && cat /root/start_time' >> /etc/rc.d/dummy_script
-echo '     echo " end time   : " && cat /root/end_time' >> /etc/rc.d/dummy_script
+echo '     echo " start time : " && cat /root/start_build_time' >> /etc/rc.d/dummy_script
+echo '     echo " end time   : " && cat /root/end_build_time' >> /etc/rc.d/dummy_script
 echo '     echo " "' >> /etc/rc.d/dummy_script
 echo '     echo " time to build kernel : " && cat /root/time_buildkernel' >> /etc/rc.d/dummy_script
 echo '     echo " time to build world : " && cat /root/time_buildworld' >> /etc/rc.d/dummy_script
