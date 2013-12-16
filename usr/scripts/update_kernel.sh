@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. /usr/scripts/bsd_flavour.conf
+
 echo ""
 echo "start update_kernel.sh "
 echo "la suite dans 10s ..."
@@ -8,7 +10,7 @@ sleep 10
 echo " c'est parti !"
 
 
-date -u > /root/start_time
+date -u > /root/start_buildworld_time
 
 ############################
 # Backup, Clean & Update
@@ -21,7 +23,7 @@ rm -rf /usr/obj/*
 mergemaster -p
 
 # Récuperer les sources à jour 
-svn checkout svn://svn.freebsd.org/base/releng/9.1 /usr/src
+svn checkout svn://svn.freebsd.org/base/releng/10.0 /usr/src
 
 cd /usr/src/
 # Compile le nouveau monde
@@ -60,13 +62,18 @@ chmod +x /etc/rc.d/dummy_script
 sed -i '' -e 's/kern.securelevel=/#kern.securelevel/g' /etc/rc.conf
 sed -i '' -e 's/ezjail_enable="YES"/ezjail_enable="NO"/g' /etc/rc.conf
 
+
 ############################
 # reboot
 ############################
-echo " "
-echo " fin de post_install.sh"
-echo " 10sec avant reboot"
-echo " "
-sleep 10
-echo "time for reboot :)"
-shutdown -r now
+
+if [ ${auto_reboot} = "YES" ];
+then
+	echo " 20sec avant reboot"
+	sleep 20
+	echo "time for reboot :)"
+	shutdown -r now
+else
+	echo "rebootez maintenant :)"
+fi
+

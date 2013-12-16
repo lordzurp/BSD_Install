@@ -66,10 +66,14 @@ chmod +x /etc/rc.d/dummy_script
 ############################
 # reboot
 ############################
-echo " "
-echo " fin de post_install.sh"
-echo " 10sec avant reboot"
-echo " "
-sleep 10
-echo "time for reboot :)"
-shutdown -r now
+
+if [ ${auto_reboot} = "YES" ];
+then
+	echo " 20sec avant reboot"
+	sleep 20
+	echo "time for reboot :)"
+	shutdown -r now
+else
+	echo "rebootez maintenant :)"
+fi
+

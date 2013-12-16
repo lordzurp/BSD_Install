@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. /usr/scripts/bsd_flavour.conf
+
 cd /usr/ports/sysutils/ezjail/ && make install clean
 cd /usr/ports/net/openntpd/ && make install clean
 
@@ -16,7 +18,7 @@ ezjail_enable="YES"
 openntpd_enable="YES"
 
 # Jail interface aliases
-ifconfig_em1_alias0="inet 192.168.42.101 netmask 255.255.255.0"
+ifconfig_em0_alias0="inet 10.0.42.1 netmask 255.255.255.0"
 
 rpc_bind_enable="NO"
 sendmail_enable="NO"
@@ -168,8 +170,8 @@ ezjail_devfs_enable="YES"
 ezjail_procfs_enable="YES"
 ezjail_fdescfs_enable="YES"
 ezjail_use_zfs="YES"
-ezjail_jailzfs="sys_tank/ezjail"
-ezjail_zfs_properties="-o compression=lzjb -o atime=off"
+ezjail_jailzfs="jail_tank"
+ezjail_zfs_properties="-o compression=lz4 -o atime=off"
 
 EOF
 

@@ -216,7 +216,7 @@ if [ $create_pool = "YES" ];
 	zfs set mountpoint=/var ${sys_tank}/var
 	zfs set mountpoint=/tmp ${sys_tank}/tmp
 	
-	zfs set mountpoint=/jails ${jail_tank}
+	zfs set mountpoint=/usr/jails ${jail_tank}
 	zfs set mountpoint=/media ${data_tank}
 
 	echo ''
