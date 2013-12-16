@@ -23,7 +23,7 @@ rm -rf /usr/obj/*
 mergemaster -p
 
 # Récuperer les sources à jour 
-svn checkout svn://svn.freebsd.org/base/releng/10.0 /usr/src
+svnlite checkout svn://svn.freebsd.org/base/releng/10.0 /usr/src
 
 cd /usr/src/
 # Compile le nouveau monde
