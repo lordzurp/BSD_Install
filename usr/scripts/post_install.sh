@@ -28,6 +28,11 @@ make aliases
 cd /etc/
 ln -s ${ma_time_zone} localtime
 
+echo "" > /etc/motd
+echo " Welcome back, Sir !" >> /etc/motd
+echo "" >> /etc/motd
+
+
 zpool import ${jail_tank}
 zpool import ${data_tank}
 fi
