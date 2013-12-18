@@ -2,8 +2,8 @@
 
 . /usr/scripts/bsd_flavour.conf
 
-cd /usr/ports/sysutils/ezjail/ && make install clean
-cd /usr/ports/net/openntpd/ && make install clean
+#cd /usr/ports/sysutils/ezjail/ && make install clean
+#cd /usr/ports/net/openntpd/ && make install clean
 
 
 ########################
@@ -30,16 +30,17 @@ EOF
 ### Installation de la base jail
 ################################
 # Clean
-chflags -R noschg /usr/obj/*
-rm -rf /usr/obj/*
-cd /usr/src
-make clean
+#chflags -R noschg /usr/obj/*
+#rm -rf /usr/obj/*
+#cd /usr/src
+#make clean
 
 # Récuperer les sources à jour
-svn checkout svn://svn.freebsd.org/base/releng/9.1 /usr/src
+#svn checkout svn://svn.freebsd.org/base/releng/9.1 /usr/src
 
 # Compile le nouveau monde
-make buildworld -j5
+#make buildworld -j5
+
 
 ezjail-admin update -i
 

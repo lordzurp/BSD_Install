@@ -81,8 +81,8 @@ env ASSUME_ALWAYS_YES=YES pkg bootstrap
 pkg
 
 # màj de la db packages pour PKG
-echo 'WITH_PKGNG=yes' >> /etc/make.conf
-echo 'WITH_SVN=YES' >> /etc/make.conf
+echo 'WITH_PKGNG="YES"' >> /etc/make.conf
+echo 'WITH_SVN="YES' >> /etc/make.conf
 
 mkdir /etc/pkg
 cat << EOF36 > /etc/pkg/FreeBSD.conf

@@ -18,7 +18,7 @@
 
 #Port 22
 #AddressFamily any
-#ListenAddress 0.0.0.0
+ListenAddress 91.121.111.203
 #ListenAddress ::
 
 # The default requires explicit activation of protocol 1

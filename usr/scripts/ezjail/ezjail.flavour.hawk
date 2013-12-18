@@ -51,8 +51,8 @@ pw adduser -n media -u 1051 -g public_user -s /usr/sbin/nologin -m
 # Install all packages previously put to /pkg
 # Remove package files afterwards
 
-[ -d /pkg ] && PACKAGESITE=file:// pkg_add -r /pkg/*
-rm -rf /pkg
+#[ -d /pkg ] && PACKAGESITE=file:// pkg_add -r /pkg/*
+#rm -rf /pkg
 
 # Postinstall
 ##############
