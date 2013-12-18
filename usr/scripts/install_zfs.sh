@@ -302,6 +302,8 @@ if [ ${valid_install} = "YES" ];
 	mv resolv.conf resolv.conf.dist
 	fetch ${source_install}/etc/resolv.conf
 
+	fetch ${source_install}/etc/pf.conf
+
 	########################
 	### /etc/sysctl.conf
 	########################
