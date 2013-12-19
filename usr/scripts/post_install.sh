@@ -13,7 +13,7 @@ echo " c'est parti !"
 #cd $scripts
 cd /usr/scripts
 
-svnlite checkout $source_install_svn/usr/scripts .
+svnlite checkout https://github.com/lordzurp/BSD_Install/trunk/usr/scripts .
 chmod -R +x *
 
 if [ ${tweak_system} = "YES" ]; then
@@ -130,6 +130,10 @@ chmod 700 /root/.subversion
 /usr/local/sbin/pkg install logrotate
 /usr/local/sbin/pkg install nano
 /usr/local/sbin/pkg install portmaster
+/usr/local/sbin/pkg install perl5.14
+/usr/local/sbin/pkg install debootstrap
+
+
 
 # Jails
 # Le gros morceau ...
