@@ -18,7 +18,7 @@ ezjail_enable="YES"
 openntpd_enable="YES"
 
 # Jail interface aliases
-ifconfig_em0_alias0="inet 10.0.42.1 netmask 255.255.255.0"
+#ifconfig_em0_alias0="inet 10.0.42.1 netmask 255.255.255.0"
 
 rpc_bind_enable="NO"
 sendmail_enable="NO"
@@ -42,7 +42,7 @@ EOF
 #make buildworld -j5
 
 
-ezjail-admin update -i
+# ezjail-admin update -i
 
 ################################
 ### Default Flavour
