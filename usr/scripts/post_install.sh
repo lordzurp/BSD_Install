@@ -13,7 +13,7 @@ echo " c'est parti !"
 #cd $scripts
 cd /usr/scripts
 
-svn checkout $source_install_svn/usr/scripts .
+svnlite checkout $source_install_svn/usr/scripts .
 chmod -R +x *
 
 if [ ${tweak_system} = "YES" ]; then
@@ -82,7 +82,7 @@ pkg
 
 # màj de la db packages pour PKG
 echo 'WITH_PKGNG="YES"' >> /etc/make.conf
-echo 'WITH_SVN="YES' >> /etc/make.conf
+echo 'WITH_SVN="YES"' >> /etc/make.conf
 
 mkdir /etc/pkg
 cat << EOF36 > /etc/pkg/FreeBSD.conf
@@ -110,7 +110,7 @@ zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/packages
 echo '# on met a jour les ports avec svn'
 echo '# attention, ça va etre long ...'
 echo '# bon, là on va pas le faire vraiment :)'
-# svn checkout svn://svn.freebsd.org/ports/head /usr/ports
+# svnlite checkout svn://svn.freebsd.org/ports/head /usr/ports
 
 # on supprime /usr/src et on recrée tout de suite le chemin
 zfs destroy ${sys_tank}/usr/src
@@ -120,7 +120,7 @@ zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/src
 echo '# on met a jour les sources avec svn'
 echo '# attention, ça va etre long ...'
 echo '# bon, là on va pas le faire vraiment :)'
-# svn checkout $svn_checkout /usr/src
+# svnlite checkout $svn_checkout /usr/src
 
 chmod 700 /root/.subversion
 
