@@ -156,14 +156,14 @@ chmod +x /usr/jails/flavours/default/ezjail.flavour
 cat << EOF > /usr/local/etc/ezjail.conf
 # ezjail.conf - Example file, see ezjail.conf(5)
 ezjail_jaildir=/usr/jails
-ezjail_jailtemplate=${ezjail_jaildir}/newjail
-ezjail_jailbase=${ezjail_jaildir}/basejail
+ezjail_jailtemplate=\${ezjail_jaildir}/newjail
+ezjail_jailbase=\${ezjail_jaildir}/basejail
 ezjail_sourcetree=/usr/src
 # ezjail_portscvsroot=freebsdanoncvs@anoncvs.FreeBSD.org:/home/ncvs
 # ezjail_ftphost=ftp.freebsd.org
 # ezjail_default_execute="/usr/bin/login -f root"
 ezjail_default_flavour="default"
-ezjail_archivedir="${ezjail_jaildir}/ezjail_archives"
+ezjail_archivedir="\${ezjail_jaildir}/ezjail_archives"
 ezjail_uglyperlhack="YES"
 ezjail_mount_enable="YES"
 ezjail_devfs_enable="YES"
