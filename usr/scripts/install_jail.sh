@@ -173,6 +173,7 @@ ezjail_fdescfs_enable="YES"
 ezjail_use_zfs="YES"
 ezjail_jailzfs="jail_tank"
 ezjail_zfs_properties="-o compression=lz4 -o atime=off"
+ezjail_use_zfs_for_jails="YES"
 
 EOF
 
