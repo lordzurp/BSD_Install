@@ -42,7 +42,7 @@ EOF
 #make buildworld -j5
 
 
-# ezjail-admin update -i
+ezjail-admin update -i
 
 ################################
 ### Default Flavour
