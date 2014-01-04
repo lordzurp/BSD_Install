@@ -8,6 +8,18 @@ sleep 10
 echo " c'est parti !"
 
 
+############################
+# Journal de bord du capitaine
+# 11 septembre 1973
+############################
+
+echo " " >> /usr/scripts/journal.log
+echo " # post_install.sh"
+echo " " >> /usr/scripts/journal.log
+echo " debut " >> /usr/scripts/journal.log
+date -u >> /usr/scripts/journal.log
+echo " " >> /usr/scripts/journal.log
+
 . /usr/scripts/bsd_flavour.conf
 
 #cd $scripts
@@ -271,6 +283,10 @@ echo " "
 echo " fin de post_install.sh"
 echo " "
 
+
+echo " fin " >> /usr/scripts/journal.log
+date -u >> /usr/scripts/journal.log
+echo " " >> /usr/scripts/journal.log
 
 if [ ${auto_reboot} = "YES" ];
 	then

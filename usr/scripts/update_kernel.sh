@@ -9,8 +9,17 @@ echo " "
 sleep 10
 echo " c'est parti !"
 
+############################
+# Journal de bord du capitaine
+# 13 juin 1491
+############################
 
-date -u > /root/start_buildworld_time
+echo " " >> /usr/scripts/journal.log
+echo " # update_kernel.sh"
+echo " " >> /usr/scripts/journal.log
+echo " debut " >> /usr/scripts/journal.log
+date -u >> /usr/scripts/journal.log
+echo " " >> /usr/scripts/journal.log
 
 ############################
 # Backup, Clean & Update
@@ -66,6 +75,10 @@ sed -i '' -e 's/ezjail_enable="YES"/ezjail_enable="NO"/g' /etc/rc.conf
 ############################
 # reboot
 ############################
+
+echo " fin " >> /usr/scripts/journal.log
+date -u >> /usr/scripts/journal.log
+echo " " >> /usr/scripts/journal.log
 
 if [ ${auto_reboot} = "YES" ];
 then

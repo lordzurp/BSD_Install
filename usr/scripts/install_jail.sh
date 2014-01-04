@@ -1,5 +1,17 @@
 #!/bin/sh
 
+############################
+# Journal de bord du capitaine
+# 16 juin 1773
+############################
+
+echo " " >> /usr/scripts/journal.log
+echo " # update_world.sh"
+echo " " >> /usr/scripts/journal.log
+echo " debut " >> /usr/scripts/journal.log
+date -u >> /usr/scripts/journal.log
+echo " " >> /usr/scripts/journal.log
+
 . /usr/scripts/bsd_flavour.conf
 
 #cd /usr/ports/sysutils/ezjail/ && make install clean
@@ -179,4 +191,8 @@ EOF
 
 # End of File
 
+
+echo " fin " >> /usr/scripts/journal.log
+date -u >> /usr/scripts/journal.log
+echo " " >> /usr/scripts/journal.log
 

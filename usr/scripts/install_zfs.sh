@@ -27,7 +27,17 @@ echo ""
 echo " c'est parti !"
 echo ""
 
+############################
+# Journal de bord du capitaine
+# 21 octobre 1985
+############################
 
+echo " " > /tmp/journal.log
+echo " Install Full ZFS " >> /tmp/journal.log
+echo " " >> /tmp/journal.log
+echo " debut " >> /tmp/journal.log
+date -u >> /tmp/journal.log
+echo " " >> /tmp/journal.log
 
 ########################
 # Debut de l'install
@@ -331,6 +341,7 @@ if [ ${valid_install} = "YES" ];
 	# installation de la config via svn
 	 	############################
  mkdir /mnt/usr/scripts
+ cp /tmp/journal.log /mnt/scripts/journal.log
  cd /mnt/usr/scripts
  fetch https://github.com/lordzurp/BSD_Install/raw/master/usr/scripts/bsd_flavour.conf
  fetch https://github.com/lordzurp/BSD_Install/raw/master/usr/scripts/post_install.sh
@@ -346,8 +357,14 @@ fi
 
 
 ############################
-# fin et reboot ?
+# fin & reboot
 ############################
+
+
+echo " fin " >> /mnt/usr/scripts/journal.log
+date -u >> /mnt/usr/scripts/journal.log
+echo " " >> /mnt/usr/scripts/journal.log
+
 echo ''
 echo '########################'
 echo "# fin de install_zfs.sh"

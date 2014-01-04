@@ -9,6 +9,18 @@ echo " c'est parti !"
 
 
 ############################
+# Journal de bord du capitaine
+# 27 fevrier 1637
+############################
+
+echo " " >> /usr/scripts/journal.log
+echo " # update_world.sh"
+echo " " >> /usr/scripts/journal.log
+echo " debut " >> /usr/scripts/journal.log
+date -u >> /usr/scripts/journal.log
+echo " " >> /usr/scripts/journal.log
+
+############################
 # installworld
 ############################
 cd /usr/src
@@ -64,8 +76,12 @@ chmod +x /etc/rc.d/dummy_script
 
 
 ############################
-# reboot
+# fin & reboot
 ############################
+
+echo " fin " >> /usr/scripts/journal.log
+date -u >> /usr/scripts/journal.log
+echo " " >> /usr/scripts/journal.log
 
 if [ ${auto_reboot} = "YES" ];
 then
