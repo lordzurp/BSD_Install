@@ -139,18 +139,10 @@ chmod 700 /root/.subversion
 ############################
 ### Ports utiles
 ############################
-/usr/local/sbin/pkg install logrotate
-/usr/local/sbin/pkg install nano
-/usr/local/sbin/pkg install portmaster
-/usr/local/sbin/pkg install perl5.14
-/usr/local/sbin/pkg install debootstrap
-
-
+/usr/local/sbin/pkg install logrotate nano portmaster perl5.14 debootstrap ezjail tmux
 
 # Jails
 # Le gros morceau ...
-
-/usr/local/sbin/pkg install ezjail
 
 
 # Fin install system
