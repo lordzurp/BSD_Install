@@ -24,7 +24,7 @@ date -u >> /usr/scripts/journal.log
 cd /usr/src
 make -s installworld
 make -s delete-old
-make delete-old-libs
+# make delete-old-libs
 # mergemaster -U -i
 #make delete-old-libs
 
