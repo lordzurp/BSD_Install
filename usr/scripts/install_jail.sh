@@ -6,7 +6,7 @@
 ############################
 
 echo " " >> /usr/scripts/journal.log
-echo " # install_jail.sh"
+echo " # install_jail.sh" >> /usr/scripts/journal.log
 echo " " >> /usr/scripts/journal.log
 echo " debut " >> /usr/scripts/journal.log
 date -u >> /usr/scripts/journal.log
