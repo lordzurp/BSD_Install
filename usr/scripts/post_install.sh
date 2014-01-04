@@ -184,7 +184,7 @@ alias ls	ls -G
 alias la	ls -a
 alias lf	ls -FA
 alias ll	ls -lA
-alias svn_maj_ports		svn checkout svn://svn.freebsd.org/ports/head /usr/ports
+#alias svn_maj_ports		svn checkout svn://svn.freebsd.org/ports/head /usr/ports
 
 # A righteous umask
 umask 22
@@ -197,7 +197,7 @@ setenv	BLOCKSIZE	K
 
 if (\$?prompt) then
 	# An interactive shell -- set some stuff up
-	set prompt = "%P %{\e[31m%}%n%{\e[0m%}@%{\e[32m%}%M%{\e[0m%} \n%~/ "
+	set prompt = "%P %{\e[31m%}%n%{\e[0m%}@%{\e[32m%}%M%{\e[0m%} \n%~ # "
 	set filec
 	set history = 1000
 	set savehist = 1000
@@ -242,7 +242,7 @@ setenv	BLOCKSIZE	K
 
 if (\$?prompt) then
 	# An interactive shell -- set some stuff up
-	set prompt = "%P %{\e[32m%}%n%{\e[0m%}@%{\e[32m%}%M%{\e[0m%} \n%~/ "
+	set prompt = "%P %{\e[32m%}%n%{\e[0m%}@%{\e[32m%}%M%{\e[0m%} \n%~ # "
 	set filec
 	set history = 1000
 	set savehist = 1000

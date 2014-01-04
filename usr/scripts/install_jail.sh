@@ -56,7 +56,7 @@ cp /etc/localtime /usr/jails/flavours/default/etc/localtime
 
 cat << EOF9 > /usr/jails/flavours/default/etc/rc.conf
 # Miscellaneous Configuration
-network_interfaces="lo0"                # No network interfaces aside from the loopback device
+network_interfaces="lo1"                # No network interfaces aside from the loopback device
 kern_securelevel_enable="YES"           # Enable 'securelevel' kernel security
 kern_securelevel="1"                    # See init(8)
 rpcbind_enable="NO"                     # Disable RPC daemon
