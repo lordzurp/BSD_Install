@@ -341,7 +341,7 @@ if [ ${valid_install} = "YES" ];
 	# installation de la config via svn
 	 	############################
  mkdir /mnt/usr/scripts
- cp /tmp/journal.log /mnt/scripts/journal.log
+ cp /tmp/journal.log /mnt/usr/scripts/journal.log
  cd /mnt/usr/scripts
  fetch https://github.com/lordzurp/BSD_Install/raw/master/usr/scripts/bsd_flavour.conf
  fetch https://github.com/lordzurp/BSD_Install/raw/master/usr/scripts/post_install.sh
