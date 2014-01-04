@@ -174,92 +174,14 @@ pw adduser -n media -u 1051 -g public_user -s /usr/sbin/nologin -m
 ############################
 ### tweak du .cshrc root
 ############################
-cat << EOF33 > /root/.cshrc
-# $FreeBSD: release/9.0.0/etc/root/dot.cshrc 170088 2007-05-29 06:37:58Z dougb $
-#
-# .cshrc - csh resource script, read at beginning of execution by each shell
-#
-# see also csh(1), environ(7).
-#
-
-alias h		history 25
-alias j		jobs -l
-alias ls	ls -G
-alias la	ls -a
-alias lf	ls -FA
-alias ll	ls -lA
-#alias svn_maj_ports		svn checkout svn://svn.freebsd.org/ports/head /usr/ports
-
-# A righteous umask
-umask 22
-
-set path = (/sbin /bin /usr/sbin /usr/bin /usr/games /usr/local/sbin /usr/local/bin \$HOME/bin)
-
-setenv	EDITOR	nano
-setenv	PAGER	more
-setenv	BLOCKSIZE	K
-
-if (\$?prompt) then
-	# An interactive shell -- set some stuff up
-	set prompt = "%P %{\e[31m%}%n%{\e[0m%}@%{\e[32m%}%M%{\e[0m%} \n%~ # "
-	set filec
-	set history = 1000
-	set savehist = 1000
-	set mail = (/var/mail/\$USER)
-	if ( \$?tcsh ) then
-		bindkey "^W" backward-delete-word
-		bindkey -k up history-search-backward
-		bindkey -k down history-search-forward
-	endif
-endif
-
-
-EOF33
+svnlite checkout $source_install_svn/root /root
+cp /root/cshrc /root/.cshrc
 
 
 ############################
 ### tweak du .cshrc lordzurp
 ############################
-cat << EOF24 > /home/lordzurp/.cshrc
-# $FreeBSD: release/9.0.0/etc/root/dot.cshrc 170088 2007-05-29 06:37:58Z dougb $
-#
-# .cshrc - csh resource script, read at beginning of execution by each shell
-#
-# see also csh(1), environ(7).
-#
-
-alias h		history 25
-alias j		jobs -l
-alias ls	ls -G
-alias la	ls -a
-alias lf	ls -FA
-alias ll	ls -lA
-
-# A righteous umask
-umask 22
-
-set path = (/sbin /bin /usr/sbin /usr/bin /usr/games /usr/local/sbin /usr/local/bin \$HOME/bin)
-
-setenv	EDITOR	nano
-setenv	PAGER	more
-setenv	BLOCKSIZE	K
-
-if (\$?prompt) then
-	# An interactive shell -- set some stuff up
-	set prompt = "%P %{\e[32m%}%n%{\e[0m%}@%{\e[32m%}%M%{\e[0m%} \n%~ # "
-	set filec
-	set history = 1000
-	set savehist = 1000
-	set mail = (/var/mail/\$USER)
-	if ( \$?tcsh ) then
-		bindkey "^W" backward-delete-word
-		bindkey -k up history-search-backward
-		bindkey -k down history-search-forward
-	endif
-endif
-
-
-EOF24
+cp /root/cshrc /home/lordzurp/.cshrc
 fi
 
 
