@@ -16,10 +16,8 @@ echo " c'est parti !"
 
 echo " " >> /usr/scripts/journal.log
 echo " # update_kernel.sh" >> /usr/scripts/journal.log
-echo " " >> /usr/scripts/journal.log
 echo " debut " >> /usr/scripts/journal.log
 date -u >> /usr/scripts/journal.log
-echo " " >> /usr/scripts/journal.log
 
 ############################
 # Backup, Clean & Update

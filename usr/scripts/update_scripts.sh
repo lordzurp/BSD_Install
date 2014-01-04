@@ -15,4 +15,3 @@ cp /root/cshrc /root/.cshrc
 echo " " >> /usr/scripts/journal.log
 echo " scripts mis à jour : " >> /usr/scripts/journal.log
 date -u >> /usr/scripts/journal.log
-echo " " >> /usr/scripts/journal.log

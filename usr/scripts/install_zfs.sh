@@ -33,11 +33,9 @@ echo ""
 ############################
 
 echo " " > /tmp/journal.log
-echo " Install Full ZFS " >> /tmp/journal.log
-echo " " >> /tmp/journal.log
+echo " # Install Full ZFS " >> /tmp/journal.log
 echo " debut " >> /tmp/journal.log
 date -u >> /tmp/journal.log
-echo " " >> /tmp/journal.log
 
 ########################
 # Debut de l'install
