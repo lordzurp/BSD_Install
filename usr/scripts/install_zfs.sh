@@ -265,8 +265,8 @@ if [ ${valid_install} = "YES" ];
 	fetch ${freebsd_install}/kernel.txz
 	fetch ${freebsd_install}/doc.txz
 #	on n'installe pas les ports --> switch vers Subversion
-#	fetch ${freebsd_install}/ports.txz
-#	fetch ${freebsd_install}/src.txz
+	fetch ${freebsd_install}/ports.txz
+	fetch ${freebsd_install}/src.txz
 
 	echo ''
 	echo '########################'
