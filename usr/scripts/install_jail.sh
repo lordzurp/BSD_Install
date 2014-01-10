@@ -170,7 +170,7 @@ ezjail_jailbase=\${ezjail_jaildir}/basejail
 ezjail_sourcetree=/usr/src
 # ezjail_portscvsroot=freebsdanoncvs@anoncvs.FreeBSD.org:/home/ncvs
 # ezjail_ftphost=ftp.freebsd.org
-# ezjail_default_execute="/usr/bin/login -f root"
+ezjail_default_execute="/usr/bin/login -f root"
 ezjail_default_flavour="default"
 ezjail_archivedir="\${ezjail_jaildir}/ezjail_archives"
 ezjail_uglyperlhack="YES"
@@ -182,7 +182,11 @@ ezjail_fdescfs_enable="YES"
 ezjail_use_zfs="YES"
 ezjail_jailzfs="jail_tank"
 ezjail_zfs_properties="-o compression=lz4 -o atime=off"
+ezjail_zfs_jail_properties="-o dedup=on"
 ezjail_use_zfs_for_jails="YES"
+
+ezjail_default_retention_policy="4x15m 3x1h 2x2h 4h 12h 6x1d 7x1w 11x4w 1000x1y"
+
 
 EOF
 
