@@ -111,26 +111,16 @@ mv /usr/local/etc/pkg.conf /usr/local/etc/pkg.conf.old
 cd /
 rm -fr /var/db/portsnap/*
 
-# on supprime /usr/ports et on recrée tout de suite le chemin
-zfs destroy -r ${sys_tank}/usr/ports
-zfs create                 -o setuid=off   ${sys_tank}/usr/ports
-zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/distfiles
-zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/packages
 
 echo '# on met a jour les ports avec svn'
 echo '# attention, ça va etre long ...'
 echo '# bon, là on va pas le faire vraiment :)'
-# svnlite checkout svn://svn.freebsd.org/ports/head /usr/ports
-
-# on supprime /usr/src et on recrée tout de suite le chemin
-zfs destroy ${sys_tank}/usr/src
-zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/src
-
+svnlite checkout svn://svn.freebsd.org/ports/head /usr/ports
 
 echo '# on met a jour les sources avec svn'
 echo '# attention, ça va etre long ...'
 echo '# bon, là on va pas le faire vraiment :)'
-# svnlite checkout $svn_checkout /usr/src
+svnlite checkout $svn_checkout /usr/src
 
 chmod 700 /root/.subversion
 
