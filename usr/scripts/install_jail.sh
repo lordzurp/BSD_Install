@@ -52,7 +52,6 @@ EOF
 #make buildworld -j5
 
 
-ezjail-admin update -i
 
 ################################
 ### Default Flavour
@@ -188,6 +187,10 @@ ezjail_use_zfs_for_jails="YES"
 EOF
 
 # End of File
+
+
+
+ezjail-admin update -i
 
 
 echo " fin " >> /usr/scripts/journal.log
