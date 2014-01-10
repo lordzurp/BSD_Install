@@ -194,7 +194,7 @@ EOF
 
 
 
-ezjail-admin update -i
+# ezjail-admin update -i
 
 
 echo " fin " >> /usr/scripts/journal.log
