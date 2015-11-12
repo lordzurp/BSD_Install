@@ -305,7 +305,7 @@ if [ ${valid_install} = "YES" ];
 	#svnlite checkout $source_install_svn /mnt
 	fetch --no-verify-peer https://github.com/lordzurp/BSD_Install/archive/master.zip
 	unzip master.zip
-	cp -R BSD_Install/* /mnt
+	cp -R BSD_Install-master/* /mnt
 
 	# on clean $sys_tank/tmp, il est monté en ram par rc.conf
 	zfs destroy -f ${sys_tank}/tmp
