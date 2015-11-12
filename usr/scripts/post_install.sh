@@ -136,7 +136,16 @@ chmod 700 /root/.subversion
 ############################
 ### Ports utiles
 ############################
-pkg install logrotate nano portmaster perl5.14 debootstrap ezjail tmux pstree xorg gnome3-lite chromium virtualbox-ose virtualbox-ose-additions
+pkg install -y logrotate nano portmaster 
+# debootstrap ezjail tmux pstree 
+
+# on installe gnome, parce qu'un bureau, parfois c'est cool
+pkg install -y xorg gnome3-lite firefox gedit 
+
+# VirtualBox, parce qu'il le vaut bien !
+pkg install -y virtualbox-ose virtualbox-ose-additions
+
+echo 'exec gnome-session' >> ~/.xsession
 
 # Jails
 # Le gros morceau ...

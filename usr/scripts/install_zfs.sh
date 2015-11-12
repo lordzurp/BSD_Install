@@ -303,6 +303,7 @@ if [ ${valid_install} = "YES" ];
  
 	# version moderne
 	#svnlite checkout $source_install_svn /mnt
+	cd /tmp
 	fetch --no-verify-peer https://github.com/lordzurp/BSD_Install/archive/master.zip
 	unzip master.zip
 	cp -R BSD_Install-master/* /mnt
