@@ -259,15 +259,15 @@ if [ ${valid_install} = "YES" ];
 	
 	
 	# Install de FreeBSD dans ${sys_tank}/root, monté sur /mnt
-	mkdir /mnt/tmp/freebsd-dist
-	cd /mnt/tmp/freebsd-dist
-	fetch ${freebsd_install}/base.txz
-	fetch ${freebsd_install}/lib32.txz
-	fetch ${freebsd_install}/kernel.txz
-	fetch ${freebsd_install}/doc.txz
+#	mkdir /mnt/tmp/freebsd-dist
+#	cd /mnt/tmp/freebsd-dist
+#	fetch ${freebsd_install}/base.txz
+#	fetch ${freebsd_install}/lib32.txz
+#	fetch ${freebsd_install}/kernel.txz
+#	fetch ${freebsd_install}/doc.txz
 #	on n'installe pas les ports --> switch vers Subversion
 #	fetch ${freebsd_install}/ports.txz
-	fetch ${freebsd_install}/src.txz
+#	fetch ${freebsd_install}/src.txz
 
 	echo ''
 	echo '########################'
@@ -275,10 +275,13 @@ if [ ${valid_install} = "YES" ];
 	echo '########################'
 	echo ''
 
+	cd /usr/freebsd-dist
 	export DESTDIR=/mnt
 	for file in base.txz lib32.txz kernel.txz doc.txz ports.txz src.txz;
 	do (cat $file | tar --unlink -xpJf - -C ${DESTDIR:-/}); done
 
+	cd /tmp
+	
 	# on remet le cache zfs
 	cp /tmp/zpool.cache /mnt/boot/zfs/zpool.cache
 	
@@ -299,7 +302,10 @@ if [ ${valid_install} = "YES" ];
 
  
 	# version moderne
-	svnlite checkout $source_install_svn /mnt
+	#svnlite checkout $source_install_svn /mnt
+	fetch --no-verify-peer https://github.com/lordzurp/BSD_Install/archive/master.zip
+	unzip master.zip
+	cp -R BSD_Install/* /mnt
 
 	# on clean $sys_tank/tmp, il est monté en ram par rc.conf
 	zfs destroy -f ${sys_tank}/tmp
@@ -312,9 +318,10 @@ fi
 ############################
 
 
-echo " fin " >> /mnt/usr/scripts/journal.log
-date -u >> /mnt/usr/scripts/journal.log
-echo " " >> /mnt/usr/scripts/journal.log
+echo " fin " >> /tmp/journal.log
+date -u >> /tmp/journal.log
+echo " " >> /tmp/journal.log
+cp /tmp/journal.log /mnt/journal.log
 
 echo ''
 echo '########################'
