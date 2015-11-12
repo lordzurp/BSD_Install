@@ -321,7 +321,7 @@ fi
 echo " fin " >> /tmp/journal.log
 date -u >> /tmp/journal.log
 echo " " >> /tmp/journal.log
-cp /tmp/journal.log /mnt/journal.log
+cp /tmp/journal.log /mnt/usr/scripts/journal.log
 
 echo ''
 echo '########################'

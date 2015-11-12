@@ -88,7 +88,7 @@ if [ ${system_install} = "YES" ]; then
 
 # switch to PKG
 #env ASSUME_ALWAYS_YES=YES pkg bootstrap
-#pkg
+/usr/sbin/pkg
 
 # màj de la db packages pour PKG
 #echo 'WITH_PKGNG="YES"' >> /etc/make.conf
@@ -136,7 +136,7 @@ chmod 700 /root/.subversion
 ############################
 ### Ports utiles
 ############################
-/usr/local/sbin/pkg install logrotate nano portmaster perl5.14 debootstrap ezjail tmux pstree
+pkg install logrotate nano portmaster perl5.14 debootstrap ezjail tmux pstree xorg gnome3-lite chromium virtualbox-ose virtualbox-ose-additions
 
 # Jails
 # Le gros morceau ...
