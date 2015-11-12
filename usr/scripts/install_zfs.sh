@@ -20,9 +20,8 @@ echo " # Editez le fichier bsd_flavour.conf pour l'adapter a votre configuration
 echo " #                                                                           #"
 echo " #############################################################################"
 echo ""
-echo "la suite dans 10s ..."
+read -e -p "Presser ENTREE pour continuer ce script...  ";
 
-sleep 10
 echo ""
 echo " c'est parti !"
 echo ""
@@ -146,6 +145,8 @@ if [ $create_pool = "YES" ];
 	# on crée un dataset ZFS nommé ${sys_tank} sur la partition gpt/system
 	zpool create -f -R /mnt -m / ${sys_tank} /dev/gpt/system
 	zpool set feature@lz4_compress=enabled ${sys_tank}
+	zpool set listsnapshots=on zroot
+	zpool set autoreplace=on zroot
 	# on change le checksum
 	zfs set checksum=fletcher4 ${sys_tank}
 	# on active la deduplication
@@ -265,7 +266,7 @@ if [ ${valid_install} = "YES" ];
 	fetch ${freebsd_install}/kernel.txz
 	fetch ${freebsd_install}/doc.txz
 #	on n'installe pas les ports --> switch vers Subversion
-	fetch ${freebsd_install}/ports.txz
+#	fetch ${freebsd_install}/ports.txz
 	fetch ${freebsd_install}/src.txz
 
 	echo ''
@@ -297,8 +298,8 @@ if [ ${valid_install} = "YES" ];
 
 
  
- # version moderne
- # svn checkout $source_install_svn /mnt
+	# version moderne
+	svnlite checkout $source_install_svn /mnt
 
 	# on clean $sys_tank/tmp, il est monté en ram par rc.conf
 	zfs destroy -f ${sys_tank}/tmp

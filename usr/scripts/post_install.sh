@@ -23,7 +23,7 @@ date -u >> /usr/scripts/journal.log
 #cd $scripts
 cd /usr/scripts
 
-svnlite checkout https://github.com/lordzurp/BSD_Install/trunk/usr/scripts .
+#svnlite checkout https://github.com/lordzurp/BSD_Install/trunk/usr/scripts .
 chmod -R +x *
 
 if [ ${tweak_system} = "YES" ]; then
@@ -87,49 +87,49 @@ if [ ${system_install} = "YES" ]; then
 
 
 # switch to PKG
-env ASSUME_ALWAYS_YES=YES pkg bootstrap
-pkg
+#env ASSUME_ALWAYS_YES=YES pkg bootstrap
+#pkg
 
 # màj de la db packages pour PKG
-echo 'WITH_PKGNG="YES"' >> /etc/make.conf
-echo 'WITH_SVN="YES"' >> /etc/make.conf
+#echo 'WITH_PKGNG="YES"' >> /etc/make.conf
+#echo 'WITH_SVN="YES"' >> /etc/make.conf
 
-mkdir /etc/pkg
-cat << EOF36 > /etc/pkg/FreeBSD.conf
-FreeBSD: {
-  url: "pkg+http://pkg.FreeBSD.org/\${ABI}/latest",
-  mirror_type: "srv",
-  enabled: yes
-}
-EOF36
+#mkdir /etc/pkg
+#cat << EOF36 > /etc/pkg/FreeBSD.conf
+#FreeBSD: {
+#  url: "pkg+http://pkg.FreeBSD.org/\${ABI}/latest",
+#  mirror_type: "srv",
+#  enabled: yes
+#}
+#EOF36
 
-mv /usr/local/etc/pkg.conf /usr/local/etc/pkg.conf.old
-/usr/local/sbin/pkg2ng
+#mv /usr/local/etc/pkg.conf /usr/local/etc/pkg.conf.old
+#/usr/local/sbin/pkg2ng
 
-/usr/local/sbin/pkg update
+#/usr/local/sbin/pkg update
 
-cd /
-rm -fr /var/db/portsnap/*
+#cd /
+#rm -fr /var/db/portsnap/*
 
 # on supprime /usr/ports et on recrée tout de suite le chemin
-zfs destroy -r ${sys_tank}/usr/ports
-zfs create                 -o setuid=off   ${sys_tank}/usr/ports
-zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/distfiles
-zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/packages
+#zfs destroy -r ${sys_tank}/usr/ports
+#zfs create                 -o setuid=off   ${sys_tank}/usr/ports
+#zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/distfiles
+#zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/packages
 
 echo '# on met a jour les ports avec svn'
 echo '# attention, ça va etre long ...'
 echo '# bon, là on va pas le faire vraiment :)'
-svnlite checkout svn://svn.freebsd.org/ports/head /usr/ports
+#svnlite checkout svn://svn.freebsd.org/ports/head /usr/ports
 
 # on supprime /usr/src et on recrée tout de suite le chemin
-zfs destroy ${sys_tank}/usr/src
-zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/src
+#zfs destroy ${sys_tank}/usr/src
+#zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/src
 
 echo '# on met a jour les sources avec svn'
 echo '# attention, ça va etre long ...'
 echo '# bon, là on va pas le faire vraiment :)'
-svnlite checkout $svn_checkout /usr/src
+#svnlite checkout $svn_checkout /usr/src
 
 chmod 700 /root/.subversion
 
@@ -147,38 +147,38 @@ fi
 
 
 if [ ${tweak_users} = "YES" ]; then
-############################
-### Gestion des Users
-############################
-# on ajoute les users/group du système
-pw groupadd -q -n user -g 1000
-pw groupadd -q -n public_user -g 1010
+	############################
+	### Gestion des Users
+	############################
+	# on ajoute les users/group du système
+	pw groupadd -q -n user -g 1000
+	pw groupadd -q -n public_user -g 1010
 
-# Utilisateurs
-#echo -n 'toto' |\
-#passwd
-# LordZurp
-echo -n 'lordzurp' | pw adduser -n lordzurp -u 1000 -g user -G wheel -s /bin/csh -m -h 0
-# John Doe
-echo -n 'johndoe' |\
-pw adduser -n johndoe -u 1040 -g user -d /dev/null -s /bin/sh -h 0
-# Public
-pw adduser -n public -u 1050 -g public_user -s /usr/sbin/nologin -m
-# Media
-pw adduser -n media -u 1051 -g public_user -s /usr/sbin/nologin -m
-
-
-############################
-### tweak du .cshrc root
-############################
-svnlite checkout $source_install_svn/root /root
-cp /root/cshrc /root/.cshrc
+	# Utilisateurs
+	#echo -n 'toto' |\
+	#passwd
+	# LordZurp
+	echo -n 'lordzurp' | pw adduser -n lordzurp -u 1000 -g user -G wheel -s /bin/csh -m -h 0
+	# John Doe
+	echo -n 'johndoe' |\
+	pw adduser -n johndoe -u 1040 -g user -d /dev/null -s /bin/sh -h 0
+	# Public
+	pw adduser -n public -u 1050 -g public_user -s /usr/sbin/nologin -m
+	# Media
+	pw adduser -n media -u 1051 -g public_user -s /usr/sbin/nologin -m
 
 
-############################
-### tweak du .cshrc lordzurp
-############################
-cp /root/cshrc /home/lordzurp/.cshrc
+	############################
+	### tweak du .cshrc root
+	############################
+	#svnlite checkout $source_install_svn/root /root
+	#cp /root/cshrc /root/.cshrc
+
+
+	############################
+	### tweak du .cshrc lordzurp
+	############################
+	#cp /root/cshrc /home/lordzurp/.cshrc
 fi
 
 
