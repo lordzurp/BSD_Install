@@ -10,7 +10,7 @@ echo " #                                                                        
 echo " #############################################################################"
 echo ""
 
-fetch https://github.com/lordzurp/BSD_Install/raw/master/usr/scripts/bsd_flavour.conf
+fetch --no-verify-peer https://github.com/lordzurp/BSD_Install/raw/master/usr/scripts/bsd_flavour.conf
 . bsd_flavour.conf
 
 echo ""
