@@ -140,7 +140,7 @@ pkg install -y logrotate nano portmaster
 # debootstrap ezjail tmux pstree 
 
 # on installe gnome, parce qu'un bureau, parfois c'est cool
-pkg install -y xorg gnome3-lite firefox gedit 
+#pkg install -y xorg gnome3-lite firefox gedit 
 
 # VirtualBox, parce qu'il le vaut bien !
 #pkg install -y virtualbox-ose virtualbox-ose-additions
