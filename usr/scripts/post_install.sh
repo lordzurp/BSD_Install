@@ -27,24 +27,24 @@ cd /usr/scripts
 chmod -R +x *
 
 if [ ${tweak_system} = "YES" ]; then
-############################
-### Système
-############################
-# Mail
-cd /etc/mail
-make aliases
+	############################
+	### Système
+	############################
+	# Mail
+	cd /etc/mail
+	make aliases
 
-# Time Zone
-cd /etc/
-ln -s ${ma_time_zone} localtime
+	# Time Zone
+	cd /etc/
+	ln -s ${ma_time_zone} localtime
 
-echo "" > /etc/motd
-echo " Welcome back, Sir !" >> /etc/motd
-echo "" >> /etc/motd
+	echo "" > /etc/motd
+	echo " Welcome back, Sir !" >> /etc/motd
+	echo "" >> /etc/motd
 
 
-zpool import ${jail_tank}
-zpool import ${data_tank}
+	zpool import ${jail_tank}
+	zpool import ${data_tank}
 fi
 
 
@@ -58,22 +58,22 @@ fi
 
 
 if [ ${tweak_security} = "YES" ]; then
-############################
-### Security Tweaks
-############################
-# http://forums.freebsd.org/showthread.php?t=4108
-# http://www.bsdguides.org/guides/freebsd/security/harden.php
+	############################
+	### Security Tweaks
+	############################
+	# http://forums.freebsd.org/showthread.php?t=4108
+	# http://www.bsdguides.org/guides/freebsd/security/harden.php
 
-chmod 640 /var/log/messages
+	chmod 640 /var/log/messages
 
-# blowfish for password hash
-echo "crypt_default=blf" >> /etc/auth.conf
-sed -i '' s/md5/blf/ /etc/login.conf
-# on recrée la base des logins
-cap_mkdb /etc/login.conf
+	# blowfish for password hash
+	echo "crypt_default=blf" >> /etc/auth.conf
+	sed -i '' s/md5/blf/ /etc/login.conf
+	# on recrée la base des logins
+	cap_mkdb /etc/login.conf
 
-# set root password
-# passwd root
+	# set root password
+	# passwd root
 fi
 
 
@@ -143,7 +143,7 @@ pkg install -y logrotate nano portmaster
 pkg install -y xorg gnome3-lite firefox gedit 
 
 # VirtualBox, parce qu'il le vaut bien !
-pkg install -y virtualbox-ose virtualbox-ose-additions
+#pkg install -y virtualbox-ose virtualbox-ose-additions
 
 echo 'exec gnome-session' >> ~/.xsession
 

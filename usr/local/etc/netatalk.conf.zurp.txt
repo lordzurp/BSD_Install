@@ -1,0 +1,7 @@
+# netatalk configuration
+AFPD_MAX_CLIENTS=20
+ATALK_NAME=`/bin/hostname -s`
+ATALK_MAC_CHARSET='MAC_ROMAN'
+ATALK_UNIX_CHARSET='LOCALE'
+AFPD_GUEST="media"
+

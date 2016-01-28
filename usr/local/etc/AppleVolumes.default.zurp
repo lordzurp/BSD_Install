@@ -1,0 +1,5 @@
+:DEFAULT: options:upriv,usedots
+~
+/home/media "MediaTeK" rolist:@public_user rwlist:@user
+/home/docs "Docs communs" allow:"Ti_nicO","aurel"
+

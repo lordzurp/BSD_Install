@@ -1,0 +1,3 @@
+# default:
+- -tcp -noddp  -savepassword -uamlist uams_dhx.so,uams_dhx2.so,uams_guest.so,uams_clrtxt.so 
+"timemachine" -tcp -noddp -port 12002 -savepassword -defaultvol /usr/local/etc/AppleVolumes.timemachine -uamlist uams_dhx.so,uams_dhx2.so,uams_guest.so,uams_clrtxt.so
