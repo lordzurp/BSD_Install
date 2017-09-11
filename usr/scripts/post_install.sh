@@ -94,6 +94,9 @@ if [ ${system_install} = "YES" ]; then
 #echo 'WITH_PKGNG="YES"' >> /etc/make.conf
 #echo 'WITH_SVN="YES"' >> /etc/make.conf
 
+# Gestion de l'alimentation
+pkg install -y intel-pcm
+
 #mkdir /etc/pkg
 #cat << EOF36 > /etc/pkg/FreeBSD.conf
 #FreeBSD: {

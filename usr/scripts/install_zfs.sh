@@ -162,7 +162,9 @@ if [ $create_pool = "YES" ];
 	# on crée l'arboréscence ZFS
 	# on installe le système dans ${sys_tank}/root/current, ça permet de changer le /root si besoin (upgrade ...)
 	zfs create                                 ${sys_tank}/root
+	zfs create                                 ${sys_tank}/root/initial
 	zfs create                                 ${sys_tank}/usr
+	zfs create                                 ${sys_tank}/usr/home
 	zfs create                                 ${sys_tank}/usr/local
 	zfs create                 -o setuid=off   ${sys_tank}/usr/ports
 	zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/distfiles
@@ -181,9 +183,11 @@ if [ $create_pool = "YES" ];
 
 #	zfs create -o compression=on    -o exec=on      -o setuid=off	-o dedup=off   ${data_tank}
 
+	ln -s /mnt/home /usr/home
+
 
 	# on définit l'emplacement de la racine pour le boot
-	zpool set bootfs=${sys_tank}/root ${sys_tank}
+	zpool set bootfs=${sys_tank}/root/initial ${sys_tank}
 
 	# /var/empty en lecture seule
 	zfs set readonly=on ${sys_tank}/var/empty
@@ -220,7 +224,7 @@ if [ $create_pool = "YES" ];
 	# on umount le tout et on refait les points de montage propres
 	zfs umount -a
 	zfs set mountpoint=none ${sys_tank}
-	zfs set mountpoint=/ ${sys_tank}/root
+	zfs set mountpoint=/ ${sys_tank}/root/initial
 	zfs set mountpoint=/usr ${sys_tank}/usr
 	zfs set mountpoint=/var ${sys_tank}/var
 	zfs set mountpoint=/tmp ${sys_tank}/tmp
@@ -303,6 +307,8 @@ if [ ${valid_install} = "YES" ];
  
 	# version moderne
 	#svnlite checkout $source_install_svn /mnt
+	# svnlite checkout https://www.github.com/lordzurp/BSD_Install/trunk /tmp
+	https://github.com/lordzurp/BSD_Install.git/trunk
 	cd /tmp
 	fetch --no-verify-peer https://github.com/lordzurp/BSD_Install/archive/master.zip
 	unzip master.zip
