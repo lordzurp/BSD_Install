@@ -115,6 +115,11 @@ gpart add -s 1m -t efi ${disque_1}
 # création de la partition /, label system
 gpart add -s ${partition_systeme} -t freebsd-zfs -l system ${disque_1}
 
+# on copie le boot UEFI
+dd if=/boot/boot1.efifat of=/dev/${disque_1}p1
+newfs -U -L FreeBSD /dev/${disque_1}p2
+
+
 # création de la partition /jail, label jail
 #gpart add -s ${partition_jail} -t freebsd-zfs -l jail ${disque_1}
 
