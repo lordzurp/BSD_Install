@@ -1,9 +1,9 @@
 [global]
 	dns proxy = No
-	log file = /var/log/samba/log.%m
-	netbios name = Zurpatator2
-	server string = Zurpatator2
-	guest account = media
+#	log file = /var/log/samba/log.%m
+	netbios name = Seth
+	server string = seth
+	guest account = johndoe
 	workgroup = WORKGROUP
 	security = user
 	os level = 20
