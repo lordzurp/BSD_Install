@@ -10,7 +10,7 @@ alias j		jobs -l
 alias ls	ls -G
 alias la	ls -a
 alias lf	ls -FA
-alias ll	ls -lA
+alias ll	ls -lAh
 alias svn_maj_ports		svn checkout svn://svn.freebsd.org/ports/head /usr/ports
 
 alias tmuxn  tmux new-session -s 

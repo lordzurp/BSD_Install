@@ -16,8 +16,9 @@ echo " c'est parti !"
 
 echo " " >> /usr/scripts/journal.log
 echo " # update_kernel.sh" >> /usr/scripts/journal.log
-echo " debut " >> /usr/scripts/journal.log
 date -u >> /usr/scripts/journal.log
+echo " debut " >> /usr/scripts/journal.log
+echo " " >> /usr/scripts/journal.log
 
 ############################
 # Backup, Clean & Update
@@ -74,17 +75,16 @@ sed -i '' -e 's/ezjail_enable="YES"/ezjail_enable="NO"/g' /etc/rc.conf
 # reboot
 ############################
 
-echo " fin " >> /usr/scripts/journal.log
+echo " " >> /usr/scripts/journal.log
 date -u >> /usr/scripts/journal.log
+echo " fin " >> /usr/scripts/journal.log
 echo " " >> /usr/scripts/journal.log
 
-if [ ${auto_reboot} = "YES" ];
-then
+if [ ${auto_reboot} = "YES" ]; then
 	echo " 20sec avant reboot"
 	sleep 20
 	echo "time for reboot :)"
 	shutdown -r now
-else
+	else
 	echo "rebootez maintenant :)"
 fi
-

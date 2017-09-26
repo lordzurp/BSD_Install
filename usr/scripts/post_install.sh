@@ -14,9 +14,12 @@ echo " c'est parti !"
 ############################
 
 echo " " >> /usr/scripts/journal.log
+echo " ############################ " >> /usr/scripts/journal.log
+echo " " >> /usr/scripts/journal.log
 echo " # post_install.sh" >> /usr/scripts/journal.log
-echo " debut " >> /usr/scripts/journal.log
 date -u >> /usr/scripts/journal.log
+echo " debut " >> /usr/scripts/journal.log
+echo " " >> /usr/scripts/journal.log
 
 . /usr/scripts/bsd_flavour.conf
 
@@ -43,17 +46,17 @@ if [ ${tweak_system} = "YES" ]; then
 	echo "" >> /etc/motd
 
 
-	zpool import ${jail_tank}
-	zpool import ${data_tank}
+	#zpool import ${jail_tank}
+	#zpool import ${data_tank}
 fi
 
 
 if [ ${tweak_kernel} = "YES" ]; then
-############################
-### Kernel
-############################
-#
-# Insert Kernel tweak here
+	############################
+	### Kernel
+	############################
+	#
+	# Insert Kernel tweak here
 fi
 
 
@@ -78,83 +81,46 @@ fi
 
 
 if [ ${system_install} = "YES" ]; then
-	
-#
-# Attention !!
-#
-# cette partie ne fonctionne pas en unatented !
-# a utiliser uniquement depuis une console
+	#
+	# Attention !!
+	#
+	# cette partie ne fonctionne pas en unatented !
+	# a utiliser uniquement depuis une console
 
 
-# switch to PKG
-#env ASSUME_ALWAYS_YES=YES pkg bootstrap
-/usr/sbin/pkg
+	# init pkg et install des ports
+	/usr/sbin/pkg
+	portsnap fetch
+	portsnap extract
 
-# màj de la db packages pour PKG
-#echo 'WITH_PKGNG="YES"' >> /etc/make.conf
-#echo 'WITH_SVN="YES"' >> /etc/make.conf
+	#chmod 700 /root/.subversion
 
-# Gestion de l'alimentation
-pkg install -y intel-pcm
+	############################
+	### Ports utiles
+	############################
 
-#mkdir /etc/pkg
-#cat << EOF36 > /etc/pkg/FreeBSD.conf
-#FreeBSD: {
-#  url: "pkg+http://pkg.FreeBSD.org/\${ABI}/latest",
-#  mirror_type: "srv",
-#  enabled: yes
-#}
-#EOF36
+	pkg install -y logrotate nano portmaster gzip sudo clean tmux
+	ln -s /usr/local/bin/bash
+	echo '/bin/bash' >> /etc/shells
 
-#mv /usr/local/etc/pkg.conf /usr/local/etc/pkg.conf.old
-#/usr/local/sbin/pkg2ng
+	# Gestion de l'alimentation
+	pkg install -y intel-pcm
 
-#/usr/local/sbin/pkg update
+	# debootstrap ezjail tmux pstree 
 
-#cd /
-#rm -fr /var/db/portsnap/*
+	# on installe gnome, parce qu'un bureau, parfois c'est cool
+	#pkg install -y xorg gnome3-lite firefox gedit 
+	#echo 'exec gnome-session' >> ~/.xsession
 
-# on supprime /usr/ports et on recrée tout de suite le chemin
-#zfs destroy -r ${sys_tank}/usr/ports
-#zfs create                 -o setuid=off   ${sys_tank}/usr/ports
-#zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/distfiles
-#zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/ports/packages
-
-echo '# on met a jour les ports avec svn'
-echo '# attention, ça va etre long ...'
-echo '# bon, là on va pas le faire vraiment :)'
-#svnlite checkout svn://svn.freebsd.org/ports/head /usr/ports
-
-# on supprime /usr/src et on recrée tout de suite le chemin
-#zfs destroy ${sys_tank}/usr/src
-#zfs create -o exec=off     -o setuid=off   ${sys_tank}/usr/src
-
-echo '# on met a jour les sources avec svn'
-echo '# attention, ça va etre long ...'
-echo '# bon, là on va pas le faire vraiment :)'
-#svnlite checkout $svn_checkout /usr/src
-
-chmod 700 /root/.subversion
-
-############################
-### Ports utiles
-############################
-pkg install -y logrotate nano portmaster 
-# debootstrap ezjail tmux pstree 
-
-# on installe gnome, parce qu'un bureau, parfois c'est cool
-#pkg install -y xorg gnome3-lite firefox gedit 
-
-# VirtualBox, parce qu'il le vaut bien !
-#pkg install -y virtualbox-ose virtualbox-ose-additions
-
-echo 'exec gnome-session' >> ~/.xsession
-
-# Jails
-# Le gros morceau ...
+	# VirtualBox, parce qu'il le vaut bien !
+	#pkg install -y virtualbox-ose virtualbox-ose-additions
 
 
-# Fin install system
+	# Jails
+	# Le gros morceau ...
+
+
+	# Fin install system
 fi
 
 
@@ -163,40 +129,38 @@ if [ ${tweak_users} = "YES" ]; then
 	### Gestion des Users
 	############################
 	# on ajoute les users/group du système
-	pw groupadd -q -n user -g 1000
+	pw groupadd -q -n humans -g 1000
 	pw groupadd -q -n public_user -g 1010
 
 	# Utilisateurs
-	#echo -n 'toto' |\
-	#passwd
-	# LordZurp
-	echo -n 'lordzurp' | pw adduser -n lordzurp -u 1000 -g user -G wheel -s /bin/csh -m -h 0
-	# John Doe
-	echo -n 'johndoe' |\
-	pw adduser -n johndoe -u 1040 -g user -d /dev/null -s /bin/sh -h 0
-	# Public
-	pw adduser -n public -u 1050 -g public_user -s /usr/sbin/nologin -m
-	# Media
-	pw adduser -n media -u 1051 -g public_user -s /usr/sbin/nologin -m
 
+	# John Doe
+	echo -n 'johndoe' |	pw useradd -n johndoe -u 1000 -g user -d /dev/null -s /usr/sbin/nologin -h 0
+	# LordZurp
+	echo -n 'lordzurp' | pw useradd -n lordzurp -u 1001 -g user -G wheel -s /bin/csh -m -h 0
+	# Aurel
+	echo -n 'aurel' |	pw useradd -n aurel -u 1002 -g user -d /dev/null -s /usr/sbin/nologin -h 0
+	# Public
+	pw useradd -n public -u 1050 -g public_user -s /usr/sbin/nologin -m
+	# Media
+	pw useradd -n media -u 1051 -g public_user -s /usr/sbin/nologin -m
 
 	############################
 	### tweak du .cshrc root
 	############################
 	#svnlite checkout $source_install_svn/root /root
-	#cp /root/cshrc /root/.cshrc
-
+	cp /root/cshrc /root/.cshrc
 
 	############################
 	### tweak du .cshrc lordzurp
 	############################
-	#cp /root/cshrc /home/lordzurp/.cshrc
+	cp /root/cshrc /home/lordzurp/.cshrc
 fi
 
 
 
 # on crée un snapshot ZFS du système tel qu'à l'origine
-zfs snapshot -r ${sys_tank}/root@fresh_install
+zfs snapshot -r ${sys_tank}/root/initial@fresh_install
 
 
 ############################
@@ -206,18 +170,16 @@ echo " "
 echo " fin de post_install.sh"
 echo " "
 
-
-echo " fin " >> /usr/scripts/journal.log
+echo " " >> /tmp/journal.log
 date -u >> /usr/scripts/journal.log
+echo " fin " >> /usr/scripts/journal.log
 echo " " >> /usr/scripts/journal.log
 
-if [ ${auto_reboot} = "YES" ];
-	then
+if [ ${auto_reboot} = "YES" ]; then
 	echo " 10sec avant reboot"
 	sleep 10
 	echo "time for reboot :)"
 	shutdown -r now
-else
+	else
 	echo "rebootez maintenant !"
 fi
-
