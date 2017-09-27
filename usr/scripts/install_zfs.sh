@@ -20,7 +20,7 @@ echo " # Editez le fichier bsd_flavour.conf pour l'adapter a votre configuration
 echo " #                                                                           #"
 echo " #############################################################################"
 echo ""
-read -e -p "Presser ENTREE pour continuer ce script...  "
+read -e -p "Presser ENTREE pour continuer ce script...  ";
 
 echo ""
 echo " c'est parti !"
@@ -31,17 +31,55 @@ echo ""
 # 21 octobre 1985
 ############################
 
-# on redirigie STDOUT vers /tmp/journal.log
+# on redirigie STDOUT vers 
 # Close STDOUT file descriptor
-exec 1<&-
+#exec 1<&-
 # Close STDERR FD
-exec 2<&-
+#exec 2<&-
 
 # Open STDOUT as $LOG_FILE file for read and write.
-exec 1<>/tmp/journal.log
+#exec 1<>/tmp/journal.log
 
 # Redirect STDERR to STDOUT
-exec 2>&1
+#exec 2>&1
+
+exec 3>&1 4>&2 1> >(tee >(logger -i -t 'my_script_tag') >&3) 2> >(tee >(logger -i -t 'my_script_tag') >&4)
+trap 'cleanup' INT QUIT TERM EXIT
+
+
+get_pids_of_ppid() {
+    local ppid="$1"
+
+    RETVAL=''
+    local pids=`ps x -o pid,ppid | awk "\\$2 == \\"$ppid\\" { print \\$1 }"`
+    RETVAL="$pids"
+}
+
+
+# Needed to kill processes running in background
+cleanup() {
+    local current_pid element
+    local pids=( "$$" )
+
+    running_pids=("${pids[@]}")
+
+    while :; do
+        current_pid="${running_pids[0]}"
+        [ -z "$current_pid" ] && break
+
+        running_pids=("${running_pids[@]:1}")
+        get_pids_of_ppid $current_pid
+        local new_pids="$RETVAL"
+        [ -z "$new_pids" ] && continue
+
+        for element in $new_pids; do
+            running_pids+=("$element")
+            pids=("$element" "${pids[@]}")
+        done
+    done
+
+    kill ${pids[@]} 2>/dev/null
+}
 
 
 
