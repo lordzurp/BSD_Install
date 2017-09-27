@@ -130,7 +130,7 @@ if [ ${partition_disc} = "YES" ]; then
 	echo "# disque partitionné"
 	echo '########################'
 	echo ''
-	gpart show
+	gpart show ${disque1}
 
 	date -u >> /tmp/journal.log
 	echo " partition disc OK" >> /tmp/journal.log
@@ -273,10 +273,15 @@ if [ ${valid_install} = "YES" ]; then
 	echo ''
 
 	cd /mnt
+	echo 'base'
 	tar xJpf /mnt/tmp/freebsd-dist/base.txz
+	echo 'lib32'
 	tar xJpf /mnt/tmp/freebsd-dist/lib32.txz
+	echo 'kernel'
 	tar xJpf /mnt/tmp/freebsd-dist/kernel.txz
+	#echo 'ports'
 	#tar xJpf /mnt/tmp/freebsd-dist/ports.txz
+	echo 'scr'
 	tar xJpf /mnt/tmp/freebsd-dist/src.txz
 
 	# on remet le cache zfs
