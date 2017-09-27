@@ -300,13 +300,13 @@ if [ ${valid_install} = "YES" ]; then
 	echo ''
 
 	# version moderne
-	svnlite checkout ${source_install_svn} /mnt
+	#svnlite checkout ${source_install_svn} /mnt
 	# svnlite checkout https://www.github.com/lordzurp/BSD_Install/trunk /tmp
 	#https://github.com/lordzurp/BSD_Install.git/trunk
 	#cd /tmp
-#	fetch --no-verify-peer https://github.com/lordzurp/BSD_Install/archive/master.zip
-#	unzip master.zip
-#	cp -R BSD_Install-master/* /mnt
+	fetch --no-verify-peer https://github.com/lordzurp/BSD_Install/archive/master.zip
+	unzip master.zip
+	cp -R BSD_Install-master/* /mnt
 
 	chmod -R +x /mnt/usr/scripts/*
 
