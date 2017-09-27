@@ -147,7 +147,7 @@ if [ $create_pool = "YES" ]; then
 	# ça, c'etait dans le howto ... alors on laisse malgrè le warning ...
 	mkdir /boot/zfs
 	# on crée un dataset ZFS nommé sys_tank sur la partition gpt/system
-	zpool create -f -R /mnt -m / sys_tank /dev/gpt/system
+	zpool create -f -R /mnt -m none sys_tank /dev/gpt/system
 	zpool set feature@lz4_compress=enabled sys_tank
 	zpool set listsnapshots=on sys_tank
 	zpool set autoreplace=on sys_tank
