@@ -108,6 +108,9 @@ if [ ${partition_disc} = "YES" ]; then
 	echo '########################'
 	echo ''
 
+	# on aligne à 4k, comme ça, par défaut
+	sysctl vfs.zfs.min_auto_ashift=12
+
 	# création de la table GPT sur le disque 
 	gpart create -s gpt ${disque_1}
 
