@@ -31,67 +31,15 @@ echo ""
 # 21 octobre 1985
 ############################
 
-# on redirigie STDOUT vers 
-# Close STDOUT file descriptor
-#exec 1<&-
-# Close STDERR FD
-#exec 2<&-
-
-# Open STDOUT as $LOG_FILE file for read and write.
-#exec 1<>/tmp/journal.log
-
-# Redirect STDERR to STDOUT
-#exec 2>&1
-
-exec 3>&1 4>&2 1> >(tee >(logger -i -t 'my_script_tag') >&3) 2> >(tee >(logger -i -t 'my_script_tag') >&4)
-trap 'cleanup' INT QUIT TERM EXIT
-
-
-get_pids_of_ppid() {
-    local ppid="$1"
-
-    RETVAL=''
-    local pids=`ps x -o pid,ppid | awk "\\$2 == \\"$ppid\\" { print \\$1 }"`
-    RETVAL="$pids"
-}
-
-
-# Needed to kill processes running in background
-cleanup() {
-    local current_pid element
-    local pids=( "$$" )
-
-    running_pids=("${pids[@]}")
-
-    while :; do
-        current_pid="${running_pids[0]}"
-        [ -z "$current_pid" ] && break
-
-        running_pids=("${running_pids[@]:1}")
-        get_pids_of_ppid $current_pid
-        local new_pids="$RETVAL"
-        [ -z "$new_pids" ] && continue
-
-        for element in $new_pids; do
-            running_pids+=("$element")
-            pids=("$element" "${pids[@]}")
-        done
-    done
-
-    kill ${pids[@]} 2>/dev/null
-}
-
-
-
-
-echo " "
-echo " ############################ "
-echo " #"
-echo " # Install Full ZFS "
-echo " #"
-echo " ############################ "
-echo " debut " && date -u
-echo " "
+echo " " >> /usr/scripts/journal.log
+echo " ############################ " >> /usr/scripts/journal.log
+echo " #" >> /usr/scripts/journal.log
+echo " # Install Full ZFS " >> /tmp/journal.log
+echo " #" >> /usr/scripts/journal.log
+echo " ############################ " >> /usr/scripts/journal.log
+date -u >> /tmp/journal.log
+echo " debut " >> /tmp/journal.log
+echo " " >> /usr/scripts/journal.log
 
 ########################
 # Debut de l'install
@@ -149,8 +97,8 @@ if [ ${erase_disc} = "YES" ]; then
 	echo '########################'
 	echo ''
 
-	echo " erase disc OK" && date -u
-
+	date -u >> /tmp/journal.log
+	echo " erase disc OK" >> /tmp/journal.log
 fi
 
 if [ ${partition_disc} = "YES" ]; then
@@ -184,8 +132,8 @@ if [ ${partition_disc} = "YES" ]; then
 	echo ''
 	gpart show
 
-	echo " partition disc OK" && date -u
-	
+	date -u >> /tmp/journal.log
+	echo " partition disc OK" >> /tmp/journal.log
 fi
 
 
@@ -289,7 +237,8 @@ if [ $create_pool = "YES" ]; then
 	zpool list
 	zfs list
 
-	echo " pool ZFS OK" && date -u
+	date -u >> /tmp/journal.log
+	echo " pool ZFS OK" >> /tmp/journal.log
 fi
 
 # on export et importe le pool
@@ -324,15 +273,10 @@ if [ ${valid_install} = "YES" ]; then
 	echo ''
 
 	cd /mnt
-	echo 'base'
 	tar xJpf /mnt/tmp/freebsd-dist/base.txz
-	echo 'lib32'
 	tar xJpf /mnt/tmp/freebsd-dist/lib32.txz
-	echo 'kernel'
 	tar xJpf /mnt/tmp/freebsd-dist/kernel.txz
-	#echo 'ports'
 	#tar xJpf /mnt/tmp/freebsd-dist/ports.txz
-	echo 'scr'
 	tar xJpf /mnt/tmp/freebsd-dist/src.txz
 
 	# on remet le cache zfs
@@ -367,7 +311,8 @@ if [ ${valid_install} = "YES" ]; then
 	# on clean $sys_tank/tmp, il est monté en ram par rc.conf
 	zfs destroy -f sys_tank/tmp
 
-	echo " install OK" && date -u
+	date -u >> /tmp/journal.log
+	echo " install OK" >> /tmp/journal.log
 fi
 
 
@@ -375,10 +320,11 @@ fi
 # fin & reboot
 ############################
 
-echo " "
-echo " fin " && date -u
-echo " "
-cp /var/log/messages /mnt/usr/scripts/journal.log
+echo " " >> /tmp/journal.log
+date -u >> /tmp/journal.log
+echo " fin " >> /tmp/journal.log
+echo " " >> /tmp/journal.log
+cp /tmp/journal.log /mnt/usr/scripts/journal.log
 
 echo ''
 echo '########################'
