@@ -59,7 +59,7 @@ if [ ${tweak_kernel} = "YES" ]; then
 	# Insert Kernel tweak here
 	
 	cd /usr/src/sys/modules
-	for module in mlx4 ibcore mlx4ib ipoib; do
+	for module in mlx4 mlxen; do
 	cd $module
 		make
 		make install
