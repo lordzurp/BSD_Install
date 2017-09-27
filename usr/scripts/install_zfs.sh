@@ -31,15 +31,15 @@ echo ""
 # 21 octobre 1985
 ############################
 
-echo " " >> /usr/scripts/journal.log
-echo " ############################ " >> /usr/scripts/journal.log
-echo " #" >> /usr/scripts/journal.log
+echo " " >> /tmp/journal.log
+echo " ############################ " >> /tmp/journal.log
+echo " #" >> /tmp/journal.log
 echo " # Install Full ZFS " >> /tmp/journal.log
-echo " #" >> /usr/scripts/journal.log
-echo " ############################ " >> /usr/scripts/journal.log
+echo " #" >> /tmp/journal.log
+echo " ############################ " >> /tmp/journal.log
 date -u >> /tmp/journal.log
 echo " debut " >> /tmp/journal.log
-echo " " >> /usr/scripts/journal.log
+echo " " >> /tmp/journal.log
 
 ########################
 # Debut de l'install
@@ -324,7 +324,7 @@ echo " " >> /tmp/journal.log
 date -u >> /tmp/journal.log
 echo " fin " >> /tmp/journal.log
 echo " " >> /tmp/journal.log
-cp /tmp/journal.log /mnt/usr/scripts/journal.log
+cp /tmp/journal.log /mnt/tmp/journal.log
 
 echo ''
 echo '########################'
