@@ -69,6 +69,8 @@ if [ ${tweak_kernel} = "YES" ]; then
 		cd ..
 	done
 	kldstat
+	
+	dhclient mlxen0
 
 fi
 
