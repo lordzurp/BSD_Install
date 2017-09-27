@@ -31,7 +31,7 @@ echo ""
 # 21 octobre 1985
 ############################
 
-echo " " >> /tmp/journal.log
+echo " " > /tmp/journal.log
 echo " ############################ " >> /tmp/journal.log
 echo " #" >> /tmp/journal.log
 echo " # Install Full ZFS " >> /tmp/journal.log
@@ -329,7 +329,7 @@ echo " " >> /tmp/journal.log
 date -u >> /tmp/journal.log
 echo " fin " >> /tmp/journal.log
 echo " " >> /tmp/journal.log
-cp /tmp/journal.log /mnt/tmp/journal.log
+cp /tmp/journal.log /mnt/usr/scripts/journal.log
 
 echo ''
 echo '########################'

@@ -57,6 +57,19 @@ if [ ${tweak_kernel} = "YES" ]; then
 	############################
 	#
 	# Insert Kernel tweak here
+	
+	cd /usr/src/sys/modules
+	for module in mlx4 ibcore mlx4ib ipoib; do
+	cd $module
+		make
+		make install
+		sync
+		kldload $module || true
+		printf "${module}_load=\"YES\"\n" >> /boot/loader.conf
+		cd ..
+	done
+	kldstat
+
 fi
 
 
