@@ -13,6 +13,7 @@ X -configure
 mv xorg.conf.new /etc/X11/xorg.conf
 
 # Localisation
+cp /usr/misc/x11-input.fdi /usr/local/etc/hal/fdi/policy/
 #fetch https://raw.github.com/lordzurp/Zurpatator2/master/misc/x11-input.fdi
 echo 'setenv LANG fr_FR.UTF-8' >> /etc/csh.login
 echo 'setenv MM_CHARSET UTF-8' >> /etc/csh.login
