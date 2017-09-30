@@ -102,6 +102,10 @@ if [ ${system_install} = "YES" ]; then
 	# cette partie ne fonctionne pas en unatented !
 	# a utiliser uniquement depuis une console
 
+	# Subversion et màj des sources
+	pkg install -y ca_root_nss #subversion
+	#rm -rf /usr/src
+	#subversion checkout https://svn.freebsd.org/base/releng/${ferebsd_current_release} /usr/src
 
 	# init pkg et install des ports
 	/usr/sbin/pkg
@@ -114,7 +118,7 @@ if [ ${system_install} = "YES" ]; then
 	### Ports utiles
 	############################
 
-	pkg install -y logrotate nano portmaster gzip sudo clean tmux
+	pkg install -y logrotate nano portmaster gzip sudo clean tmux htop bash
 	ln -s /usr/local/bin/bash
 	echo '/bin/bash' >> /etc/shells
 
