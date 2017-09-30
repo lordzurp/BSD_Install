@@ -129,6 +129,9 @@ if [ ${partition_disc} = "YES" ]; then
 		#gpart add -s ${partition_data} -t freebsd-zfs -l data ${disque_1}
 
 	fi
+	
+	dd if=/dev/da8p1 of=/dev/${disque_1}p1
+	
 	echo ''
 	echo '########################'
 	echo "# disque partitionné"
