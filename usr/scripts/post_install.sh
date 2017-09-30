@@ -154,11 +154,11 @@ if [ ${tweak_users} = "YES" ]; then
 	# Utilisateurs
 
 	# John Doe
-	echo -n 'johndoe' |	pw useradd -n johndoe -u 1000 -g user -d /dev/null -s /usr/sbin/nologin -h 0
+	echo -n 'johndoe' |	pw useradd -n johndoe -u 1000 -g humans -d /dev/null -s /usr/sbin/nologin -h 0
 	# LordZurp
-	echo -n 'lordzurp' | pw useradd -n lordzurp -u 1001 -g user -G wheel -s /bin/csh -m -h 0
+	echo -n 'lordzurp' | pw useradd -n lordzurp -u 1001 -g humans -G wheel -s /bin/csh -m -h 0
 	# Aurel
-	echo -n 'aurel' |	pw useradd -n aurel -u 1002 -g user -d /dev/null -s /usr/sbin/nologin -h 0
+	echo -n 'aurel' |	pw useradd -n aurel -u 1002 -g humans -d /dev/null -s /usr/sbin/nologin -h 0
 	# Public
 	pw useradd -n public -u 1050 -g public_user -s /usr/sbin/nologin -m
 	# Media
