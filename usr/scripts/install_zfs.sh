@@ -216,7 +216,7 @@ if [ $create_pool = "YES" ]; then
 	#zfs set atime=off ${jail_tank}
 
 	# swap, sans dedup ni checksum
-	zfs create -V 2G sys_tank/swap
+	zfs create -V ${partition_swap} sys_tank/swap
 	zfs set org.freebsd:swap=on sys_tank/swap
 	zfs set checksum=off sys_tank/swap
 	zfs set dedup=off sys_tank/swap
