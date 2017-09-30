@@ -118,7 +118,8 @@ if [ ${partition_disc} = "YES" ]; then
 	gpart add -s 1m -t efi ${disque_1}
 
 	# création de la partition /, label system
-	gpart add -s ${partition_systeme} -t freebsd-zfs -l system ${disque_1}
+	#gpart add -s ${partition_systeme} -t freebsd-zfs -l system ${disque_1}
+	gpart add -t freebsd-zfs -l system ${disque_1}
 
 	# création de la partition /jail, label jail
 	#gpart add -s ${partition_jail} -t freebsd-zfs -l jail ${disque_1}
