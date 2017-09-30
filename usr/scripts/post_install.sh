@@ -118,7 +118,7 @@ if [ ${system_install} = "YES" ]; then
 	### Ports utiles
 	############################
 
-	pkg install -y logrotate nano portmaster gzip sudo clean tmux htop bash
+	pkg install -y logrotate nano portmaster gzip sudo clean tmux htop bash llvm40 git
 	ln -s /usr/local/bin/bash
 	echo '/bin/bash' >> /etc/shells
 
