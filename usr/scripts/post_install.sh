@@ -183,7 +183,6 @@ fi
 
 # on crée un snapshot ZFS du système tel qu'à l'origine
 zfs snapshot -r ${sys_tank}/root/initial@fresh_install
-zfs snapshot -r ${sys_tank}/root/boot@fresh_install
 
 
 ############################
