@@ -174,7 +174,6 @@ if [ $create_pool = "YES" ]; then
 	# on installe le système dans sys_tank/root/current, ça permet de changer le /root si besoin (upgrade ...)
 	zfs create -o mountpoint=none                                 sys_tank/root
 	zfs create -o mountpoint=/                                    sys_tank/root/initial
-	zfs create -o mountpoint=/boot                                sys_tank/root/boot
 	zfs create -o mountpoint=/usr                                 sys_tank/root/usr
 	zfs create                                                    sys_tank/root/usr/home
 	zfs create                                                    sys_tank/root/usr/local
