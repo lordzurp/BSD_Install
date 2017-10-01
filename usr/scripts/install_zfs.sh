@@ -313,6 +313,8 @@ if [ ${valid_install} = "YES" ]; then
 	unzip master.zip
 	cp -R BSD_Install-master/* /mnt
 
+	rm -rf /mnt/usr/scripts
+	svnlite checkout ${source_install_svn}/usr/scripts /mnt/usr/scripts
 	chmod -R +x /mnt/usr/scripts/*
 
 	########################
