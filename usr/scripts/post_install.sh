@@ -45,9 +45,6 @@ if [ ${tweak_system} = "YES" ]; then
 	echo " Welcome back, Sir !" >> /etc/motd
 	echo "" >> /etc/motd
 	
-	echo "CPUTYPE?=${cputype}" >> /etc/make.conf
-
-
 	#zpool import ${jail_tank}
 	#zpool import ${data_tank}
 fi
@@ -73,7 +70,7 @@ if [ ${tweak_kernel} = "YES" ]; then
 	kldstat
 	
 	dhclient mlxen0
-
+	
 fi
 
 
@@ -113,6 +110,10 @@ if [ ${system_install} = "YES" ]; then
 	pkg install -y ca_root_nss #subversion
 	rm -rf /usr/src
 	svnlite checkout ${freebsd_svn_checkout}/${ferebsd_current_release} /usr/src
+	
+	
+	echo "CPUTYPE?=${cputype}" >> /etc/make.conf
+	cp /usr/scripts/misc/skylake.kernel /usr/src/sys/amd64/conf/skylake
 
 	#chmod 700 /root/.subversion
 
