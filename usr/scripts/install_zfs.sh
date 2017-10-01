@@ -314,7 +314,6 @@ if [ ${valid_install} = "YES" ]; then
 
 	rm -rf /mnt/usr/scripts
 	svnlite checkout ${source_install_svn}/usr/scripts /mnt/usr/scripts
-	chmod -R +x /mnt/usr/scripts/*
 
 	########################
 	### /root/.ssh/ma_cle_ssh.pub
