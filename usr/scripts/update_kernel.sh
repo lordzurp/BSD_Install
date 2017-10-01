@@ -39,9 +39,9 @@ cd /usr/src/
 make buildworld -j5 -s
 # Compile le nouveau noyau
 #time -h -o /root/time_buildkernel 
-make buildkernel -j5 -s
+make buildkernel -j5 -s KERNCONF=skylake
 # Installe le nouveau noyau
-make -s installkernel
+make -s installkernel KERNCONF=skylake
 
 #	########################
 #	### dummy script auto-start

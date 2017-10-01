@@ -113,7 +113,7 @@ if [ ${system_install} = "YES" ]; then
 	
 	
 	echo "CPUTYPE?=${cputype}" >> /etc/make.conf
-	cp /usr/scripts/misc/skylake.kernel /usr/src/sys/amd64/conf/skylake
+	ln -s /usr/scripts/misc/skylake.kernel /usr/src/sys/amd64/conf/skylake
 
 	#chmod 700 /root/.subversion
 

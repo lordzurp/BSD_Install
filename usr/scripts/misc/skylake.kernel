@@ -157,8 +157,6 @@ device		vt_efifb
 # PCI Ethernet NICs.
 device		em			# Intel PRO/1000 Gigabit Ethernet Family
 device		igb			# Intel PRO/1000 PCIE Server Gigabit Family
-device		mlx4		# Mellanox ConnectX 2
-device		mlxen		# Mellanox ConnectX 2
 
 # PCI Ethernet NICs that use the common MII bus controller code.
 # NOTE: Be sure to keep the 'device miibus' line in order to use these NICs!
