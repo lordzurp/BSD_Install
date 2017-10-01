@@ -31,13 +31,15 @@ rm -rf /usr/obj/*
 mergemaster -p
 
 # Récuperer les sources à jour 
-svnlite checkout svn://svn.freebsd.org/base/releng/11.1 /usr/src
+svnlite update /usr/src
 
 cd /usr/src/
 # Compile le nouveau monde
-time -h -o /root/time_buildworld make buildworld -j5 -s
+#time -h -o /root/time_buildworld 
+make buildworld -j5 -s
 # Compile le nouveau noyau
-time -h -o /root/time_buildkernel make buildkernel -j5 -s
+#time -h -o /root/time_buildkernel 
+make buildkernel -j5 -s
 # Installe le nouveau noyau
 make -s installkernel
 

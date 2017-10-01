@@ -174,22 +174,23 @@ if [ $create_pool = "YES" ]; then
 	# on installe le système dans sys_tank/root/current, ça permet de changer le /root si besoin (upgrade ...)
 	zfs create -o mountpoint=none                                 sys_tank/root
 	zfs create -o mountpoint=/                                    sys_tank/root/initial
-	zfs create -o mountpoint=/usr                                 sys_tank/usr
-	zfs create                                                    sys_tank/usr/home
-	zfs create                                                    sys_tank/usr/local
-	zfs create                                    -o setuid=off   sys_tank/usr/ports
-	zfs create                    -o exec=off     -o setuid=off   sys_tank/usr/ports/distfiles
-	zfs create                    -o exec=off     -o setuid=off   sys_tank/usr/ports/packages
-	zfs create                    -o exec=off     -o setuid=off   sys_tank/usr/src
-	zfs create -o mountpoint=/var                                 sys_tank/var
-	zfs create                    -o exec=off     -o setuid=off   sys_tank/var/crash
-	zfs create                    -o exec=off     -o setuid=off   sys_tank/var/db
-	zfs create                    -o exec=on      -o setuid=off   sys_tank/var/db/pkg
-	zfs create                    -o exec=off     -o setuid=off   sys_tank/var/empty
-	zfs create                    -o exec=off     -o setuid=off   sys_tank/var/log
-	zfs create                    -o exec=off     -o setuid=off   sys_tank/var/mail
-	zfs create                    -o exec=off     -o setuid=off   sys_tank/var/run
-	zfs create                    -o exec=on      -o setuid=off   sys_tank/var/tmp
+	zfs create -o mountpoint=/boot                                sys_tank/root/boot
+	zfs create -o mountpoint=/usr                                 sys_tank/root/usr
+	zfs create                                                    sys_tank/root/usr/home
+	zfs create                                                    sys_tank/root/usr/local
+	zfs create                                    -o setuid=off   sys_tank/root/usr/ports
+	zfs create                    -o exec=off     -o setuid=off   sys_tank/root/usr/ports/distfiles
+	zfs create                    -o exec=off     -o setuid=off   sys_tank/root/usr/ports/packages
+	zfs create                    -o exec=off     -o setuid=off   sys_tank/root/usr/src
+	zfs create -o mountpoint=/var                                 sys_tank/root/var
+	zfs create                    -o exec=off     -o setuid=off   sys_tank/root/var/crash
+	zfs create                    -o exec=off     -o setuid=off   sys_tank/root/var/db
+	zfs create                    -o exec=on      -o setuid=off   sys_tank/root/var/db/pkg
+	zfs create                    -o exec=off     -o setuid=off   sys_tank/root/var/empty
+	zfs create                    -o exec=off     -o setuid=off   sys_tank/root/var/log
+	zfs create                    -o exec=off     -o setuid=off   sys_tank/root/var/mail
+	zfs create                    -o exec=off     -o setuid=off   sys_tank/root/var/run
+	zfs create                    -o exec=on      -o setuid=off   sys_tank/root/var/tmp
 	zfs create -o mountpoint=/tmp -o exec=on      -o setuid=off   sys_tank/tmp
 
 	#zfs create -o compression=on    -o exec=on      -o setuid=off-o dedup=off   ${data_tank}
@@ -201,7 +202,7 @@ if [ $create_pool = "YES" ]; then
 	zpool set bootfs=sys_tank/root/initial sys_tank
 
 	# /var/empty en lecture seule
-	zfs set readonly=on sys_tank/var/empty
+	zfs set readonly=on sys_tank/root/var/empty
 
 	# /tmp en accès libre
 	chmod 1777 /mnt/tmp
@@ -267,11 +268,11 @@ if [ ${valid_install} = "YES" ]; then
 	# Install de FreeBSD dans sys_tank/root/initial, monté sur /mnt
 	mkdir -p /mnt/tmp/freebsd-dist
 	cd /mnt/tmp/freebsd-dist
-	fetch ${freebsd_install}/base.txz
-	fetch ${freebsd_install}/lib32.txz
-	fetch ${freebsd_install}/kernel.txz
+	fetch "${freebsd_install}/${freebsd_current_release}-RELEASE"/base.txz
+	fetch "${freebsd_install}/${freebsd_current_release}-RELEASE"/lib32.txz
+	fetch "${freebsd_install}/${freebsd_current_release}-RELEASE"/kernel.txz
 	# fetch ${freebsd_install}/ports.txz
-	fetch ${freebsd_install}/src.txz
+	#fetch "${freebsd_install}${freebsd_current_release}-RELEASE"/src.txz
 
 	echo ''
 	echo '########################'
@@ -288,8 +289,8 @@ if [ ${valid_install} = "YES" ]; then
 	tar xJpf /mnt/tmp/freebsd-dist/kernel.txz
 	#echo 'ports'
 	#tar xJpf /mnt/tmp/freebsd-dist/ports.txz
-	echo 'scr'
-	tar xJpf /mnt/tmp/freebsd-dist/src.txz
+	#echo 'src'
+	#tar xJpf /mnt/tmp/freebsd-dist/src.txz
 
 	# on remet le cache zfs
 	cp /tmp/zpool.cache /mnt/boot/zfs/zpool.cache

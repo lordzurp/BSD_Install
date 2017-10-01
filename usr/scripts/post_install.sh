@@ -44,6 +44,8 @@ if [ ${tweak_system} = "YES" ]; then
 	echo "" > /etc/motd
 	echo " Welcome back, Sir !" >> /etc/motd
 	echo "" >> /etc/motd
+	
+	echo "CPUTYPE?=${cputype}" >> /etc/make.conf
 
 
 	#zpool import ${jail_tank}
@@ -102,15 +104,15 @@ if [ ${system_install} = "YES" ]; then
 	# cette partie ne fonctionne pas en unatented !
 	# a utiliser uniquement depuis une console
 
-	# Subversion et màj des sources
-	pkg install -y ca_root_nss #subversion
-	#rm -rf /usr/src
-	#subversion checkout https://svn.freebsd.org/base/releng/${ferebsd_current_release} /usr/src
-
 	# init pkg et install des ports
 	/usr/sbin/pkg
 	portsnap fetch
 	portsnap extract
+	
+	# màj des sources
+	pkg install -y ca_root_nss #subversion
+	rm -rf /usr/src
+	svnlite checkout ${freebsd_svn_checkout}/${ferebsd_current_release} /usr/src
 
 	#chmod 700 /root/.subversion
 
@@ -189,7 +191,7 @@ echo " "
 echo " fin de post_install.sh"
 echo " "
 
-echo " " >> /tmp/journal.log
+echo " " >> /usr/scripts/journal.log
 date -u >> /usr/scripts/journal.log
 echo " fin " >> /usr/scripts/journal.log
 echo " " >> /usr/scripts/journal.log
