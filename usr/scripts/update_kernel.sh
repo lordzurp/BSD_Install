@@ -43,30 +43,31 @@ make buildkernel -j5 -s KERNCONF=skylake
 # Installe le nouveau noyau
 make -s installkernel KERNCONF=skylake
 
-#	########################
-#	### dummy script auto-start
-#	########################
-#	# on lance la suite au reboot
-#	echo '#!/bin/sh' > /etc/rc.d/dummy_script
-#	echo '' >> /etc/rc.d/dummy_script
-#	echo '. /etc/rc.subr' >> /etc/rc.d/dummy_script
-#	echo '' >> /etc/rc.d/dummy_script
-#	echo 'name="dummy"' >> /etc/rc.d/dummy_script
-#	echo "start_cmd=\"\${name}_start\"" >> /etc/rc.d/dummy_script
-#	echo "stop_cmd=\":\"" >> /etc/rc.d/dummy_script
-#	echo '' >> /etc/rc.d/dummy_script
-#	echo 'dummy_start()' >> /etc/rc.d/dummy_script
-#	echo '{' >> /etc/rc.d/dummy_script
-#	echo '     rm -f /etc/rc.d/dummy_script' >> /etc/rc.d/dummy_script
-#	echo '     /usr/scripts/update_world.sh' >> /etc/rc.d/dummy_script
-#	echo '}' >> /etc/rc.d/dummy_script
-#	echo '' >> /etc/rc.d/dummy_script
-#	echo "load_rc_config \"\$name\"" >> /etc/rc.d/dummy_script
-#	echo "run_rc_command \"\$1\"" >> /etc/rc.d/dummy_script
-#	echo '' >> /etc/rc.d/dummy_script
-#
-#	# on rend executable le dummy_script
-#	chmod +x /etc/rc.d/dummy_script
+	########################
+	### dummy script auto-start
+	########################
+	# on lance la suite au reboot
+	echo '#!/bin/sh' > /etc/rc.d/dummy_script
+	echo '' >> /etc/rc.d/dummy_script
+	echo '. /etc/rc.subr' >> /etc/rc.d/dummy_script
+	echo '' >> /etc/rc.d/dummy_script
+	echo 'name="dummy"' >> /etc/rc.d/dummy_script
+	echo "start_cmd=\"\${name}_start\"" >> /etc/rc.d/dummy_script
+	echo "stop_cmd=\":\"" >> /etc/rc.d/dummy_script
+	echo '' >> /etc/rc.d/dummy_script
+	echo 'dummy_start()' >> /etc/rc.d/dummy_script
+	echo '{' >> /etc/rc.d/dummy_script
+	echo '     rm -f /etc/rc.d/dummy_script' >> /etc/rc.d/dummy_script
+	echo '     /usr/scripts/update_world.sh' >> /etc/rc.d/dummy_script
+	echo '}' >> /etc/rc.d/dummy_script
+	echo '' >> /etc/rc.d/dummy_script
+	echo "load_rc_config \"\$name\"" >> /etc/rc.d/dummy_script
+	echo "run_rc_command \"\$1\"" >> /etc/rc.d/dummy_script
+	echo '' >> /etc/rc.d/dummy_script
+
+	# on rend executable le dummy_script
+	chmod +x /etc/rc.d/dummy_script
+	echo 'dummy_enable="YES"' >> /etc/rc.conf
 
 # on force en single user et on bloque les Jails
 sed -i '' -e 's/kern.securelevel=/#kern.securelevel/g' /etc/rc.conf
