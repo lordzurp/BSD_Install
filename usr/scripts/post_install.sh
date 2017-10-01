@@ -50,29 +50,6 @@ if [ ${tweak_system} = "YES" ]; then
 fi
 
 
-if [ ${tweak_kernel} = "YES" ]; then
-	############################
-	### Kernel
-	############################
-	#
-	# Insert Kernel tweak here
-	
-	cd /usr/src/sys/modules
-	for module in mlx4 mlxen; do
-	cd $module
-		make
-		make install
-		sync
-		kldload $module || true
-		printf "${module}_load=\"YES\"\n" >> /boot/loader.conf
-		cd ..
-	done
-	kldstat
-	
-	dhclient mlxen0
-	
-fi
-
 
 if [ ${tweak_security} = "YES" ]; then
 	############################
@@ -144,6 +121,30 @@ if [ ${system_install} = "YES" ]; then
 
 	# Fin install system
 fi
+
+if [ ${tweak_kernel} = "YES" ]; then
+	############################
+	### Kernel
+	############################
+	#
+	# Insert Kernel tweak here
+	
+	cd /usr/src/sys/modules
+	for module in mlx4 mlxen; do
+	cd $module
+		make
+		make install
+		sync
+		kldload $module || true
+		printf "${module}_load=\"YES\"\n" >> /boot/loader.conf
+		cd ..
+	done
+	kldstat
+	
+	dhclient mlxen0
+	
+fi
+
 
 
 if [ ${tweak_users} = "YES" ]; then
