@@ -86,7 +86,7 @@ if [ ${system_install} = "YES" ]; then
 	# màj des sources
 	pkg install -y ca_root_nss #subversion
 	rm -rf /usr/src
-	svnlite checkout ${freebsd_svn_checkout}/${ferebsd_current_release} /usr/src
+	svnlite checkout ${freebsd_svn_checkout}/${freebsd_current_release} /usr/src
 	
 	
 	echo "CPUTYPE?=${cputype}" >> /etc/make.conf
