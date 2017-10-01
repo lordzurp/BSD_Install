@@ -137,7 +137,7 @@ if [ ${partition_disc} = "YES" ]; then
 	echo "# disque partitionné"
 	echo '########################'
 	echo ''
-	gpart show ${disque1}
+	gpart show ${disque_1}
 
 	date -u >> /tmp/journal.log
 	echo " partition disc OK" >> /tmp/journal.log
