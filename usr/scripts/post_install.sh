@@ -85,8 +85,8 @@ if [ ${system_install} = "YES" ]; then
 	
 	# màj des sources
 	pkg install -y ca_root_nss #subversion
-	rm -rf /usr/src
-	svnlite checkout ${freebsd_svn_checkout}/${freebsd_current_release} /usr/src
+	#rm -rf /usr/src
+	#svnlite checkout ${freebsd_svn_checkout}/${freebsd_current_release} /usr/src
 	
 	
 	echo "CPUTYPE?=${cputype}" >> /etc/make.conf
@@ -98,7 +98,7 @@ if [ ${system_install} = "YES" ]; then
 	### Ports utiles
 	############################
 
-	pkg install -y logrotate nano portmaster gzip sudo clean tmux htop bash llvm40 git
+	pkg install -y logrotate nano portmaster gzip sudo clean tmux htop bash nut
 	ln -s /usr/local/bin/bash
 	echo '/bin/bash' >> /etc/shells
 
