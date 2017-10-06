@@ -1,5 +1,5 @@
 [upsmon]
-    password = fixmepass
+    password = hardpass
     upsmon master
 
 
