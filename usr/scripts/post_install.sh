@@ -79,7 +79,7 @@ if [ ${system_install} = "YES" ]; then
 	# a utiliser uniquement depuis une console
 
 	# init pkg et install des ports
-	/usr/sbin/pkg
+	/usr/sbin/pkg -y
 	portsnap fetch
 	portsnap extract
 	
