@@ -106,7 +106,7 @@ if [ ${system_install} = "YES" ]; then
 	pkg install -y intel-pcm
 	
 	
-	pkg install m4 bash-completion texinfo help2man gettext-tools gmake pkgconf autoconf
+	pkg install -y m4 bash-completion texinfo help2man gettext-tools gmake pkgconf autoconf
 	cd /usr/ports/sysutils/nut
 	make install clean
 
