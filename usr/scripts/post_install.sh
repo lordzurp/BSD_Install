@@ -79,7 +79,7 @@ if [ ${system_install} = "YES" ]; then
 	# a utiliser uniquement depuis une console
 
 	# init pkg et install des ports
-	/usr/sbin/pkg -y
+	env ASSUME_ALWAYS_YES=YES pkg bootstrap
 	portsnap fetch
 	portsnap extract
 	
@@ -98,13 +98,15 @@ if [ ${system_install} = "YES" ]; then
 	### Ports utiles
 	############################
 
-	pkg install -y logrotate nano portmaster gzip sudo clean tmux htop bash zip unzip smartmontools
+	pkg install -y logrotate nano portmaster gzip sudo clean tmux htop bash zip unzip smartmontools ipmitool
 	ln -s /usr/local/bin/bash
 	echo '/bin/bash' >> /etc/shells
 
 	# Gestion de l'alimentation
 	pkg install -y intel-pcm
 	
+	
+	pkg install m4 bash-completion texinfo help2man gettext-tools gmake pkgconf autoconf
 	cd /usr/ports/sysutils/nut
 	make install clean
 
