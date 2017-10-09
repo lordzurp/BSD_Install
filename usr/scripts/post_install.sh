@@ -98,17 +98,13 @@ if [ ${system_install} = "YES" ]; then
 	### Ports utiles
 	############################
 
-	pkg install -y logrotate nano portmaster gzip sudo clean tmux htop bash zip unzip smartmontools ipmitool
+	pkg install -y logrotate nano portmaster gzip sudo clean tmux htop bash zip unzip smartmontools ipmitool avahi nut
 	ln -s /usr/local/bin/bash
 	echo '/bin/bash' >> /etc/shells
 
 	# Gestion de l'alimentation
 	pkg install -y intel-pcm
-	
-	
-	pkg install -y m4 bash-completion texinfo help2man gettext-tools gmake pkgconf autoconf
-	cd /usr/ports/sysutils/nut
-	make install clean
+
 
 	# debootstrap ezjail tmux pstree 
 
