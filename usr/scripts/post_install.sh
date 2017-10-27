@@ -98,12 +98,17 @@ if [ ${system_install} = "YES" ]; then
 	### Ports utiles
 	############################
 
-	pkg install -y logrotate nano portmaster gzip sudo clean tmux htop bash zip unzip smartmontools ipmitool avahi nut
+	pkg install -y logrotate nano portmaster gzip sudo clean tmux htop bash zip unzip smartmontools ipmitool avahi nut iperf
 	ln -s /usr/local/bin/bash
 	echo '/bin/bash' >> /etc/shells
 
 	# Gestion de l'alimentation
-	pkg install -y intel-pcm
+	pkg install -y intel-pcm stress i7z 
+	
+	# Monitoring
+	pkg install -y monitorix
+	cp /usr/local/etc/monitoring.conf.zurp /usr/local/etc/monitorix.conf
+	
 
 
 	# debootstrap ezjail tmux pstree 
