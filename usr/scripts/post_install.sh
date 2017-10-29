@@ -107,7 +107,7 @@ if [ ${system_install} = "YES" ]; then
 	
 	# Monitoring
 	pkg install -y monitorix
-	cp /usr/local/etc/monitoring.conf.zurp /usr/local/etc/monitorix.conf
+	cp /usr/local/etc/monitorix.conf.zurp /usr/local/etc/monitorix.conf
 	sysrc monitorix_enable="YES"
 
 	# CBSD and tools
