@@ -271,7 +271,7 @@ if [ ${valid_install} = "YES" ]; then
 	fetch "${freebsd_install}/${freebsd_current_release}-RELEASE"/lib32.txz
 	fetch "${freebsd_install}/${freebsd_current_release}-RELEASE"/kernel.txz
 	# fetch ${freebsd_install}/ports.txz
-	#fetch "${freebsd_install}${freebsd_current_release}-RELEASE"/src.txz
+	fetch "${freebsd_install}/${freebsd_current_release}-RELEASE"/src.txz
 
 	echo ''
 	echo '########################'
@@ -288,8 +288,8 @@ if [ ${valid_install} = "YES" ]; then
 	tar xJpf /mnt/tmp/freebsd-dist/kernel.txz
 	#echo 'ports'
 	#tar xJpf /mnt/tmp/freebsd-dist/ports.txz
-	#echo 'src'
-	#tar xJpf /mnt/tmp/freebsd-dist/src.txz
+	echo 'src'
+	tar xJpf /mnt/tmp/freebsd-dist/src.txz
 
 	# on remet le cache zfs
 	cp /tmp/zpool.cache /mnt/boot/zfs/zpool.cache

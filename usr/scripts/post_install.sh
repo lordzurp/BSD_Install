@@ -85,8 +85,8 @@ if [ ${system_install} = "YES" ]; then
 	
 	# màj des sources
 	pkg install -y ca_root_nss #subversion
-	rm -rf /usr/src
-	svnlite checkout ${freebsd_svn_checkout}/${freebsd_current_release} /usr/src
+	#rm -rf /usr/src
+	#svnlite checkout ${freebsd_svn_checkout}/${freebsd_current_release} /usr/src
 	
 	
 	echo "CPUTYPE?=${cputype}" >> /etc/make.conf
@@ -108,8 +108,18 @@ if [ ${system_install} = "YES" ]; then
 	# Monitoring
 	pkg install -y monitorix
 	cp /usr/local/etc/monitoring.conf.zurp /usr/local/etc/monitorix.conf
-	
+	sysrc monitorix_enable="YES"
 
+	# CBSD and tools
+	#pkg install -y cbsd
+	#pkg install nginx php71 php71-zip php71-sqlite3 php71-session php71-pdo_sqlite php71-opcache php71-json devel/git sysutils/py-supervisor security/ca_root_nss www/node www/npm shells/bash lang/python27 security/gnutls net/libvncserver 
+	
+	
+	
+	
+	
+	
+	
 
 	# debootstrap ezjail tmux pstree 
 
