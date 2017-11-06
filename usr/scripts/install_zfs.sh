@@ -289,7 +289,7 @@ if [ ${valid_install} = "YES" ]; then
 	#echo 'ports'
 	#tar xJpf /mnt/tmp/freebsd-dist/ports.txz
 	echo 'src'
-	tar xJpf /mnt/tmp/freebsd-dist/src.txz
+	#tar xJpf /mnt/tmp/freebsd-dist/src.txz
 
 	# on remet le cache zfs
 	cp /tmp/zpool.cache /mnt/boot/zfs/zpool.cache
@@ -324,6 +324,7 @@ if [ ${valid_install} = "YES" ]; then
 
 	# on clean $sys_tank/tmp, il est monté en ram par rc.conf
 	zfs destroy -f sys_tank/tmp
+
 
 	date -u >> /tmp/journal.log
 	echo " install OK" >> /tmp/journal.log

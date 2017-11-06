@@ -23,6 +23,8 @@ echo " " >> /usr/scripts/journal.log
 
 . /usr/scripts/bsd_flavour.conf
 
+
+
 #cd $scripts
 cd /usr/scripts
 
@@ -47,6 +49,11 @@ if [ ${tweak_system} = "YES" ]; then
 	
 	#zpool import ${jail_tank}
 	#zpool import ${data_tank}
+	
+	zpool import media_tank
+	zpool import data_tank
+	zpool import jail_tank
+	
 fi
 
 
@@ -85,8 +92,8 @@ if [ ${system_install} = "YES" ]; then
 	
 	# màj des sources
 	pkg install -y ca_root_nss #subversion
-	#rm -rf /usr/src
-	#svnlite checkout ${freebsd_svn_checkout}/${freebsd_current_release} /usr/src
+	rm -rf /usr/src
+	svnlite checkout ${freebsd_svn_checkout}/${freebsd_current_release} /usr/src
 	
 	
 	echo "CPUTYPE?=${cputype}" >> /etc/make.conf
@@ -107,16 +114,31 @@ if [ ${system_install} = "YES" ]; then
 	
 	# Monitoring
 	pkg install -y monitorix
+	mv /usr/local/etc/monitorix.conf /usr/local/etc/monitorix.conf.dist
 	cp /usr/local/etc/monitorix.conf.zurp /usr/local/etc/monitorix.conf
 	sysrc monitorix_enable="YES"
 
 	# CBSD and tools
-	#pkg install -y cbsd
+	pkg install -y cbsd git grub2-bhyve
 	#pkg install nginx php71 php71-zip php71-sqlite3 php71-session php71-pdo_sqlite php71-opcache php71-json devel/git sysutils/py-supervisor security/ca_root_nss www/node www/npm shells/bash lang/python27 security/gnutls net/libvncserver 
 	
+	#zpool import jail_tank
+	
+	env workdir="/usr/cbsd" /usr/local/cbsd/sudoexec/initenv
+	
+	sysrc cbsdd_enable="YES"
+	
+	service cbsdd start
+	
+	/usr/local/bin/cbsd srcup
+	/usr/local/bin/cbsd buildworld maxjobs=4
+	/usr/local/bin/cbsd installworld
 	
 	
+	# Sharing tools
+	pkg install -y samba46
 	
+	sysrc samba_server_enable="YES"
 	
 	
 	
@@ -174,11 +196,11 @@ if [ ${tweak_users} = "YES" ]; then
 	# Utilisateurs
 
 	# John Doe
-	echo -n 'johndoe' |	pw useradd -n johndoe -u 1000 -g humans -d /dev/null -s /usr/sbin/nologin -h 0
+	echo -n 'johndoe' |	pw useradd -n johndoe -u 1000 -g humans -d /home/media -s /usr/sbin/nologin -h 0
 	# LordZurp
-	echo -n 'lordzurp' | pw useradd -n lordzurp -u 1001 -g humans -G wheel -s /bin/csh -m -h 0
+	echo -n 'lordzurp' | pw useradd -n lordzurp -u 1001 -g humans -d /home/lordzurp -G wheel -s /bin/csh -m -h 0
 	# Aurel
-	echo -n 'aurel' |	pw useradd -n aurel -u 1002 -g humans -d /dev/null -s /usr/sbin/nologin -h 0
+	echo -n 'aurel' |	pw useradd -n aurel -u 1002 -g humans -d /home/aurel -s /usr/sbin/nologin -h 0
 	# Public
 	pw useradd -n public -u 1050 -g public_user -s /usr/sbin/nologin -m
 	# Media
