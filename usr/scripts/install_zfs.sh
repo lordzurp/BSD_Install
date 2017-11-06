@@ -194,7 +194,7 @@ if [ $create_pool = "YES" ]; then
 
 	#zfs create -o compression=on    -o exec=on      -o setuid=off-o dedup=off   ${data_tank}
 
-	ln -s /usr/home /mnt/home
+	#ln -s /usr/home /mnt/home
 
 
 	# on définit l'emplacement de la racine pour le boot
