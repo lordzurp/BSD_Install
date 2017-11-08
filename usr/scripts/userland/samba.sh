@@ -8,9 +8,8 @@ fetch https://raw.github.com/lordzurp/Zurpatator2/master/usr/local/etc/smb4.conf
 chmod 644 smb.conf
 
 # configure le service dans /etc/rc.conf
-echo '# Samba' >> /etc/rc.conf
-echo 'samba_enable="YES"' >> /etc/rc.conf
-echo '' >> /etc/rc.conf
+sysrc samba_server_enable="YES"
+
 read -p "pensez à ajouter les membres des groupes 1000 et 1001 dans samba via webmin :)"
 
 # Configure le système

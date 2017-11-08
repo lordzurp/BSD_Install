@@ -160,9 +160,9 @@ if [ ${system_install} = "YES" ]; then
 	
 	
 	# Sharing tools
-	pkg install -y samba46
+	#pkg install -y samba46
 	
-	sysrc samba_server_enable="YES"
+	#sysrc samba_server_enable="YES"
 	
 	
 	
