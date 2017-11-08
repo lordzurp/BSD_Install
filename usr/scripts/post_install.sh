@@ -202,7 +202,7 @@ if [ ${tweak_users} = "YES" ]; then
 	# Aurel
 	echo -n 'aurel' |	pw useradd -n aurel -u 1002 -g humans -d /home/aurel -s /usr/sbin/nologin -h 0
 	# Public
-	pw useradd -n public -u 1050 -g public_user -s /usr/sbin/nologin -m
+	pw useradd -n public -u 1050 -g public_user -d /home/public -s /usr/sbin/nologin -m
 	# Media
 	pw useradd -n media -u 1051 -g public_user -s /usr/sbin/nologin -m
 
