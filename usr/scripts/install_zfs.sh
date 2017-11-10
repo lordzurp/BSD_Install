@@ -176,6 +176,7 @@ if [ $create_pool = "YES" ]; then
 	zfs create -o mountpoint=/                                    sys_tank/root/initial
 	zfs create -o mountpoint=/usr                                 sys_tank/root/usr
 	zfs create                                                    sys_tank/root/usr/home
+	zfs create                                                    sys_tank/root/usr/cbsd
 	zfs create                                                    sys_tank/root/usr/local
 	zfs create                                    -o setuid=off   sys_tank/root/usr/ports
 	zfs create                    -o exec=off     -o setuid=off   sys_tank/root/usr/ports/distfiles

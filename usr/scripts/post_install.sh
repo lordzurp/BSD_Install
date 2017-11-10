@@ -52,7 +52,7 @@ if [ ${tweak_system} = "YES" ]; then
 	
 	zpool import media_tank
 	zpool import data_tank
-	zpool import jail_tank
+	#zpool import jail_tank
 	
 fi
 
@@ -129,7 +129,7 @@ if [ ${system_install} = "YES" ]; then
 	### Ports utiles
 	############################
 
-	pkg install -y logrotate nano portmaster gzip sudo clean tmux htop bash zip unzip smartmontools ipmitool avahi nut iperf
+	pkg install -y logrotate nano portmaster gzip sudo clean tmux pstree htop bash zip unzip smartmontools ipmitool avahi nut iperf
 	ln -s /usr/local/bin/bash
 	echo '/bin/bash' >> /etc/shells
 
@@ -160,15 +160,17 @@ if [ ${system_install} = "YES" ]; then
 	
 	
 	# Sharing tools
-	#pkg install -y samba46
+	pkg install -y samba46
+	sysrc samba_server_enable="YES"
+	mv /usr/local/etc/smb4.conf /usr/local/etc/smb4.conf.dist
+	cp /usr/local/etc/smb4.conf.zurp /usr/local/etc/smb4.conf
 	
-	#sysrc samba_server_enable="YES"
+	pkg install -y plexmediaserver openjdk8 transmission-daemon ffmpeg
 	
+	mkdir /home/lordzurp/subsonic_temp
+	cd /home/lordzurp/subsonic_temp
+	fetch https://osdn.net/frs/g_redir.php?m=netix&f=%2Fsubsonic%2Fsubsonic%2F6.0%2Fsubsonic-6.0-standalone.tar.gz
 	
-	
-
-	# debootstrap ezjail tmux pstree 
-
 	# on installe gnome, parce qu'un bureau, parfois c'est cool
 	#pkg install -y xorg gnome3-lite firefox gedit 
 	#echo 'exec gnome-session' >> ~/.xsession
@@ -196,15 +198,13 @@ if [ ${tweak_users} = "YES" ]; then
 	# Utilisateurs
 
 	# John Doe
-	echo -n 'johndoe' |	pw useradd -n johndoe -u 1000 -g humans -d /home/media -s /usr/sbin/nologin -h 0
+	echo -n 'johndoe' |	pw useradd -n johndoe -u 1000 -g humans -G public_user -d /home/media -s /usr/sbin/nologin -h 0
 	# LordZurp
-	echo -n 'lordzurp' | pw useradd -n lordzurp -u 1001 -g humans -d /home/lordzurp -G wheel -s /bin/csh -m -h 0
+	echo -n 'lordzurp' | pw useradd -n lordzurp -u 1001 -g humans -G public_user -d /home/lordzurp -G wheel -s /bin/csh -m -h 0
 	# Aurel
-	echo -n 'aurel' |	pw useradd -n aurel -u 1002 -g humans -d /home/aurel -s /usr/sbin/nologin -h 0
+	echo -n 'aurel' |	pw useradd -n aurel -u 1002 -g humans -G public_user -d /home/aurel -s /usr/sbin/nologin -h 0
 	# Public
-	pw useradd -n public -u 1050 -g public_user -d /home/public -s /usr/sbin/nologin -m
-	# Media
-	pw useradd -n media -u 1051 -g public_user -s /usr/sbin/nologin -m
+	pw useradd -n public -u 1010 -g public_user -d /home/public -s /usr/sbin/nologin -m
 
 	############################
 	### tweak du .cshrc root
