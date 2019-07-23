@@ -84,6 +84,8 @@ if [ ${system_install} = "YES" ]; then
 	#
 	# cette partie ne fonctionne pas en unatented !
 	# a utiliser uniquement depuis une console
+	
+	pkg update && pkg upgrade
 
 	# init pkg et install des ports
 	env ASSUME_ALWAYS_YES=YES pkg bootstrap
@@ -119,20 +121,20 @@ if [ ${system_install} = "YES" ]; then
 	sysrc monitorix_enable="YES"
 
 	# CBSD and tools
-	pkg install -y cbsd git grub2-bhyve
+#	pkg install -y cbsd git grub2-bhyve
 	#pkg install nginx php71 php71-zip php71-sqlite3 php71-session php71-pdo_sqlite php71-opcache php71-json devel/git sysutils/py-supervisor security/ca_root_nss www/node www/npm shells/bash lang/python27 security/gnutls net/libvncserver 
 	
 	#zpool import jail_tank
 	
-	env workdir="/usr/cbsd" /usr/local/cbsd/sudoexec/initenv
+#	env workdir="/usr/cbsd" /usr/local/cbsd/sudoexec/initenv
 	
-	sysrc cbsdd_enable="YES"
+#	sysrc cbsdd_enable="YES"
 	
-	service cbsdd start
+#	service cbsdd start
 	
-	/usr/local/bin/cbsd srcup
-	/usr/local/bin/cbsd buildworld maxjobs=4
-	/usr/local/bin/cbsd installworld
+#	/usr/local/bin/cbsd srcup
+#	/usr/local/bin/cbsd buildworld maxjobs=4
+#	/usr/local/bin/cbsd installworld
 	
 	
 	# Sharing tools
@@ -141,11 +143,11 @@ if [ ${system_install} = "YES" ]; then
 	mv /usr/local/etc/smb4.conf /usr/local/etc/smb4.conf.dist
 	cp /usr/local/etc/smb4.conf.zurp /usr/local/etc/smb4.conf
 	
-	pkg install -y plexmediaserver openjdk8 transmission-daemon ffmpeg
+	pkg install -y plexmediaserver-plexpass openjdk8 transmission-daemon ffmpeg
 	
-	mkdir /home/lordzurp/subsonic_temp
-	cd /home/lordzurp/subsonic_temp
-	fetch https://osdn.net/frs/g_redir.php?m=netix&f=%2Fsubsonic%2Fsubsonic%2F6.0%2Fsubsonic-6.0-standalone.tar.gz
+#	mkdir -p /home/lordzurp/subsonic_temp
+#	cd /home/lordzurp/subsonic_temp
+#	fetch https://osdn.net/frs/g_redir.php?m=netix&f=%2Fsubsonic%2Fsubsonic%2F6.0%2Fsubsonic-6.0-standalone.tar.gz
 	
 	# on installe gnome, parce qu'un bureau, parfois c'est cool
 	#pkg install -y xorg gnome3-lite firefox gedit 
@@ -170,8 +172,11 @@ if [ ${tweak_kernel} = "YES" ]; then
 	#
 	# Insert Kernel tweak here
 	
+	pkg install -y devcpu_data
+	echo 'microcode_update_enable="YES"' >> /etc/rc.conf
+	
 	cd /usr/src/sys/modules
-	for module in mlx4 mlxen; do
+	for module in mlx4 mlx4en ; do
 	cd $module
 		make
 		make install
@@ -182,7 +187,7 @@ if [ ${tweak_kernel} = "YES" ]; then
 	done
 	kldstat
 	
-	dhclient mlxen0
+	dhclient mlx4en0
 	
 fi
 
