@@ -108,11 +108,14 @@ if [ ${system_install} = "YES" ]; then
 	############################
 
 	pkg install -y logrotate nano portmaster gzip sudo clean tmux pstree htop bash zip unzip smartmontools ipmitool avahi nut iperf
+	
+	sysrc smartd_enable="YES"
+	
 	ln -s /usr/local/bin/bash
 	echo '/bin/bash' >> /etc/shells
 
 	# Gestion de l'alimentation
-	pkg install -y intel-pcm stress s-tui 
+	pkg install -y intel-pcm stress s-tui i7z
 	
 	# Monitoring
 	pkg install -y monitorix
@@ -143,7 +146,10 @@ if [ ${system_install} = "YES" ]; then
 	mv /usr/local/etc/smb4.conf /usr/local/etc/smb4.conf.dist
 	cp /usr/local/etc/smb4.conf.zurp /usr/local/etc/smb4.conf
 	
-	pkg install -y plexmediaserver-plexpass openjdk8 transmission-daemon ffmpeg
+	pkg install -y plexmediaserver-plexpass openjdk8 transmission-daemon ffmpeg drm-fbsd12.0-kmod libva-intel-media-driver
+
+	pw groupmod -n video -m plex
+	sysrc kld_list+="drm"
 	
 #	mkdir -p /home/lordzurp/subsonic_temp
 #	cd /home/lordzurp/subsonic_temp
@@ -172,8 +178,9 @@ if [ ${tweak_kernel} = "YES" ]; then
 	#
 	# Insert Kernel tweak here
 	
-	pkg install -y devcpu_data
-	echo 'microcode_update_enable="YES"' >> /etc/rc.conf
+	pkg install -y devcpu-data
+	echo 'cpu_microcode_load="YES"' >> /boot/loader.conf
+	echo 'cpu_microcode_name="/boot/firmware/intel-ucode.bin"' >> /boot/loader.conf
 	
 	cd /usr/src/sys/modules
 	for module in mlx4 mlx4en ; do
@@ -187,7 +194,7 @@ if [ ${tweak_kernel} = "YES" ]; then
 	done
 	kldstat
 	
-	dhclient mlx4en0
+	dhclient mlxen0
 	
 fi
 
@@ -226,7 +233,7 @@ fi
 
 
 # on crée un snapshot ZFS du système tel qu'à l'origine
-zfs snapshot -r ${sys_tank}/root/initial@fresh_install
+zfs snapshot -r ${sys_tank}/ROOT/default@fresh_install
 
 
 ############################
