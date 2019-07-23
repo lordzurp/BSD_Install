@@ -110,7 +110,7 @@ if [ ${system_install} = "YES" ]; then
 	echo '/bin/bash' >> /etc/shells
 
 	# Gestion de l'alimentation
-	pkg install -y intel-pcm stress i7z 
+	pkg install -y intel-pcm stress s-tui 
 	
 	# Monitoring
 	pkg install -y monitorix
