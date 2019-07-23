@@ -85,7 +85,7 @@ if [ ${system_install} = "YES" ]; then
 	# cette partie ne fonctionne pas en unatented !
 	# a utiliser uniquement depuis une console
 	
-	pkg update && pkg upgrade
+	pkg update && pkg upgrade -y
 
 	# init pkg et install des ports
 	env ASSUME_ALWAYS_YES=YES pkg bootstrap
