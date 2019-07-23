@@ -130,7 +130,7 @@ if [ ${partition_disc} = "YES" ]; then
 
 	fi
 	
-	dd if=/dev/da8p1 of=/dev/${disque_1}p1
+	dd if=/boot/boot1.efifat of=/dev/${disque_1}p1
 	
 	echo ''
 	echo '########################'
@@ -313,8 +313,8 @@ if [ ${valid_install} = "YES" ]; then
 	unzip master.zip
 	cp -R BSD_Install-master/* /mnt
 
-	rm -rf /mnt/usr/scripts
-	svnlite checkout ${source_install_svn}/usr/scripts /mnt/usr/scripts
+#	rm -rf /mnt/usr/scripts
+#	svnlite checkout ${source_install_svn}/usr/scripts /mnt/usr/scripts
 
 	########################
 	### /root/.ssh/ma_cle_ssh.pub
