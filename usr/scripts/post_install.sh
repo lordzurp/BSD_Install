@@ -106,7 +106,7 @@ if [ ${system_install} = "YES" ]; then
 	### Ports utiles
 	############################
 
-	pkg install -y logrotate nano portmaster gzip sudo clean tmux pstree htop bash zip unzip smartmontools ipmitool avahi nut iperf iperf3
+	pkg install -y bash-completion logrotate nano portmaster gzip sudo clean tmux pstree htop bash zip unzip smartmontools ipmitool avahi nut iperf iperf3
 	
 	sysrc smartd_enable="YES"
 	
@@ -211,13 +211,13 @@ if [ ${tweak_users} = "YES" ]; then
 	# Utilisateurs
 
 	# John Doe
-	echo -n 'johndoe' |	pw useradd -n johndoe -u 1000 -g humans -G public_user -d /home/media -s /usr/sbin/nologin -h 0
+	echo -n 'johndoe' |	pw useradd -n johndoe -u 1000 -g public -d /home/media -s /usr/sbin/nologin -h 0
 	# LordZurp
-	echo -n 'lordzurp' | pw useradd -n lordzurp -u 1001 -g humans -G public_user -d /home/lordzurp -G wheel -s /bin/csh -m -h 0
+	echo -n 'lordzurp' | pw useradd -n lordzurp -u 1001 -g humans -G public -d /home/lordzurp -G wheel -s /bin/csh -m -h 0
 	# Aurel
-	echo -n 'aurel' |	pw useradd -n aurel -u 1002 -g humans -G public_user -d /home/aurel -s /usr/sbin/nologin -h 0
+	echo -n 'aurel' |	pw useradd -n aurel -u 1002 -g humans -G public -d /home/aurel -s /usr/sbin/nologin -h 0
 	# Public
-	pw useradd -n public -u 1010 -g public_user -d /home/public -s /usr/sbin/nologin -m
+	pw useradd -n public -u 1010 -g public -d /home/public -s /usr/sbin/nologin -m
 
 	############################
 	### tweak du .cshrc root
