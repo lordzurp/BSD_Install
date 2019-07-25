@@ -85,12 +85,11 @@ if [ ${system_install} = "YES" ]; then
 	# cette partie ne fonctionne pas en unatented !
 	# a utiliser uniquement depuis une console
 	
-	pkg update && pkg upgrade -y
-
 	# init pkg et install des ports
 	env ASSUME_ALWAYS_YES=YES pkg bootstrap
 	portsnap fetch
 	portsnap extract
+	pkg update && pkg upgrade -y
 	
 	# màj des sources
 	pkg install -y ca_root_nss #subversion
@@ -107,7 +106,7 @@ if [ ${system_install} = "YES" ]; then
 	### Ports utiles
 	############################
 
-	pkg install -y logrotate nano portmaster gzip sudo clean tmux pstree htop bash zip unzip smartmontools ipmitool avahi nut iperf
+	pkg install -y logrotate nano portmaster gzip sudo clean tmux pstree htop bash zip unzip smartmontools ipmitool avahi nut iperf iperf3
 	
 	sysrc smartd_enable="YES"
 	
@@ -149,6 +148,8 @@ if [ ${system_install} = "YES" ]; then
 	pkg install -y plexmediaserver-plexpass openjdk8 transmission-daemon ffmpeg drm-fbsd12.0-kmod libva-intel-media-driver
 
 	pw groupmod -n video -m plex
+	pw groupmod -n humans -m plex
+	pw groupmod -n humans -m transmission
 	sysrc kld_list+="drm"
 	
 #	mkdir -p /home/lordzurp/subsonic_temp

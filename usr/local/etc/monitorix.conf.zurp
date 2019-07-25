@@ -17,7 +17,7 @@ global_zoom = 1
 max_historic_years = 1
 accept_selfsigned_certs = y
 image_format = PNG
-include_dir = /etc/monitorix/conf.d
+#include_dir = /etc/monitorix/conf.d
 
 base_dir = /usr/local/www/monitorix/
 base_lib = /var/db/monitorix/
@@ -26,7 +26,7 @@ base_cgi = /
 
 <httpd_builtin>
 	enabled = y
-	host = 10.42.0.16
+	host = 10.42.0.30
 	port = 8080
 	user = www
 	group = www
@@ -70,19 +70,19 @@ secure_log_date_format = %b %e
 # Graphs (de)activation
 # -----------------------------------------------------------------------------
 <graph_enable>
-	system		= y
-	nut		= y
+	system		= n
+	nut			= y
 	kern		= n
 	proc		= n
 	lmsens		= n
 	gensens		= n
 	disk		= y
-	fs		= y
-	zfs		= n
-	du		= y
-	net		= y
+	fs			= n
+	zfs			= n
+	du			= n
+	net			= y
 	netstat		= n
-	tc		= n
+	tc			= n
 	process		= n
 	serv		= n
 	port		= n
@@ -146,11 +146,11 @@ secure_log_date_format = %b %e
 		1 = cpu0, cpu1
 	</list>
 	<desc>
-		temp0 = /sys/devices/virtual/thermal/thermal_zone0/temp
+		temp0 = /tmp/cpu0.temp
 		cpu0 = /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
 	</desc>
 	<unit>
-		temp0 = 1000
+		temp0 = 1
 		cpu0 = 0.001
 	</unit>
 	<map>
@@ -179,53 +179,19 @@ secure_log_date_format = %b %e
 		pendsect_threshold = 1
 		pendsect_script = /path/to/script.sh
 	</alerts>
+	rigid = 2
+	limit = 50:20
 </disk>
-
-
-# FS graph
-# -----------------------------------------------------------------------------
-<fs>
-	<list>
-		0 = /, /home, /home/media, /usr/cbsd
-	</list>
-	<desc>
-	</desc>
-	<devmap>
-	</devmap>
-	rigid = 2, 0, 2, 0
-	limit = 100, 1000, 100, 1000
-	<alerts>
-	</alerts>
-</fs>
 
 
 # ZFS graph
 # -----------------------------------------------------------------------------
 <zfs>
-	max_pools = 5
-	list = sys_tank, sys_pool, data_tank, media_tank
-	rigid = 0, 0, 0, 0, 2, 0, 2
-	limit = 1000, 1000, 1000, 1000, 100, 1000, 100
+	max_pools = 4
+	list = sys_tank, data_tank, media_tank
+	#rigid = 0, 0, 0, 0, 2, 0, 2
+	#limit = 1000, 1000, 1000, 1000, 100, 1000, 100
 </zfs>
-
-
-# DU graph
-# -----------------------------------------------------------------------------
-<du>
-	list = System, Users
-	<desc>
-		0 = /var/spool/mail, /var/spool/mqueue, /etc, /tmp
-		1 = /home/lordzurp, /home/gene, /home/paul, /home/peter
-	</desc>
-	<dirmap>
-		/var/spool/mail = Mail boxes
-		/var/spool/mqueue = Mail queue
-	</dirmap>
-	graphs_per_row = 2
-	rigid = 0
-	limit = 100
-</du>
-
 
 # NET graph
 # -----------------------------------------------------------------------------
@@ -237,7 +203,6 @@ secure_log_date_format = %b %e
 	</desc>
 	gateway = mlxen0
 </net>
-
 
 # NETSTAT graph
 # -----------------------------------------------------------------------------
@@ -259,23 +224,6 @@ secure_log_date_format = %b %e
 	rigid = 0, 0, 0, 0
 	limit = 1000, 1000, 1000, 1000
 </tc>
-
-
-# PROCESS graph
-# -----------------------------------------------------------------------------
-<process>
-	<list>
-		0 = httpd, sshd, ntpd, clamd, imap, sendmail, named, smbd
-	</list>
-	<desc>
-		httpd = Apache
-		imap = Dovecot
-		named = Bind
-	</desc>
-	rigid = 2, 0, 0, 0, 0, 0, 0, 0
-	limit = 100, 1000, 1000, 1000, 1000, 1000, 1000, 1000
-</process>
-
 
 # SERV graph
 # -----------------------------------------------------------------------------
@@ -312,116 +260,17 @@ secure_log_date_format = %b %e
 	limit = 1000, 1000, 1000
 </user>
 
-
-# NFSS graph
-# -----------------------------------------------------------------------------
-<nfss>
-	version = 3
-	graph_0 = readlink, create, mkdir, symlink, rmdir, remove, rename, link, readdir
-	graph_1 = mknod, readdirplus, fsstat, fsinfo, pathconf, access, lookup, commit, null
-	graph_2 = read, write, getattr, setattr
-	rigid = 0, 0, 0, 0, 0, 0, 0, 0, 0
-	limit = 100, 100, 100, 100, 100, 100, 100, 100, 100
-</nfss>
-
-
-# NFSC graph
-# -----------------------------------------------------------------------------
-<nfsc>
-	version = 3
-	graph_0 = readlink, create, mkdir, symlink, rmdir, remove, rename, link, readdir
-	graph_1 = mknod, readdirplus, fsstat, fsinfo, pathconf
-	graph_2 = read, write
-	graph_3 = getattr, setattr
-	graph_4 = access, lookup, commit, null
-	rigid = 0, 0, 0, 0, 0, 0
-	limit = 100, 100, 100, 100, 100, 100
-</nfsc>
-
-
-# BIND graph
-# -----------------------------------------------------------------------------
-<bind>
-	list = http://localhost:8053/
-	<in_queries_list>
-		http://localhost:8053/ = A, AAAA, ANY, DS, MX, NS, PTR, SOA, SRV, TXT, NAPTR, A6, CNAME, SPF, KEY, DNSKEY, HINFO, WKS, PX, NSAP
-	</in_queries_list>
-	<out_queries_list>
-		http://localhost:8053/ = A, AAAA, ANY, DS, MX, NS, PTR, SOA, SRV, TXT, NAPTR, A6, CNAME, SPF, KEY, DNSKEY, HINFO, WKS, PX, NSAP
-	</out_queries_list>
-	<server_stats_list>
-		http://localhost:8053/ = Requestv4, Requestv6, ReqEdns0, ReqBadEDNSVer, ReqTSIG, ReqSIG0, ReqBadSIG, ReqTCP, Response, QrySuccess, QryAuthAns, QryNoauthAns, QryReferral, QryNxrrset, QrySERVFAIL, QryNXDOMAIN, QryRecursion, QryDuplicate, QryDropped, QryFailure
-	</server_stats_list>
-	<resolver_stats_list>
-		http://localhost:8053/ = Queryv4, Queryv6, Responsev4, Responsev6, NXDOMAIN, SERVFAIL, FORMERR, OtherError, EDNS0Fail, Truncated, Lame, Retry, QueryTimeout, GlueFetchv4, GlueFetchv6, GlueFetchv4Fail, GlueFetchv6Fail, ValAttempt, ValOk, ValNegOk
-	</resolver_stats_list>
-	<cache_rrsets_list>
-		http://localhost:8053/ = A, !A, AAAA, !AAAA, DLV, !DLV, DS, !DS, MX, NS, CNAME, !CNAME, SOA, !SOA, !ANY, PTR, RRSIG, NSEC, DNSKEY, NXDOMAIN
-	</cache_rrsets_list>
-	rigid = 0, 0, 0, 0, 0, 0, 0, 0
-	limit = 100, 100, 100, 100, 100, 100, 100, 100
-</bind>
-
-
 # NUT graph
 # -----------------------------------------------------------------------------
 <nut>
 	list = ups@localhost
 	rigid = 2, 2, 0, 0, 0, 2
-	limit = 260:200, 22:16, 100:0, 100:0, 100:0, 50.5:49.5
+	limit = 250:200, 100:0, 100:0, 100:0, 100:0, 51:49
+	<unit>
+		frequency = 0.001
+	</unit>
+	unit = 1, 1, 1, 1, 1, 0.01
 </nut>
-
-
-# Multihost
-# -----------------------------------------------------------------------------
-<multihost>
-	enabled = n
-	footer_url = y
-	graphs_per_row = 2
-	remotehost_list = server 1, server 2, server 3
-	<remotehost_desc>
-		0 = http://www.example.com,/monitorix,/monitorix-cgi
-		1 = http://10.0.0.1,/monitorix,/monitorix-cgi
-		2 = http://192.168.0.100:8080,/,/
-	</remotehost_desc>
-	groups = n
-	remotegroup_list = My Group
-	<remotegroup_desc>
-		0 = server 2, server 3
-	</remotegroup_desc>
-</multihost>
-
-
-# Email Reports
-# -----------------------------------------------------------------------------
-<emailreports>
-	enabled = n
-	url_prefix = http://localhost:8080
-	smtp_hostname = localhost
-	from_address = noreply@example.com
-	hour = 0
-	minute = 0
-	<daily>
-		enabled = n
-		graphs = system, fs
-		to = ace@example.com
-	</daily>
-	<weekly>
-		enabled = n
-		graphs = system, fs
-		to = gene@example.com
-	</weekly>
-	<monthly>
-		enabled = n
-		graphs = system, fs
-		to = paul@example.com
-	</monthly>
-	<yearly>
-		enabled = n
-		graphs = system, fs
-		to = peter@example.com
-	</yearly>
-</emailreports>
 
 
 # ========================================================================
@@ -474,7 +323,7 @@ logo_bottom = logo_bot.png
 	small	= 200x66
 	mini	= 183x66
 	tiny	= 110x40
-	zoom	= 800x300
+	zoom	= 1000x600
 	remote	= 300x100
 </graph_size>
 
@@ -487,12 +336,12 @@ graph_name = system, nut, kern, proc, lmsens, gensens, disk, fs, zfs, du, net, n
 	lmsens		= LM-Sensors and GPU temperatures
 	gensens		= Generic sensor statistics
 	disk		= HDD Smart 
-	fs		= Filesystem usage and I/O activity
-	zfs		= ZFS statistics
-	du		= Directory usage
-	net		= Network traffic and usage
+	fs			= Filesystem usage and I/O activity
+	zfs			= ZFS statistics
+	du			= Directory usage
+	net			= Network traffic and usage
 	netstat		= Netstat statistics
-	tc		= Traffic Control statistics
+	tc			= Traffic Control statistics
 	process		= Processes statistics
 	serv		= System services demand
 	mail		= Mail statistics
@@ -534,7 +383,7 @@ graph_name = system, nut, kern, proc, lmsens, gensens, disk, fs, zfs, du, net, n
 	_zfs3		= L2ARC cache
 	_zfs4		= Pool data usage
 	_zfs5		= Pool usage
-	_du		= Directory usage
+	_du			= Directory usage
 	_net1		= Network traffic
 	_net2		= Network packets
 	_net3		= Network errors
