@@ -56,7 +56,36 @@ if [ ${tweak_system} = "YES" ]; then
 	
 fi
 
+if [ ${tweak_users} = "YES" ]; then
+	############################
+	### Gestion des Users
+	############################
+	# on ajoute les users/group du système
+	pw groupadd -q -n humans -g 1000
+	pw groupadd -q -n public_user -g 1010
 
+	# Utilisateurs
+
+	# John Doe
+	echo -n 'johndoe' |	pw useradd -n johndoe -u 1000 -g public -d /home/media -s /usr/sbin/nologin -h 0
+	# LordZurp
+	echo -n 'lordzurp' | pw useradd -n lordzurp -u 1001 -g humans -G public -d /home/lordzurp -G wheel -s /bin/csh -m -h 0
+	# Aurel
+	echo -n 'aurel' |	pw useradd -n aurel -u 1002 -g humans -G public -d /home/aurel -s /usr/sbin/nologin -h 0
+	# Public
+	pw useradd -n public -u 1010 -g public -d /home/public -s /usr/sbin/nologin -m
+
+	############################
+	### tweak du .cshrc root
+	############################
+	#svnlite checkout $source_install_svn/root /root
+	cp /root/cshrc /root/.cshrc
+
+	############################
+	### tweak du .cshrc lordzurp
+	############################
+	cp /root/cshrc /home/lordzurp/.cshrc
+fi
 
 if [ ${tweak_security} = "YES" ]; then
 	############################
@@ -140,7 +169,7 @@ if [ ${system_install} = "YES" ]; then
 	
 	
 	# Sharing tools
-	pkg install -y samba46
+	pkg install -y samba410
 	sysrc samba_server_enable="YES"
 	mv /usr/local/etc/smb4.conf /usr/local/etc/smb4.conf.dist
 	cp /usr/local/etc/smb4.conf.zurp /usr/local/etc/smb4.conf
@@ -198,39 +227,6 @@ if [ ${tweak_kernel} = "YES" ]; then
 	dhclient mlxen0
 	
 fi
-
-
-if [ ${tweak_users} = "YES" ]; then
-	############################
-	### Gestion des Users
-	############################
-	# on ajoute les users/group du système
-	pw groupadd -q -n humans -g 1000
-	pw groupadd -q -n public_user -g 1010
-
-	# Utilisateurs
-
-	# John Doe
-	echo -n 'johndoe' |	pw useradd -n johndoe -u 1000 -g public -d /home/media -s /usr/sbin/nologin -h 0
-	# LordZurp
-	echo -n 'lordzurp' | pw useradd -n lordzurp -u 1001 -g humans -G public -d /home/lordzurp -G wheel -s /bin/csh -m -h 0
-	# Aurel
-	echo -n 'aurel' |	pw useradd -n aurel -u 1002 -g humans -G public -d /home/aurel -s /usr/sbin/nologin -h 0
-	# Public
-	pw useradd -n public -u 1010 -g public -d /home/public -s /usr/sbin/nologin -m
-
-	############################
-	### tweak du .cshrc root
-	############################
-	#svnlite checkout $source_install_svn/root /root
-	cp /root/cshrc /root/.cshrc
-
-	############################
-	### tweak du .cshrc lordzurp
-	############################
-	cp /root/cshrc /home/lordzurp/.cshrc
-fi
-
 
 
 # on crée un snapshot ZFS du système tel qu'à l'origine
